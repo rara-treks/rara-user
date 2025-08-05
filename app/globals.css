@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 33 93% 54%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 33 93% 54%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --header-height: 80px;
+
+    /* Cookie Consent */
+    --green1: #f7951d;
+    --blue1: #f7951d;
+    --light1: #333333;
+    --dark1: #ffffff;
+    --dark2: #dddddd;
+    --white-3: #d1d1d1;
+
+    --react-international-phone-border-radius: 6px;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 33 98% 54%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 33 98% 54%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border font-raleway;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .klaro .cookie-notice:not(.cookie-modal-notice) {
+    @apply lg:!left-4 outline-none lg:!rounded-xl !border !border-solid !border-border lg:!shadow-md;
+  }
+  .klaro .cm-modal {
+    @apply !rounded-xl;
+  }
+  .klaro .cookie-modal .cm-modal .cm-header,
+  .klaro .cookie-modal .cm-modal .cm-body,
+  .klaro .cookie-modal .cm-modal .cm-footer {
+    @apply !p-6;
+  }
+  .klaro .cm-modal .title {
+    @apply !font-semibold !text-lg;
+  }
+  .klaro .cm-modal .slider {
+    @apply !shadow-none !border;
+  }
+  .klaro .cm-btn-danger {
+    @apply !bg-red-500;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+}
+
+.gm-style-iw-c {
+  padding: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.gm-style-iw-d {
+  overflow: hidden !important;
+}
+
+.gm-style-iw-tc {
+  display: none !important;
+}
+
+/* CK editor */
+.image_resized {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-style-block-align-right {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.image-style-block-align-left {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+ @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

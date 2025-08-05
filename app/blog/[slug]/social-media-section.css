@@ -1,0 +1,68 @@
+/* Social Media Section Styles */
+
+/* Target the social media section in the blog HTML */
+h3:has(+ p:contains("Instagram")) {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+/* Style for social media headings (Instagram, Facebook, Pinterest) */
+h4 strong {
+  font-weight: 600;
+  color: #22223b;
+}
+
+/* Style for paragraphs following images */
+.image-style-align-left + p {
+  margin-top: 7%;
+}
+
+/* Style for social media image containers */
+.image-style-align-left {
+  float: left;
+  margin-right: 1.5rem;
+  margin-top: 0;
+
+  max-width: 16%;
+}
+
+/* Style for the follow links */
+p a[href*="instagram"],
+p a[href*="facebook"],
+p a[href*="pinterest"] {
+  color: #e76f51;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: inline-block;
+}
+
+p a[href*="instagram"]:hover,
+p a[href*="facebook"]:hover,
+p a[href*="pinterest"]:hover {
+  color: #b84a2b;
+}
+
+/* Clear floats after each social media section */
+h4 + figure + p + p {
+  clear: both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .image-style-align-left {
+    float: none;
+    display: block;
+    margin: 0 auto 1rem auto;
+    max-width: 30%;
+  }
+
+  p a[href*="instagram"],
+  p a[href*="facebook"],
+  p a[href*="pinterest"] {
+    display: block;
+    text-align: center;
+  }
+}
