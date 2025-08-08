@@ -2,7 +2,6 @@
 import React, { Fragment } from "react";
 import CHNLogo from "../chn-logo";
 import Link from "next/link";
-import PrimaryMenu from "./primary-menu";
 import MobileHeader from "./mobile-header";
 import { cn } from "@/lib/utils";
 import ProfileButton from "./profile-button";
@@ -10,6 +9,15 @@ import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
 import QuickSearchPopup from "../search/quick-search-popup";
 import useHeader from "@/lib/hooks/use-header";
+import { ChevronDown, EarthIcon, PhoneCallIcon } from "lucide-react";
+import {
+  PersonSimpleHike,
+  Jeep,
+  Mountains,
+  AirplaneTakeoff,
+  PersonSimpleTaiChi,
+} from "@phosphor-icons/react";
+import NavigationMenu from "./NavigationMenu";
 
 export const TRANSPARENT_PATHS = new Set(["/"]);
 
@@ -18,33 +26,49 @@ function Header() {
 
   return (
     <Fragment>
-      <header className={cn("hidden md:block relative z-50", !isTransparent && "border-b bg-white")}>
-        <div className="container grid grid-cols-[150px_1fr_150px] gap-3 items-center py-3">
-          <div>
-            <Link href="/">
-              <CHNLogo variant={isTransparent ? "white" : "default"} className="w-auto h-14 text-white" />
-            </Link>
+      <header
+        className={cn(
+          "hidden  md:block relative z-50 mb-6",
+          !isTransparent && "border-b bg-white"
+        )}
+      >
+        <div className="w-full container flex flex-col items-center">
+          <div className=" w-full px-8 flex justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-[20px] my-8 items-center py-3">
+            <div>
+              <Link href="/">
+                <CHNLogo
+                  variant={isTransparent ? "white" : "default"}
+                  className="w-full h-14 text-white object-cover"
+                />
+              </Link>
+            </div>
+
+            <div className="flex w-[600px] justify-center items-center">
+              {/* <QuickSearchPopup> */}
+              <div className="w-full flex items-center  border border-gray-300 rounded-full h-10 px-4 gap-3">
+                <input
+                  type="text"
+                  placeholder="Choose your destination..."
+                  className="flex-1 bg-transparent border-none outline-none text-sm text-gray-700 placeholder-gray-400"
+                />
+                <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
+              </div>
+              {/* </QuickSearchPopup> */}
+            </div>
+
+            <div className="flex gap-8 justify-center items-center">
+              <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+                <EarthIcon size={16} className="text-gray-400" />
+                About Us
+              </span>
+              <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+                <PhoneCallIcon size={16} className="text-gray-400" />
+                Contact Us
+              </span>
+            </div>
           </div>
-          <div className={cn("flex gap-4 justify-center", isTransparent && "text-white")}>
-            <PrimaryMenu />
-          </div>
-          <div className="flex gap-2 justify-self-end">
-            <QuickSearchPopup>
-              <Button
-                className={cn(
-                  "aspect-square p-0 rounded-full text-black",
-                  isTransparent && "backdrop-blur-lg bg-white/50"
-                )}
-                variant={isTransparent ? "secondary" : "outline"}
-              >
-                <IconSearch size={20} />
-              </Button>
-            </QuickSearchPopup>
-            <ProfileButton
-              className={cn("hidden md:flex", isTransparent && "backdrop-blur-lg bg-white/50")}
-              variant={isTransparent ? "secondary" : "default"}
-            />
-          </div>
+
+          <NavigationMenu />
         </div>
       </header>
       <MobileHeader />

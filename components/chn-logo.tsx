@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "@/assets/images/logos/chn.png";
-import LogoWhite from "@/assets/images/logos/chn-white.png";
+import LogoWhite from "@/assets/images/logos/rara.png";
 import Image from "next/image";
 
 interface Props extends React.HTMLAttributes<HTMLImageElement> {

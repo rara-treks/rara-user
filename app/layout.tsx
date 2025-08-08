@@ -11,6 +11,7 @@ import NextTopLoader from "nextjs-toploader";
 import GlobalScripts from "@/components/global-scripts";
 import WelcomeModalClientWrapper from "@/components/auth/welcome-modal-client-wrapper";
 import ScrollToTopTempFix from "@/components/scroll-to-top-temp-fix";
+import Topbar from "@/components/header/Topbar";
 
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-raleway" });
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas-neue" });
@@ -40,15 +41,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${raleway.variable} ${bebasNeue.variable} min-h-screen flex flex-col bg-primary-light text-black`}
+        className={`${raleway.variable} ${bebasNeue.variable} min-h-screen flex flex-col bg-[#F2F5F0] text-black`}
       >
         <ReactQueryContext>
           <UserContext>
             <AuthModalContext>
+              <Topbar />
               <Header />
               {children}
               {auth}
-              <Footer />
+              {/* <Footer /> */}
               <Toaster />
               <NextTopLoader height={5} color="hsl(var(--primary))" />
               <WelcomeModalClientWrapper />
