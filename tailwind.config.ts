@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -73,8 +78,9 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        raleway: "var(--font-raleway)",
-        "bebas-neue": "var(--font-bebas-neue)",
+        satisfy: ["var(--font-satisfy)"],
+        sen: ["var(--font-sen)"],
+        mulish: ["var(--font-mulish)"],
       },
       boxShadow: {
         "card-2": "0 2px 4px rgba(0, 0, 0, 0.2)",

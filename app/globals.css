@@ -10,7 +10,7 @@
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 33 93% 54%;
+    --primary: 96, 45%, 48%;
     --primary-foreground: 60 9.1% 97.8%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
@@ -72,7 +72,7 @@
 
 @layer base {
   * {
-    @apply border-border font-raleway;
+    @apply border-border font-sen;
   }
   html {
     @apply scroll-smooth;
@@ -80,6 +80,16 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Custom font classes */
+  .font-satisfy {
+    font-family: var(--font-satisfy);
+  }
+  
+  .font-mulish {
+    font-family: var(--font-mulish);
+  }
+  
   .klaro .cookie-notice:not(.cookie-modal-notice) {
     @apply lg:!left-4 outline-none lg:!rounded-xl !border !border-solid !border-border lg:!shadow-md;
   }
@@ -139,7 +149,7 @@
   margin-left: 0 !important;
 }
 
- @keyframes fadeInUp {
+@keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);

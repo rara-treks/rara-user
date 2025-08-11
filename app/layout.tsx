@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Raleway, Bebas_Neue } from "next/font/google";
+import { Sen, Satisfy, Mulish } from "next/font/google";
 import "./globals.css";
 import AuthModalContext from "@/lib/context/auth-modal-context";
 import Header from "@/components/header";
@@ -13,8 +13,24 @@ import WelcomeModalClientWrapper from "@/components/auth/welcome-modal-client-wr
 import ScrollToTopTempFix from "@/components/scroll-to-top-temp-fix";
 import Topbar from "@/components/header/Topbar";
 
-const raleway = Raleway({ subsets: ["latin"], variable: "--font-raleway" });
-const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas-neue" });
+const sen = Sen({
+  subsets: ["latin"],
+  variable: "--font-sen",
+  display: "swap",
+});
+
+const satisfy = Satisfy({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-satisfy",
+  display: "swap",
+});
+
+const mulish = Mulish({
+  subsets: ["latin"],
+  variable: "--font-mulish",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "RARA Treks, Tours and Travel",
@@ -33,7 +49,6 @@ export const metadata: Metadata = {
   ],
 };
 
-
 export default function RootLayout({
   children,
   auth,
@@ -44,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${raleway.variable} ${bebasNeue.variable} min-h-screen flex flex-col bg-[#F2F5F0] text-black`}
+        className={`${sen.variable} ${satisfy.variable} ${mulish.variable} min-h-screen flex flex-col bg-[#F2F5F0] text-black`}
       >
         <ReactQueryContext>
           <UserContext>
