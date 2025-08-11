@@ -9,7 +9,6 @@ import TrekDetails from "./TrekDetails";
 import { TrekCardProps } from "@/types/home.types";
 
 const TrekCard = (props: TrekCardProps) => {
-  // Destructure props with empty fallbacks - show empty if no data
   const {
     title = "",
     images = [],

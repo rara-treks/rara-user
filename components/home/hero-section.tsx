@@ -226,8 +226,8 @@ function HeroSection(): JSX.Element {
   }
 
   return (
-    <section className="relative w-full  rounded-[20px] min-h-screen justify-center overflow-hidden *:select-none">
-      <div className="w-full relative flex flex-col items-center justify-start py-0 box-border text-left text-[64px] min-h-screen font-sen">
+    <section className="relative w-full  rounded-[20px] lg:min-h-screen justify-center overflow-hidden *:select-none">
+      <div className="w-full relative flex flex-col items-center justify-start py-0 box-border text-left text-[64px] lg:min-h-screen font-sen">
         <div
           className="self-stretch rounded-[20px] h-[541px] overflow-hidden shrink-0 flex flex-col items-center justify-start pt-[90px] px-2 md:px-5 pb-[68px] box-border relative gap-4 bg-cover bg-no-repeat bg-[top]"
           style={{ backgroundImage: `url('${data.hero.backgroundImage}')` }}
@@ -243,7 +243,7 @@ function HeroSection(): JSX.Element {
           </Button>
 
           {/* Dynamic Social media */}
-          <div className="w-[24.4px] !!m-[0 important] absolute top-[calc(50%_-_36px)] left-[40px] hidden md:flex flex-col items-center justify-center gap-[18px] z-[2]">
+          <div className="w-[24.4px] !!m-[0 important] absolute top-[calc(50%_-_36px)] left-[40px] hidden lg:flex flex-col items-center justify-center gap-[18px] z-[2]">
             {data.socialMedia.map((social: SocialMedia, index: number) => (
               <Link
                 key={index}
@@ -259,7 +259,7 @@ function HeroSection(): JSX.Element {
           </div>
 
           {/* Dynamic Google rating */}
-          <div className="w-[24.4px] !!m-[0 important] absolute top-[calc(50%_-_36px)] right-[40px] hidden md:flex flex-col items-center justify-center gap-2.5 z-[3] text-xs text-black font-mulish">
+          <div className="w-[24.4px] !!m-[0 important] absolute top-[calc(50%_-_36px)] right-[40px] hidden lg:flex flex-col items-center justify-center gap-2.5 z-[3] text-xs text-black font-mulish">
             <Image
               className="w-[22px] relative max-h-full overflow-hidden"
               width={22}

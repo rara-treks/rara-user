@@ -4,6 +4,7 @@ import Journey from "@/components/home/Journey";
 import TrekCarousel from "@/components/home/TrekCarousel";
 import TourCarousel from "@/components/home/TourCarousel";
 import ActivityCarousel from "@/components/home/ActivityCarousel";
+import MainTourComponent from "@/components/home/TravelContent";
 
 async function Home() {
   return (
@@ -12,9 +13,7 @@ async function Home() {
         <HeroSection />
       </div>
       <Journey />
-      <TrekCarousel />
-      <TourCarousel />
-      <ActivityCarousel />
+      <MainTourComponent />
     </main>
   );
 }
