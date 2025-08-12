@@ -35,7 +35,7 @@
             <Button
               variant="outline"
               size="icon"
-              className="h-10 w-10 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
+              className="h-8 w-16 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
               onClick={() => {
                 const prevButton = document.querySelector(
                   '[data-carousel="prev"]'
@@ -48,7 +48,7 @@
             <Button
               variant="outline"
               size="icon"
-              className="h-10 w-10 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
+              className="h-8 w-16 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
               onClick={() => {
                 const nextButton = document.querySelector(
                   '[data-carousel="next"]'

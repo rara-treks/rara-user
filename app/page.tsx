@@ -3,6 +3,7 @@ import HeroSection from "@/components/home/hero-section";
 import Journey from "@/components/home/Journey";
 import MainTourComponent from "@/components/home/TravelContent";
 import Experience from "@/components/home/Experience";
+import Services from "@/components/home/Services";
 
 async function Home() {
   return (
@@ -13,6 +14,7 @@ async function Home() {
       <Journey />
       <MainTourComponent />
       <Experience />
+      <Services />
     </main>
   );
 }
