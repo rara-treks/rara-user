@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Copyright } from "@/types/footer";
 
 interface FooterCopyrightProps {
@@ -11,7 +12,16 @@ function FooterCopyright({ copyright }: FooterCopyrightProps) {
       <p>
         © {copyright.year} {copyright.companyName} - All Rights Reserved
       </p>
-      <p>Design and Developed by {copyright.developer}</p>
+      <p>
+        Design and Developed by{" "}
+        <Link
+          href="https://quarkinfotech.com/"
+          target="_blank"
+          className="underline hover:text-[#71B344] transition-colors"
+        >
+          {copyright.developer}
+        </Link>
+      </p>
     </div>
   );
 }

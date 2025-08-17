@@ -14,7 +14,7 @@ function FooterBottomMenuAndImage() {
   const { isTransparent } = useHeader();
 
   return (
-    <div className="flex flex-col w-full items-start bg-[#1E2F22] py-12">
+    <div className="flex flex-col w-full items-start bg-[#1E2F22] pt-12 pb-8">
       <div className="flex flex-col md:flex-row gap-6 items-start w-full justify-between md:container px-3 border-b pb-8">
         <FooterLogoSection
           companyInfo={footerData.companyInfo}

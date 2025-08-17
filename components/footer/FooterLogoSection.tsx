@@ -13,7 +13,7 @@ function FooterLogoSection({
   isTransparent,
 }: FooterLogoSectionProps) {
   return (
-    <div className="items-start justify-start flex flex-col w-full">
+    <div className="items-start justify-start flex flex-col w-full md:w-auto">
       <div className="w-full mb-4 sm:mb-6">
         <Link href="/">
           <CHNLogo
