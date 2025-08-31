@@ -21,7 +21,7 @@
     data,
   }: TrekCarouselProps) => {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 py-8">
+      <div className="w-full mx-auto py-8">
         {/* Header with title and navigation buttons */}
         <div className="flex items-end justify-between mb-8">
           <div className="flex flex-col gap-1">
@@ -89,7 +89,7 @@
 
         <div className="w-full flex items-center justify-center">
           <Button className="flex items-center gap-1 border border-[#71B344]">
-            View All Tours <ArrowRight />
+            View All <ArrowRight className="w-4 h-4"/>
           </Button>
         </div>
       </div>

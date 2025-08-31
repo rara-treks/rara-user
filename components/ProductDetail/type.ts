@@ -89,22 +89,22 @@ export interface FAQData {
   images: FAQImage[];
   questions: FAQ[];
 }
-// Updated Review interface
+
 export interface Review {
-  id: number;
+  id: string | number;
   name: string;
   trek: string;
   rating: number;
-  avatar: string;
   review: string;
-  marginTop: string;
+  avatar: string;
+  marginTop?: string;
 }
 
 export interface DepartureItem {
   id: number;
   dateRange: string;
   price: string;
-  statusSubtext?: string; 
+  statusSubtext?: string;
 }
 
 export interface DepartureData {
@@ -212,7 +212,11 @@ export interface CostDetailProps {
 }
 
 export interface DepartureProps {
-  data?: DepartureData;
+  data?: {
+    id: string;
+    title: string;
+    departureData: DepartureData;
+  };
 }
 
 export interface TripLocationProps {
@@ -223,9 +227,12 @@ export interface FaqProps {
   data?: FAQData;
 }
 
-// Updated Review component props
 export interface ReviewProps {
-  data?: Review[];
+  data: Review[] | {
+    reviews: Review[];
+    title: string;
+    [key: string]: any; 
+  };
 }
 
 export interface CostItemProps {

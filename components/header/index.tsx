@@ -47,14 +47,18 @@ function Header() {
             </div>
 
             <div className="flex gap-8 justify-center items-center">
-              <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
-                <EarthIcon size={16} className="text-gray-400" />
-                About Us
-              </span>
-              <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
-                <PhoneCallIcon size={16} className="text-gray-400" />
-                Contact Us
-              </span>
+              <Link href="/about">
+                <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+                  <EarthIcon size={16} className="text-gray-400" />
+                  About Us
+                </span>
+              </Link>
+              <Link href="/contact">
+                <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+                  <PhoneCallIcon size={16} className="text-gray-400" />
+                  Contact Us
+                </span>
+              </Link>
             </div>
           </div>
 

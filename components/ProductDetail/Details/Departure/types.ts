@@ -13,6 +13,7 @@ export interface DepartureTableProps {
 
 export interface CustomTripSectionProps {
   onCreateCustomTrip: () => void;
+  trekTitle?: string;
 }
 
 export interface DepartureHeaderProps {

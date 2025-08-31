@@ -2,8 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { CustomTripSectionProps } from "./types";
+import CustomTripInquiryPopup from "./CustomInquiry";
 
-const CustomTripSection = ({ onCreateCustomTrip }: CustomTripSectionProps) => {
+const CustomTripSection = ({
+  onCreateCustomTrip,
+  trekTitle,
+}: CustomTripSectionProps) => {
   return (
     <div className="w-full flex flex-col gap-3 p-6 bg-white rounded-2xl">
       <p className="text-[#3E641C]">
@@ -13,12 +17,13 @@ const CustomTripSection = ({ onCreateCustomTrip }: CustomTripSectionProps) => {
         according to your need and preferences.
       </p>
       <div>
-        <Button
+        {/* <Button
           onClick={onCreateCustomTrip}
           className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
         >
           Create Custom Trip
-        </Button>
+        </Button> */}
+        <CustomTripInquiryPopup trekTitle={trekTitle} />
       </div>
     </div>
   );

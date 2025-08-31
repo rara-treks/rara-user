@@ -13,11 +13,10 @@ const Departure = ({ data }: DepartureProps) => {
     return <NoDataMessage />;
   }
 
-  const { id, title, ...departureMonths } = data;
+  const { id, title, departureData } = data;
 
-  const availableMonths: string[] = Object.keys(departureMonths).filter(
-    (month: string) =>
-      departureMonths[month] && departureMonths[month].length > 0
+  const availableMonths: string[] = Object.keys(departureData).filter(
+    (month: string) => departureData[month] && departureData[month].length > 0
   );
 
   const [activeTab, setActiveTab] = useState<string>(availableMonths[0] || "");
@@ -43,7 +42,7 @@ const Departure = ({ data }: DepartureProps) => {
     setActiveTab(month);
   }, []);
 
-  const currentDepartures: DepartureItem[] = departureMonths[activeTab] || [];
+  const currentDepartures: DepartureItem[] = departureData[activeTab] || [];
 
   return (
     <div className="w-full flex flex-col gap-6">
@@ -63,14 +62,15 @@ const Departure = ({ data }: DepartureProps) => {
             <DepartureTable
               departures={currentDepartures}
               onEnquire={handleEnquire}
-              trekId={id} 
-              trekTitle={title} 
+              trekId={id}
+              trekTitle={title}
             />
           </div>
         </div>
       </div>
 
       <CustomTripSection
+        trekTitle={title}
         onCreateCustomTrip={handleCreateCustomTrip}
       />
     </div>

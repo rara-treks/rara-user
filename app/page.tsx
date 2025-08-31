@@ -16,7 +16,9 @@ async function Home() {
         <HeroSection />
       </div>
       <Journey />
-      <MainTourComponent />
+      <div className="container">
+        <MainTourComponent />
+      </div>
       <Experience />
       <Services />
       <Why />

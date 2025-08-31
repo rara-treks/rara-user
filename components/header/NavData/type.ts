@@ -10,5 +10,6 @@ export interface NavigationItem {
   id: string;
   label: string;
   icon: string;
-  dropdownItems: DropdownItem[];
+  slug?: string;
+  dropdownItems?: DropdownItem[];
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import {
   PersonSimpleHike,
@@ -12,6 +13,8 @@ interface NavItemProps {
   icon: string;
   label: string;
   isActive: boolean;
+  hasDropdown?: boolean;
+  slug?: string;
 }
 
 const iconComponents = {
@@ -22,10 +25,16 @@ const iconComponents = {
   PersonSimpleTaiChi,
 };
 
-const NavItem = ({ icon, label, isActive }: NavItemProps) => {
+const NavItem = ({
+  icon,
+  label,
+  isActive,
+  hasDropdown = false,
+  slug,
+}: NavItemProps) => {
   const IconComponent = iconComponents[icon as keyof typeof iconComponents];
 
-  return (
+  const content = (
     <div className="flex flex-col items-center gap-1 cursor-pointer transition-colors duration-200">
       <IconComponent
         size={32}
@@ -33,15 +42,23 @@ const NavItem = ({ icon, label, isActive }: NavItemProps) => {
       />
       <span className="flex items-center gap-1">
         <p className={isActive ? "text-gray-800" : "text-gray-400"}>{label}</p>
-        <ChevronDown
-          className={`text-md transition-colors duration-200 ${
-            isActive ? "text-gray-800" : "text-gray-400"
-          }`}
-          size={18}
-        />
+        {hasDropdown && (
+          <ChevronDown
+            size={16}
+            className={`transition-transform duration-200 ${
+              isActive ? "rotate-180" : ""
+            }`}
+          />
+        )}
       </span>
     </div>
   );
+
+  if (!hasDropdown && slug) {
+    return <Link href={slug}>{content}</Link>;
+  }
+
+  return content;
 };
 
 export default NavItem;

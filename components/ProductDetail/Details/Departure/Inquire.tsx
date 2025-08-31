@@ -117,6 +117,12 @@ export default function TrekInquiryPopup({
         preferredDate: getStartDate(departure.dateRange),
         duration: calculateDuration(departure.dateRange),
       }));
+    } else if (trekTitle) {
+      // If only trekTitle is provided without departure
+      setFormData((prev) => ({
+        ...prev,
+        tourPackage: trekTitle,
+      }));
     }
   }, [departure, trekTitle]);
 
@@ -165,6 +171,9 @@ export default function TrekInquiryPopup({
       message: "",
     });
   };
+
+  // Check if date fields should be editable
+  const hasPrefilledDate = departure && departure.dateRange;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -265,8 +274,12 @@ export default function TrekInquiryPopup({
               id="tourPackage"
               type="text"
               value={formData.tourPackage}
-              readOnly
-              className="w-full bg-gray-100 cursor-not-allowed"
+              onChange={(e) => handleInputChange("tourPackage", e.target.value)}
+              placeholder="Enter tour package name"
+              className={`w-full ${
+                trekTitle ? "bg-gray-100 cursor-not-allowed" : ""
+              }`}
+              readOnly={!!trekTitle}
             />
           </div>
 
@@ -304,11 +317,22 @@ export default function TrekInquiryPopup({
                 Preferred Date
               </Label>
               <Input
-                type="text"
+                type={hasPrefilledDate ? "text" : "date"}
                 value={formData.preferredDate}
-                readOnly
-                className="w-full bg-gray-100 cursor-not-allowed"
-                placeholder="Date will be auto-filled"
+                onChange={
+                  !hasPrefilledDate
+                    ? (e) => handleInputChange("preferredDate", e.target.value)
+                    : undefined
+                }
+                readOnly={!!hasPrefilledDate}
+                className={`w-full ${
+                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                }`}
+                placeholder={
+                  hasPrefilledDate
+                    ? "Date will be auto-filled"
+                    : "Select your preferred date"
+                }
               />
             </div>
 
@@ -320,9 +344,20 @@ export default function TrekInquiryPopup({
                 id="duration"
                 type="text"
                 value={formData.duration}
-                readOnly
-                className="w-full bg-gray-100 cursor-not-allowed"
-                placeholder="Duration will be auto-filled"
+                onChange={
+                  !hasPrefilledDate
+                    ? (e) => handleInputChange("duration", e.target.value)
+                    : undefined
+                }
+                readOnly={!!hasPrefilledDate}
+                className={`w-full ${
+                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                }`}
+                placeholder={
+                  hasPrefilledDate
+                    ? "Duration will be auto-filled"
+                    : "e.g., 14 days"
+                }
               />
             </div>
           </div>

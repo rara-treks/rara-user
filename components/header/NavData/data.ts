@@ -5,6 +5,7 @@ export const navigationData: NavigationItem[] = [
     id: "trek",
     label: "Trek",
     icon: "PersonSimpleHike",
+    slug: "/trek",
     dropdownItems: [
       {
         id: "annapurna-north-base-camp",
@@ -75,6 +76,7 @@ export const navigationData: NavigationItem[] = [
     id: "tour",
     label: "Tour",
     icon: "Mountains",
+    slug: "/tour",
     dropdownItems: [
       {
         id: "cultural-heritage-tour",
@@ -115,58 +117,17 @@ export const navigationData: NavigationItem[] = [
     ],
   },
   {
-    id: "departures",
-    label: "Departures",
-    icon: "AirplaneTakeoff",
-    dropdownItems: [
-      {
-        id: "group-departures",
-        label: "Group Departures",
-        slug: "/departures/group",
-        description: "Join our scheduled group treks",
-      },
-      {
-        id: "private-departures",
-        label: "Private Departures",
-        slug: "/departures/private",
-        description: "Customize your own departure date",
-      },
-      {
-        id: "fixed-departures",
-        label: "Fixed Departures",
-        slug: "/departures/fixed",
-        description: "Pre-planned departure schedules",
-      },
-      {
-        id: "custom-departures",
-        label: "Custom Departures",
-        slug: "/departures/custom",
-        description: "Tailor-made departure options",
-      },
-      {
-        id: "spring-departures",
-        label: "Spring Departures",
-        slug: "/departures/spring",
-        description: "March to May departure dates",
-      },
-      {
-        id: "autumn-departures",
-        label: "Autumn Departures",
-        slug: "/departures/autumn",
-        description: "September to November dates",
-      },
-    ],
-  },
-  {
     id: "activities",
     label: "Activities",
     icon: "PersonSimpleTaiChi",
+    slug: "/activities",
     dropdownItems: [
       {
         id: "rock-climbing",
         label: "Rock Climbing",
         slug: "/activities/rock-climbing",
-        description: "Challenge yourself on natural rock faces",
+        description:
+          "The Annapurna Base Camp and Mardi Himal Trek combine two iconic routes, offering breathtaking mountain vistas and natural beauty. Starting with Annapurna Base Camp, the journey continues to Mardi Himal, beginning with a drive to Syauli Bazar and trekking via Ghandruk.",
       },
       {
         id: "paragliding",
@@ -207,46 +168,15 @@ export const navigationData: NavigationItem[] = [
     ],
   },
   {
-    id: "safari",
-    label: "Safari",
+    id: "departures",
+    label: "Departures",
+    icon: "AirplaneTakeoff",
+    slug: "/departures",
+  },
+  {
+    id: "car-rental",
+    label: "Car Rental",
     icon: "Jeep",
-    dropdownItems: [
-      {
-        id: "chitwan-jungle-safari",
-        label: "Chitwan Jungle Safari",
-        slug: "/safari/chitwan-jungle",
-        description: "Explore Chitwan National Park",
-      },
-      {
-        id: "bardia-wildlife-safari",
-        label: "Bardia Wildlife Safari",
-        slug: "/safari/bardia-wildlife",
-        description: "Remote wilderness experience",
-      },
-      {
-        id: "jeep-safari",
-        label: "Jeep Safari",
-        slug: "/safari/jeep",
-        description: "4WD adventure through national parks",
-      },
-      {
-        id: "elephant-safari",
-        label: "Elephant Safari",
-        slug: "/safari/elephant",
-        description: "Traditional elephant-back safari",
-      },
-      {
-        id: "bird-watching-safari",
-        label: "Bird Watching Safari",
-        slug: "/safari/bird-watching",
-        description: "Spot rare Himalayan birds",
-      },
-      {
-        id: "tiger-tracking",
-        label: "Tiger Tracking",
-        slug: "/safari/tiger-tracking",
-        description: "Track Bengal tigers in their habitat",
-      },
-    ],
+    slug: "/car-rental",
   },
 ];

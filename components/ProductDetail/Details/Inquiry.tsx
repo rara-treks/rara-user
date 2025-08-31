@@ -7,8 +7,13 @@ import GuestSelector, { GuestCounts } from "./Inquiry_form/GuestSelector";
 import InfoNote from "./Inquiry_form/InfoNote";
 import PriceHeader from "./Inquiry_form/PriceHeader";
 
+interface InquiryData {
+  id: string | number;
+  title: string;
+}
 
 interface InquiryProps {
+  data?: InquiryData;
   originalPrice?: string;
   currentPrice?: string;
   discount?: string;
@@ -16,6 +21,7 @@ interface InquiryProps {
 }
 
 function Inquiry({
+  data,
   originalPrice = "$500",
   currentPrice = "$1200.00",
   discount = "save up to 30%",
@@ -38,13 +44,13 @@ function Inquiry({
     setTotalCost(Math.round(total));
   }, [guests, costPerAdult]);
 
-  const handleDateChange = (fromDate: Date | null, toDate: Date | null) => {
-    setSelectedDates({ from: fromDate, to: toDate });
-  };
+  // const handleDateChange = (fromDate: Date | null, toDate: Date | null) => {
+  //   setSelectedDates({ from: fromDate, to: toDate });
+  // };
 
-  const handleGuestChange = (newGuests: GuestCounts) => {
-    setGuests(newGuests);
-  };
+  // const handleGuestChange = (newGuests: GuestCounts) => {
+  //   setGuests(newGuests);
+  // };
 
   const isFormComplete =
     selectedDates.from &&
@@ -60,9 +66,9 @@ function Inquiry({
       />
 
       <div className="p-6 bg-white rounded-2xl">
-        <DateSelector onDateChange={handleDateChange} />
+        {/* <DateSelector onDateChange={handleDateChange} />
 
-        <GuestSelector onGuestChange={handleGuestChange} />
+        <GuestSelector onGuestChange={handleGuestChange} /> */}
 
         <CostSummary costPerAdult={costPerAdult} totalCost={totalCost} />
 
@@ -70,6 +76,11 @@ function Inquiry({
 
         <ActionButtons
           disabled={!isFormComplete}
+          id={data?.id}
+          title={data?.title}
+          selectedDates={selectedDates}
+          guests={guests}
+          totalCost={totalCost}
           onInquireAvailability={() =>
             console.log("Inquire availability clicked")
           }

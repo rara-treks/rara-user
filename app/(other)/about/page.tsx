@@ -1,52 +1,26 @@
-import React from "react";
-import Image from "next/image";
-import Pattern from "@/assets/images/patterns/pattern-1.webp";
-import HeroSection from "./_components/hero-section";
-import WhoWeAre from "./_components/who-we-are";
-import WhenYouBook from "./_components/when-you-book";
-import HowItWorks from "./_components/how-it-works";
-import OurStory from "./_components/our-story";
-import MeetOurTeam from "./_components/meet-our-team";
-import server from "@/lib/server";
-import { PageContent } from "@/types/page.types";
-import { Metadata } from "next";
+import HeroSection from "./_components/HeroSection";
+import StatsSection from "./_components/StatsSection";
+import WhoWeAreSection from "./_components/WhoWeAreSection";
+import HowItWorksSection from "./_components/HowItWorksSection";
+import WhenYouBookSection from "./_components/WhenYouBookSection";
+import TabbedContentSection from "./_components/TabbedContentSection";
+import CTASection from "./_components/CTASection";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await server.get<{ data: PageContent }>("/page/detail/about");
-
-  return {
-    title: content.data.data.title,
-    description: content.data.data.meta.metaDescription,
-    keywords: content.data.data.meta.keywords,
-    openGraph: {
-      images: content.data.data.featuredImage ? [{ url: content.data.data.featuredImage }] : [],
-    },
-  };
-}
-
-async function About() {
-  const content = await server.get<{ data: PageContent }>("/page/detail/about");
-
+const About = () => {
   return (
-    <main>
-      <div className="pb-10">
-        <HeroSection
-          title={content.data.data.title}
-          description={content.data.data.header ?? ""}
-          image={content.data.data.featuredImage}
-        />
-        <Image src={Pattern} alt="pattern" className="w-full h-12 object-cover opacity-30" />
-        <div className="container py-8 flex flex-col gap-10">
-          <WhoWeAre description={content.data.data.content1 ?? ""} />
-          <WhenYouBook description={content.data.data.content2 ?? ""} />
-          <HowItWorks />
-        </div>
-        <OurStory description={content.data.data.content3 ?? ""} />
-        <MeetOurTeam />
+    <div className="w-full">
+      <HeroSection />
+      <div className="w-full flex flex-col gap-10 mt-10 container">
+        <StatsSection />
+        <WhoWeAreSection />
+        <TabbedContentSection />
+        <HowItWorksSection />
+        <WhenYouBookSection />
+
+        <CTASection />
       </div>
-    </main>
+    </div>
   );
-}
+};
 
 export default About;
-export const dynamic = "force-static";

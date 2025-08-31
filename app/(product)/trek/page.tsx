@@ -15,6 +15,8 @@ import HeaderBtm from "@/components/ProductDetail/Headerbtm";
 import Intro from "@/components/ProductDetail/Intro";
 import Review from "@/components/ProductDetail/Review";
 import trekDataApiResponse from "@/components/ProductDetail/data";
+import TourCarousel from "@/components/home/TourCarousel";
+import { trekData } from "@/data/data";
 
 const Product_Detail = () => {
   const { data: trekInfo } = trekDataApiResponse;
@@ -86,16 +88,22 @@ const Product_Detail = () => {
   const costDetailData = trekInfo.cost_detail;
   const TripLocationData = trekInfo.trip_location;
 
-  // Fix: Create departureData with correct structure
   const departureData = {
     id: trekInfo.id,
     title: trekInfo.title,
-    ...trekInfo.departureData, // This should contain the month data
+    departureData: trekInfo.departureData,
   };
 
+  const inquiryData = {
+    id: trekInfo.id,
+    title: trekInfo.title,
+  };
   const faqData = trekInfo.faqData;
-  const reviewsData = trekInfo.reviewsData;
 
+  const reviewsData = {
+    ...trekInfo.reviewsData,
+    title: trekInfo.title,
+  };
   return (
     <div className="w-full flex flex-col gap-4 bg-[#F2F5F0]">
       <div className="w-full flex flex-col gap-4 container mt-8">
@@ -120,9 +128,9 @@ const Product_Detail = () => {
                   <button
                     key={tab.id}
                     onClick={() => scrollToSection(tab.id)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                       activeTab === tab.id
-                        ? "bg-[#71B344] text-white shadow-sm"
+                        ? "bg-[#71B344] text-white shadow-sm rounded-full"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }`}
                   >
@@ -167,13 +175,17 @@ const Product_Detail = () => {
           </div>
         </div>
         <div className="hidden lg:block lg:col-span-3">
-          <div className="sticky top-1 h-fit">
-            <Inquiry />
+          <div className="sticky top-16 h-fit">
+            <Inquiry data={inquiryData} />
           </div>
         </div>
       </div>
       <div id="Review" className="w-full container">
         <Review data={reviewsData} />
+      </div>
+
+      <div className="container">
+        <TourCarousel title="Trek" data={trekData} />
       </div>
     </div>
   );
