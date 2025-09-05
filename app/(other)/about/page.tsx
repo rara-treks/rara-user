@@ -16,7 +16,6 @@ const About = () => {
         <TabbedContentSection />
         <HowItWorksSection />
         <WhenYouBookSection />
-
         <CTASection />
       </div>
     </div>

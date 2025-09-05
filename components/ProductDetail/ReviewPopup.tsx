@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import { Star, Upload, X } from "lucide-react";
 import {
@@ -13,7 +13,11 @@ import { Button } from "../ui/button";
 
 interface ReviewData {
   name: string;
-  rating: number;
+  overallRating: number;
+  cleanliness: number;
+  hospitality: number;
+  valueForMoney: number;
+  communication: number;
   review: string;
   photo: File | null;
 }
@@ -25,6 +29,54 @@ interface TrekReviewDialogProps {
   onSubmit: (reviewData: ReviewData) => void;
 }
 
+interface StarRatingProps {
+  rating: number;
+  onRatingChange: (rating: number) => void;
+  label: string;
+  hoveredStar: number;
+  onHover: (star: number) => void;
+  onLeave: () => void;
+}
+
+const StarRating = ({
+  rating,
+  onRatingChange,
+  label,
+  hoveredStar,
+  onHover,
+  onLeave,
+}: StarRatingProps) => {
+  return (
+    <div className="space-y-2">
+      <label className="text-sm font-medium text-gray-700">{label} *</label>
+      <div className="flex items-center space-x-1">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            onClick={() => onRatingChange(star)}
+            onMouseEnter={() => onHover(star)}
+            onMouseLeave={onLeave}
+            className="transition-colors"
+          >
+            <Star
+              size={24}
+              className={`${
+                star <= (hoveredStar || rating)
+                  ? "fill-yellow-400 text-yellow-400"
+                  : "text-gray-300"
+              } hover:text-yellow-400`}
+            />
+          </button>
+        ))}
+        <span className="ml-2 text-sm text-gray-600">
+          {rating > 0 ? `${rating}/5` : ""}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 const TrekReviewDialog = ({
   isOpen,
   onClose,
@@ -33,13 +85,29 @@ const TrekReviewDialog = ({
 }: TrekReviewDialogProps) => {
   const [reviewData, setReviewData] = useState<ReviewData>({
     name: "",
-    rating: 0,
+    overallRating: 0,
+    cleanliness: 0,
+    hospitality: 0,
+    valueForMoney: 0,
+    communication: 0,
     review: "",
     photo: null,
   });
 
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [hoveredStar, setHoveredStar] = useState<number>(0);
+  const [hoveredStars, setHoveredStars] = useState<{
+    overall: number;
+    cleanliness: number;
+    hospitality: number;
+    valueForMoney: number;
+    communication: number;
+  }>({
+    overall: 0,
+    cleanliness: 0,
+    hospitality: 0,
+    valueForMoney: 0,
+    communication: 0,
+  });
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -60,31 +128,64 @@ const TrekReviewDialog = ({
     setPhotoPreview(null);
   };
 
-  const handleStarClick = (rating: number) => {
-    setReviewData((prev) => ({ ...prev, rating }));
+  const handleStarHover = (category: string, star: number) => {
+    setHoveredStars((prev) => ({ ...prev, [category]: star }));
+  };
+
+  const handleStarLeave = (category: string) => {
+    setHoveredStars((prev) => ({ ...prev, [category]: 0 }));
+  };
+
+  const handleRatingChange = (category: keyof ReviewData, rating: number) => {
+    setReviewData((prev) => ({ ...prev, [category]: rating }));
   };
 
   const handleSubmit = () => {
-    if (reviewData.name && reviewData.rating > 0 && reviewData.review) {
+    if (
+      reviewData.name &&
+      reviewData.overallRating > 0 &&
+      reviewData.cleanliness > 0 &&
+      reviewData.hospitality > 0 &&
+      reviewData.valueForMoney > 0 &&
+      reviewData.communication > 0 &&
+      reviewData.review
+    ) {
       onSubmit(reviewData);
       // Reset form
       setReviewData({
         name: "",
-        rating: 0,
+        overallRating: 0,
+        cleanliness: 0,
+        hospitality: 0,
+        valueForMoney: 0,
+        communication: 0,
         review: "",
         photo: null,
       });
       setPhotoPreview(null);
+      setHoveredStars({
+        overall: 0,
+        cleanliness: 0,
+        hospitality: 0,
+        valueForMoney: 0,
+        communication: 0,
+      });
       onClose();
     }
   };
 
   const isFormValid =
-    reviewData.name.trim() && reviewData.rating > 0 && reviewData.review.trim();
+    reviewData.name.trim() &&
+    reviewData.overallRating > 0 &&
+    reviewData.cleanliness > 0 &&
+    reviewData.hospitality > 0 &&
+    reviewData.valueForMoney > 0 &&
+    reviewData.communication > 0 &&
+    reviewData.review.trim();
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">
             Review for {trekTitle}
@@ -98,7 +199,7 @@ const TrekReviewDialog = ({
           {/* Photo Upload Section */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-gray-700">
-              Upload Photo (Optional)
+              Upload Photo
             </label>
             {photoPreview ? (
               <div className="relative">
@@ -146,37 +247,57 @@ const TrekReviewDialog = ({
             />
           </div>
 
-          {/* Star Rating */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Rating *
-            </label>
-            <div className="flex space-x-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => handleStarClick(star)}
-                  onMouseEnter={() => setHoveredStar(star)}
-                  onMouseLeave={() => setHoveredStar(0)}
-                  className="transition-colors"
-                >
-                  <Star
-                    size={32}
-                    className={`${
-                      star <= (hoveredStar || reviewData.rating)
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    } hover:text-yellow-400`}
-                  />
-                </button>
-              ))}
+          {/* Individual Rating Categories */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+              Rate Individual Aspects
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <StarRating
+                rating={reviewData.cleanliness}
+                onRatingChange={(rating) =>
+                  handleRatingChange("cleanliness", rating)
+                }
+                label="Cleanliness"
+                hoveredStar={hoveredStars.cleanliness}
+                onHover={(star) => handleStarHover("cleanliness", star)}
+                onLeave={() => handleStarLeave("cleanliness")}
+              />
+
+              <StarRating
+                rating={reviewData.hospitality}
+                onRatingChange={(rating) =>
+                  handleRatingChange("hospitality", rating)
+                }
+                label="Hospitality"
+                hoveredStar={hoveredStars.hospitality}
+                onHover={(star) => handleStarHover("hospitality", star)}
+                onLeave={() => handleStarLeave("hospitality")}
+              />
+
+              <StarRating
+                rating={reviewData.valueForMoney}
+                onRatingChange={(rating) =>
+                  handleRatingChange("valueForMoney", rating)
+                }
+                label="Value for Money"
+                hoveredStar={hoveredStars.valueForMoney}
+                onHover={(star) => handleStarHover("valueForMoney", star)}
+                onLeave={() => handleStarLeave("valueForMoney")}
+              />
+
+              <StarRating
+                rating={reviewData.communication}
+                onRatingChange={(rating) =>
+                  handleRatingChange("communication", rating)
+                }
+                label="Communication"
+                hoveredStar={hoveredStars.communication}
+                onHover={(star) => handleStarHover("communication", star)}
+                onLeave={() => handleStarLeave("communication")}
+              />
             </div>
-            {reviewData.rating > 0 && (
-              <p className="text-sm text-gray-600">
-                {reviewData.rating} out of 5 stars
-              </p>
-            )}
           </div>
 
           {/* Review Text */}
