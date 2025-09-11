@@ -37,36 +37,42 @@
 // export default Press;
 // export const dynamic = "force-static";
 
-import React from "react";
-import HeroSection from "./_components/hero-section";
-import { Metadata } from "next";
-import AllCoverage from "./_components/all-coverage";
-import getMediaCoverage from "@/lib/utils/server/get-media-coverage";
+// import React from "react";
+// import HeroSection from "./_components/hero-section";
+// import { Metadata } from "next";
+// import AllCoverage from "./_components/all-coverage";
+// import getMediaCoverage from "@/lib/utils/server/get-media-coverage";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Media Coverage",
-    description: "Media Coverage",
-    keywords: "Media Coverage",
-  };
-}
+// export async function generateMetadata(): Promise<Metadata> {
+//   return {
+//     title: "Media Coverage",
+//     description: "Media Coverage",
+//     keywords: "Media Coverage",
+//   };
+// }
 
-async function Press() {
-  const mediaCoverage = await getMediaCoverage();
+// async function Press() {
+//   const mediaCoverage = await getMediaCoverage();
 
-  if (!mediaCoverage) return null;
+//   if (!mediaCoverage) return null;
 
+//   return (
+//     <main>
+//       <div className="pb-10">
+//         <HeroSection />
+//         <div className="container py-8 flex flex-col gap-10">
+//           <AllCoverage data={mediaCoverage} />
+//         </div>
+//       </div>
+//     </main>
+//   );
+// }
+
+// export default Press;
+// export const dynamic = "force-static";
+const Press = () => {
   return (
-    <main>
-      <div className="pb-10">
-        <HeroSection />
-        <div className="container py-8 flex flex-col gap-10">
-          <AllCoverage data={mediaCoverage} />
-        </div>
-      </div>
-    </main>
-  );
+    <div>Press</div>
+  )
 }
-
-export default Press;
-export const dynamic = "force-static";
+export default Press
