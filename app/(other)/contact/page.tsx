@@ -2,8 +2,6 @@ import React from "react";
 import { Metadata } from "next";
 import ContactCard from "@/components/contact/contact-card";
 import ContactForm from "@/components/contact/contact-form";
-import CHNMapLocationPreview from "@/assets/images/chn-map-location-preview.png";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Contact Us",

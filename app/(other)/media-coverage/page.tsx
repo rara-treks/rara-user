@@ -70,6 +70,7 @@
 
 // export default Press;
 // export const dynamic = "force-static";
+
 const Press = () => {
   return (
     <div>Press</div>
