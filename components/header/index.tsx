@@ -18,7 +18,7 @@ function Header() {
     <Fragment>
       <header
         className={cn(
-          "hidden w-fullw md:block relative  z-50 mb-6",
+          "hidden w-fullw md:block relative  z-50 ",
           !isTransparent && "border-b bg-[#F2F5F0]"
         )}
       >
