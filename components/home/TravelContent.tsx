@@ -12,7 +12,7 @@ const MainTourComponent = () => {
 
   const fetchData = async (type: string): Promise<Product[]> => {
     try {
-
+      // Updated URL to include the full path
       const response = await fetch(
         `/api/product/homepage/product-list/${type}`,
         {
@@ -23,8 +23,11 @@ const MainTourComponent = () => {
         }
       );
 
-
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error(
+          `HTTP error! status: ${response.status}, response: ${errorText}`
+        );
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -39,6 +42,7 @@ const MainTourComponent = () => {
         return [];
       }
     } catch (error) {
+      console.error(`Error fetching ${type}:`, error);
       return [];
     }
   };
@@ -48,7 +52,6 @@ const MainTourComponent = () => {
       try {
         setLoading(true);
         setError(null);
-
 
         const [trekResult, tourResult, activityResult] = await Promise.all([
           fetchData("treks"),
@@ -68,6 +71,7 @@ const MainTourComponent = () => {
           setError("No data available for any category");
         }
       } catch (err) {
+        console.error("Error in fetchAllData:", err);
         setError("Failed to fetch data");
       } finally {
         setLoading(false);

@@ -41,15 +41,12 @@ export async function GET(
   try {
     const params = await context.params;
     const endpoint = `/${params.path.join("/")}`;
-    console.log(`GET request for endpoint: ${endpoint}`);
 
     const response = await apiClient.get(endpoint);
 
-    console.log(`Successfully fetched data for ${endpoint}`);
     return Response.json(response.data);
   } catch (error: any) {
     const axiosError = error as AxiosError;
-    console.error(`Error fetching endpoint:`, axiosError.message);
 
     return Response.json(
       {
@@ -73,16 +70,11 @@ export async function POST(
     const endpoint = `/${params.path.join("/")}`;
     const body = await request.json();
 
-    console.log(`POST request for endpoint: ${endpoint}`);
-    console.log("Request body:", body);
-
     const response = await apiClient.post(endpoint, body);
 
-    console.log(`Successfully posted data to ${endpoint}`);
     return Response.json(response.data);
   } catch (error: any) {
     const axiosError = error as AxiosError;
-    console.error(`Error posting to endpoint:`, axiosError.message);
 
     return Response.json(
       {
