@@ -6,7 +6,7 @@ import React, { createContext, useContext, useEffect } from "react";
 import { queryClient } from "./react-query-context";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-import useBooking from "@/app/(product)/_components/_hooks/use-booking";
+// import useBooking from "@/app/(product)/_components/_hooks/use-booking";
 import sendDataToGTM from "../utils/send-data-to-gtm";
 
 const Context = createContext<{
@@ -28,7 +28,7 @@ interface Props {
 
 function UserContext({ value, children }: Props) {
   const router = useRouter();
-  const booking = useBooking();
+  // const booking = useBooking();
   const pathname = usePathname();
   const { data, isPending } = useQuery<User | null | undefined>({
     queryKey: ["user-profile"],
@@ -44,7 +44,7 @@ function UserContext({ value, children }: Props) {
       if (user.ok) {
         const data = await user.json();
         sendDataToGTM("user_details", data.data);
-        booking.setData({ phone: data.data.phone });
+        // booking.setData({ phone: data.data.phone });
         return data.data;
       } else {
         return null;

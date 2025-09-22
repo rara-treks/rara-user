@@ -379,3 +379,4 @@ export interface Itinerary {
 export interface FlexibleItinerary {
   [key: string]: ItineraryDay;
 }
+

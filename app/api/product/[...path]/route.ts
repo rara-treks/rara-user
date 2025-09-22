@@ -36,9 +36,10 @@ apiClient.interceptors.response.use(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    const params = await context.params;
     const endpoint = `/${params.path.join("/")}`;
     console.log(`GET request for endpoint: ${endpoint}`);
 
@@ -48,10 +49,7 @@ export async function GET(
     return Response.json(response.data);
   } catch (error: any) {
     const axiosError = error as AxiosError;
-    console.error(
-      `Error fetching ${params.path.join("/")}:`,
-      axiosError.message
-    );
+    console.error(`Error fetching endpoint:`, axiosError.message);
 
     return Response.json(
       {
@@ -68,9 +66,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    const params = await context.params;
     const endpoint = `/${params.path.join("/")}`;
     const body = await request.json();
 
@@ -83,10 +82,7 @@ export async function POST(
     return Response.json(response.data);
   } catch (error: any) {
     const axiosError = error as AxiosError;
-    console.error(
-      `Error posting to ${params.path.join("/")}:`,
-      axiosError.message
-    );
+    console.error(`Error posting to endpoint:`, axiosError.message);
 
     return Response.json(
       {

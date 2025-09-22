@@ -11,10 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import TrekCard from "./TrekCard/TrekCard";
 import { TourCarouselProps } from "@/types/prod";
-
-
+import { useRouter } from "next/navigation";
 
 const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
+  const router = useRouter();
+
   const getDisplayTitle = () => {
     switch (title.toLowerCase()) {
       case "trek":
@@ -38,6 +39,20 @@ const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
         return "Thrilling experiences";
       default:
         return "Popular destination";
+    }
+  };
+
+  // ✅ Path for redirect
+  const getPath = () => {
+    switch (title.toLowerCase()) {
+      case "trek":
+        return "/trek";
+      case "tour":
+        return "/tour";
+      case "activity":
+        return "/activity";
+      default:
+        return "/";
     }
   };
 
@@ -114,7 +129,10 @@ const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
       </Carousel>
 
       <div className="w-full flex items-center justify-center">
-        <Button className="flex items-center gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
+        <Button
+          onClick={() => router.push(getPath())}
+          className="flex items-center gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
+        >
           View All {getDisplayTitle()} <ArrowRight className="w-4 h-4" />
         </Button>
       </div>

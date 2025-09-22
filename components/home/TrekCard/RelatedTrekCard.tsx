@@ -1,78 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import TrekCard from "@/components/home/TrekCard/RelatedTrekCard";
+import { Product } from "@/types/prod";
 import { Card, CardContent } from "@/components/ui/card";
-import AvailabilityBanner from "./AvailabilityBanner ";
-import ImageCarousel from "./imageCarousel";
-import PriceSection from "./PriceSection";
-import TrekDetails from "./TrekDetails";
-import { useRouter } from "next/navigation";
-import { RelatedCircuit } from "@/components/ProductDetail/type";
 
-const RelatedTrekCard = (product: RelatedCircuit) => {
-  const router = useRouter();
-
-  // Handle images - safely construct images array
-  const images = [
-    ...(product.featuredImage ? [product.featuredImage.url] : []),
-    ...(product.featuredImages || []).map((img) => img.url),
-  ];
-
-  // Handle prices - safely calculate lowest price
-  const lowestPrice =
-    product.prices && product.prices.length > 0
-      ? product.prices.reduce((min, price) => {
-          const currentPrice = parseFloat(price.original_price_usd);
-          return currentPrice < min ? currentPrice : min;
-        }, parseFloat(product.prices[0]?.original_price_usd || "0"))
-      : 0;
-
-  // Check for discounts
-  const hasDiscount =
-    product.prices?.some(
-      (price) => parseFloat(price.discounted_price_usd) > 0
-    ) || false;
-
-  const discountedPrice =
-    hasDiscount && product.prices
-      ? product.prices.find(
-          (price) => parseFloat(price.discounted_price_usd) > 0
-        )?.discounted_price_usd
-      : null;
-
-  const discountPercentage =
-    hasDiscount && discountedPrice && lowestPrice > 0
-      ? Math.round(
-          ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
-        )
-      : 0;
-
-  const handleCardClick = () => {
-    let routeType = "";
-    switch (product.type.toLowerCase()) {
-      case "trek":
-        routeType = "trek";
-        break;
-      case "tour":
-        routeType = "tour";
-        break;
-      case "activity":
-        routeType = "activities";
-        break;
-      default:
-        routeType = product.type.toLowerCase();
-    }
-
-    const slugParts = product.slug.split("/");
-    const cleanSlug = slugParts[slugParts.length - 1];
-
-    const route = `/product/${routeType}/${cleanSlug}`;
-    router.push(route);
+interface ApiResponse {
+  data: {
+    data: Product[];
   };
+  products?: Product[];
+}
 
+interface ProductListProps {
+  productType?: string;
+}
+
+// Skeleton component that matches TrekCard layout
+const TrekCardSkeleton = () => {
   return (
     <div className="mx-auto">
-      <Card className="p-2 overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative">
+      <Card className="p-2 overflow-hidden shadow-md bg-white border-0 relative animate-pulse">
         {/* Gradient border wrapper */}
         <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
           <div className="w-full h-full bg-white rounded-lg"></div>
@@ -80,52 +28,38 @@ const RelatedTrekCard = (product: RelatedCircuit) => {
 
         {/* Content wrapper */}
         <div className="relative z-10">
-          <ImageCarousel
-            images={images}
-            alt={product.name}
-            rating={product.average_rating || 0}
-            discount={discountPercentage > 0 ? `${discountPercentage}` : ""}
-          />
+          {/* Image skeleton */}
+          <div className="relative w-full h-48 bg-gray-200 rounded-lg mb-2">
+            <div className="absolute top-2 left-2 w-16 h-6 bg-gray-300 rounded"></div>
+            <div className="absolute top-2 right-2 w-12 h-6 bg-gray-300 rounded"></div>
+          </div>
 
-          <CardContent
-            className="p-2 space-y-2 w-full cursor-pointer"
-            onClick={handleCardClick}
-          >
+          <CardContent className="p-2 space-y-2 w-full">
             <div className="flex flex-col items-start justify-start w-full">
-              <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-2">
-                {product.name}
-              </h2>
+              {/* Title skeleton */}
+              <div className="w-full mb-3 space-y-2">
+                <div className="h-5 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-5 bg-gray-200 rounded w-1/2"></div>
+              </div>
 
               <div className="flex items-center justify-between w-full">
-                <TrekDetails
-                  duration={
-                    product.overview?.duration
-                      ? `${product.overview.duration} days`
-                      : "N/A"
-                  }
-                  minPeople={
-                    product.overview?.group_size
-                      ? `${product.overview.group_size}`
-                      : "N/A"
-                  }
-                  difficulty={product.overview?.trip_grade || "N/A"}
-                />
-                <PriceSection
-                  currentPrice={discountedPrice || lowestPrice.toString()}
-                  originalPrice={hasDiscount ? lowestPrice.toString() : ""}
-                  currency="USD"
-                />
+                {/* Trek details skeleton */}
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-16"></div>
+                  <div className="h-4 bg-gray-200 rounded w-20"></div>
+                  <div className="h-4 bg-gray-200 rounded w-14"></div>
+                </div>
+
+                {/* Price skeleton */}
+                <div className="text-right space-y-1">
+                  <div className="h-5 bg-gray-200 rounded w-16"></div>
+                  <div className="h-4 bg-gray-200 rounded w-12"></div>
+                </div>
               </div>
             </div>
 
-            <AvailabilityBanner
-              availableSeats={
-                product.overview?.group_size
-                  ? `${product.overview.group_size} seats`
-                  : "Available"
-              }
-              date={product.overview?.best_time || "Year-round"}
-            />
+            {/* Availability banner skeleton */}
+            <div className="h-8 bg-gray-200 rounded w-full mt-2"></div>
           </CardContent>
         </div>
       </Card>
@@ -133,4 +67,133 @@ const RelatedTrekCard = (product: RelatedCircuit) => {
   );
 };
 
-export default RelatedTrekCard;
+const ProductList = ({ productType = "trek" }: ProductListProps) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+
+  const fetchProducts = async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/productList", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: productType,
+          page: page,
+          per_page: 15,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data: ApiResponse = await response.json();
+      console.log("Fetched data:", data.data);
+
+      // Handle different possible response structures
+      const productData = data.data?.data || data.products || [];
+      setProducts(productData);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [productType, page]);
+
+  const handleNextPage = (): void => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = (): void => {
+    setPage((prevPage) => Math.max(1, prevPage - 1));
+  };
+
+  // Transform product data to match RelatedTrekCard expected format
+  const transformProductData = (product: Product) => {
+    return {
+      ...product,
+      featuredImage: product.featuredImage
+        ? {
+            url: product.featuredImage.url || product.featuredImage,
+            alt: product.name,
+          }
+        : null,
+      featuredImages: product.featuredImages || [],
+      type: product.type || "trek",      
+      prices: product.prices || [],
+    };
+  };
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">Product List</h1>
+
+      {/* Loading state with skeletons */}
+      {loading && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <TrekCardSkeleton key={index} />
+          ))}
+        </div>
+      )}
+
+      {/* Error state */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+          Error: {error}
+        </div>
+      )}
+
+      {/* Products grid */}
+      {!loading && !error && products.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <TrekCard key={product.id} {...transformProductData(product)} />
+            ))}
+          </div>
+
+          {/* Pagination controls */}
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <button
+              onClick={handlePreviousPage}
+              disabled={page === 1}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Previous
+            </button>
+            <span className="text-gray-700 font-medium">Page {page}</span>
+            <button
+              onClick={handleNextPage}
+              disabled={products.length < 15}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Empty state */}
+      {!loading && !error && products.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">No products found.</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductList;

@@ -2,14 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Product_Detail from "../../details/page";
-import { ProductDetail, ProductDetailResponse } from "@/types/productDetail";
+import { RootInterface } from "@/components/ProductDetail/type";
+import Product_Detail from "../../details/ProductDetail";
+
+interface ProductDetailResponse {
+  code: number;
+  message: string;
+  data: RootInterface["data"] | null;
+}
 
 const TourDetail = () => {
   const params = useParams();
   const slug = params.slug as string;
 
-  const [productData, setProductData] = useState<ProductDetail | null>(null);
+  const [productData, setProductData] = useState<RootInterface["data"] | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +41,7 @@ const TourDetail = () => {
         }
 
         const data: ProductDetailResponse = await response.json();
-        console.log("Data is as: ", data.data)
+        console.log("Data is as: ", data.data);
 
         if (data.code === 0 && data.data) {
           setProductData(data.data);
@@ -97,11 +105,7 @@ const TourDetail = () => {
     );
   }
 
-  return (
-    <div>
-      <Product_Detail productData={productData} />
-    </div>
-  );
+  return <Product_Detail productData={productData} />;
 };
 
 export default TourDetail;

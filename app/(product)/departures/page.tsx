@@ -24,7 +24,7 @@ const Departures = () => {
           message="Choose your preferred departure month and trek"
         />
 
-        <TourCarousel title="Trek" data={trekData} />
+        {/* <TourCarousel title="Trek" data={trekData} /> */}
       </div>
     </div>
   );

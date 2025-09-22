@@ -14,6 +14,7 @@ import Header from "@/components/ProductDetail/Header";
 import HeaderBtm from "@/components/ProductDetail/Headerbtm";
 import Intro from "@/components/ProductDetail/Intro";
 import Review from "@/components/ProductDetail/Review";
+
 import {
   ProductDetailProps,
   HeaderData,
