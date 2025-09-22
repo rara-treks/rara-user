@@ -7,11 +7,22 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "../ui/breadcrumb";
-import { BreadcrumbsProps } from "./type";
+
+interface BreadcrumbsProps {
+  data: {
+    type?: string;
+    title?: string;
+    location?: string;
+    rating?: number;
+    total_rating?: number;
+    tagline?: string;
+  };
+}
 
 const Breadcrumbs = ({ data }: BreadcrumbsProps) => {
-  const type = data?.type;
-  const title = data?.title;
+  if (!data) return null;
+
+  const { type, title } = data;
 
   // Create breadcrumb segments based on API data
   const segments = [
@@ -20,11 +31,11 @@ const Breadcrumbs = ({ data }: BreadcrumbsProps) => {
       href: "/",
     },
     {
-      label: type, 
-      href: `/${type}`,
+      label: type || "Tours",
+      href: `/${type?.toLowerCase() || "tours"}`,
     },
     {
-      label: title,
+      label: title || "Tour Details",
       isCurrentPage: true,
     },
   ];

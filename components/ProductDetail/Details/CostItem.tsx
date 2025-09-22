@@ -1,8 +1,19 @@
 import Image from "next/image";
-import { CostItemProps } from "../type";
+
+interface CostItem {
+  id: number;
+  name: string;
+  icon?: string;
+  description?: string;
+}
+
+interface CostItemProps {
+  item: CostItem;
+  type: "include" | "exclude";
+}
 
 const CostItem = ({ item, type }: CostItemProps) => {
-  const textColor = "text-[#3E641C]";
+  const textColor = type === "include" ? "text-[#3E641C]" : "text-[#641C1C]";
   const iconSrc =
     type === "include" ? "/assets/checkmark.svg" : "/assets/cancel.svg";
   const iconAlt = type === "include" ? "checkmark" : "cancel";
@@ -16,7 +27,7 @@ const CostItem = ({ item, type }: CostItemProps) => {
         alt={iconAlt}
         className="w-5 h-5"
       />
-      {item.text}
+      {item.name}
     </span>
   );
 };

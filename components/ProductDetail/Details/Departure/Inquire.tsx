@@ -27,6 +27,7 @@ import {
   User,
   Calendar as CalendarIcon,
 } from "lucide-react";
+import { TransformedDepartureItem } from "../../type";
 
 interface InquiryFormData {
   fullName: string;
@@ -43,13 +44,8 @@ interface InquiryFormData {
 }
 
 interface TrekInquiryPopupProps {
-  departure?: {
-    id: number;
-    dateRange: string;
-    price: string;
-    statusSubtext?: string;
-  };
-  trekId?: string;
+  departure?: TransformedDepartureItem;
+  trekId?: number;
   trekTitle?: string;
 }
 
@@ -58,7 +54,7 @@ export default function TrekInquiryPopup({
   trekId,
   trekTitle,
 }: TrekInquiryPopupProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<InquiryFormData>({
     fullName: "",
     email: "",
@@ -78,20 +74,36 @@ export default function TrekInquiryPopup({
     if (!dateRange) return "";
 
     try {
-      // Extract dates from format "August 10 2025 - August 25 2025"
+      // Extract dates from format "Aug 10 - Aug 25" or "August 10 - August 25"
       const dates = dateRange.split(" - ");
       if (dates.length !== 2) return "";
 
-      const startDate = new Date(dates[0]);
-      const endDate = new Date(dates[1]);
+      // Handle different date formats
+      const parseDate = (dateStr: string): Date => {
+        // Try different parsing approaches
+        const cleanDateStr = dateStr.trim();
+
+        // If it contains year, use as is
+        if (cleanDateStr.match(/\d{4}/)) {
+          return new Date(cleanDateStr);
+        }
+
+        // If no year, assume current year
+        const currentYear = new Date().getFullYear();
+        return new Date(`${cleanDateStr} ${currentYear}`);
+      };
+
+      const startDate = parseDate(dates[0]);
+      const endDate = parseDate(dates[1]);
 
       if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return "";
 
       const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
 
       return `${diffDays} days`;
     } catch (error) {
+      console.error("Error calculating duration:", error);
       return "";
     }
   };
@@ -102,8 +114,9 @@ export default function TrekInquiryPopup({
 
     try {
       const dates = dateRange.split(" - ");
-      return dates[0] || "";
+      return dates[0]?.trim() || "";
     } catch (error) {
+      console.error("Error extracting start date:", error);
       return "";
     }
   };
@@ -111,7 +124,7 @@ export default function TrekInquiryPopup({
   // Initialize form data when component receives props
   useEffect(() => {
     if (departure && trekTitle) {
-      setFormData((prev) => ({
+      setFormData((prev: InquiryFormData) => ({
         ...prev,
         tourPackage: trekTitle,
         preferredDate: getStartDate(departure.dateRange),
@@ -119,21 +132,24 @@ export default function TrekInquiryPopup({
       }));
     } else if (trekTitle) {
       // If only trekTitle is provided without departure
-      setFormData((prev) => ({
+      setFormData((prev: InquiryFormData) => ({
         ...prev,
         tourPackage: trekTitle,
       }));
     }
   }, [departure, trekTitle]);
 
-  const handleInputChange = (field: keyof InquiryFormData, value: string) => {
-    setFormData((prev) => ({
+  const handleInputChange = (
+    field: keyof InquiryFormData,
+    value: string
+  ): void => {
+    setFormData((prev: InquiryFormData) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     // Basic validation
     if (
       !formData.fullName ||
@@ -145,11 +161,19 @@ export default function TrekInquiryPopup({
       return;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
     // Process form submission here
     const submissionData = {
       ...formData,
-      trekId,
+      trekId: trekId?.toString(), // Convert number to string for submission
       departureInfo: departure,
+      submittedAt: new Date().toISOString(),
     };
 
     console.log("Form submitted:", submissionData);
@@ -173,7 +197,7 @@ export default function TrekInquiryPopup({
   };
 
   // Check if date fields should be editable
-  const hasPrefilledDate = departure && departure.dateRange;
+  const hasPrefilledDate: boolean = Boolean(departure?.dateRange);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -209,6 +233,7 @@ export default function TrekInquiryPopup({
                 value={formData.fullName}
                 onChange={(e) => handleInputChange("fullName", e.target.value)}
                 className="w-full"
+                required
               />
             </div>
 
@@ -227,6 +252,7 @@ export default function TrekInquiryPopup({
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 className="w-full"
+                required
               />
             </div>
           </div>
@@ -247,6 +273,7 @@ export default function TrekInquiryPopup({
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
                 className="w-full"
+                required
               />
             </div>
 
@@ -280,6 +307,7 @@ export default function TrekInquiryPopup({
                 trekTitle ? "bg-gray-100 cursor-not-allowed" : ""
               }`}
               readOnly={!!trekTitle}
+              required
             />
           </div>
 
@@ -294,7 +322,9 @@ export default function TrekInquiryPopup({
               </Label>
               <Select
                 value={formData.groupSize}
-                onValueChange={(value) => handleInputChange("groupSize", value)}
+                onValueChange={(value: string) =>
+                  handleInputChange("groupSize", value)
+                }
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select group size" />
@@ -368,7 +398,9 @@ export default function TrekInquiryPopup({
             </Label>
             <Select
               value={formData.budget}
-              onValueChange={(value) => handleInputChange("budget", value)}
+              onValueChange={(value: string) =>
+                handleInputChange("budget", value)
+              }
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select your budget range" />

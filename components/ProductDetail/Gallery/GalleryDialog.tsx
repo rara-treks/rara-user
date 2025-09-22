@@ -8,13 +8,20 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
-import { GalleryDialogProps } from "../type";
+
+interface GalleryDialogProps {
+  images: string[];
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  currentImageIndex: number;
+  setCurrentImageIndex: (index: number) => void;
+}
 
 const GalleryDialog = ({
   images,
   isOpen,
   onOpenChange,
+  currentImageIndex,
   setCurrentImageIndex,
 }: GalleryDialogProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -31,7 +38,6 @@ const GalleryDialog = ({
     let imageIndex = 0;
 
     while (imageIndex < images.length) {
-
       if (imageIndex % 3 === 0) {
         // Full width image (1st, 4th, 7th, etc.)
         gridItems.push(
@@ -43,8 +49,8 @@ const GalleryDialog = ({
               onClick={() => handleImageClick(imageIndex)}
             >
               <Image
-                src={images[imageIndex].src}
-                alt={images[imageIndex].alt}
+                src={images[imageIndex]}
+                alt={`Gallery image ${imageIndex + 1}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
@@ -70,8 +76,8 @@ const GalleryDialog = ({
               onClick={() => handleImageClick(imageIndex)}
             >
               <Image
-                src={images[imageIndex].src}
-                alt={images[imageIndex].alt}
+                src={images[imageIndex]}
+                alt={`Gallery image ${imageIndex + 1}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 45vw, 40vw"
@@ -105,20 +111,13 @@ const GalleryDialog = ({
         {/* Header */}
         <DialogHeader className="p-4 bg-white border-b flex flex-row items-center justify-between">
           <DialogTitle className="text-lg font-semibold text-gray-900">
-            Gallery ({images.length} image{images.length !== 1 ? "s" : ""})           
+            Gallery ({images.length} image{images.length !== 1 ? "s" : ""})
           </DialogTitle>
-          {/* <button
-            onClick={() => onOpenChange(false)}
-            className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-            aria-label="Close gallery"
-          >
-            <X className="h-5 w-5 text-gray-600" />
-          </button> */}
         </DialogHeader>
 
         {/* Scrollable image grid */}
         <div className="overflow-y-auto scrollbar-none rounded-xl h-full p-4 sm:p-6">
-          <div className="sapce-y-4 sm:sapce-y-6">{renderImageGrid()}</div>
+          <div className="space-y-4 sm:space-y-6">{renderImageGrid()}</div>
         </div>
       </DialogContent>
     </Dialog>

@@ -4,9 +4,23 @@ import { useState } from "react";
 import DesktopGallery from "./Gallery/DesktopGallery";
 import GalleryDialog from "./Gallery/GalleryDialog";
 import MobileGallery from "./Gallery/MobileGallery";
-import { GalleryComponentProps } from "./type";
 
-const GalleryGrid = ({ data }: GalleryComponentProps) => {
+interface GalleryImage {
+  id: string;
+  src: string;
+  alt: string;
+  isFeatured?: boolean;
+}
+
+interface GalleryData {
+  images: GalleryImage[];
+}
+
+interface UpdatedGalleryComponentProps {
+  data: GalleryData;
+}
+
+const GalleryGrid = ({ data }: UpdatedGalleryComponentProps) => {
   const { images } = data;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -17,25 +31,37 @@ const GalleryGrid = ({ data }: GalleryComponentProps) => {
   };
 
   const handleShowMoreClick = () => {
-    setCurrentImageIndex(4);
+    setCurrentImageIndex(Math.min(4, images.length - 1));
     setIsDialogOpen(true);
   };
+
+  // If no images available, show placeholder
+  if (!images || images.length === 0) {
+    return (
+      <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+        <p className="text-gray-500">No images available</p>
+      </div>
+    );
+  }
+
+  // Extract just the src URLs for child components that expect string arrays
+  const imageUrls = images.map((img) => img.src);
 
   return (
     <div className="w-full">
       {/* Mobile View */}
-      <MobileGallery images={images} onImageClick={handleImageClick} />
+      <MobileGallery images={imageUrls} onImageClick={handleImageClick} />
 
       {/* Desktop View */}
       <DesktopGallery
-        images={images}
+        images={imageUrls}
         onImageClick={handleImageClick}
         onShowMoreClick={handleShowMoreClick}
       />
 
       {/* Image Gallery Dialog */}
       <GalleryDialog
-        images={images}
+        images={imageUrls}
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         currentImageIndex={currentImageIndex}

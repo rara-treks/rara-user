@@ -2,55 +2,59 @@
 import { useState, useEffect } from "react";
 import ActionButtons from "./Inquiry_form/ActionButtons";
 import CostSummary from "./Inquiry_form/CostSummary";
-import DateSelector from "./Inquiry_form/DateSelector";
-import GuestSelector, { GuestCounts } from "./Inquiry_form/GuestSelector";
+import { GuestCounts } from "./Inquiry_form/GuestSelector";
 import InfoNote from "./Inquiry_form/InfoNote";
 import PriceHeader from "./Inquiry_form/PriceHeader";
-
-interface InquiryData {
-  id: string | number;
-  title: string;
-}
+import { InquiryData } from "@/components/ProductDetail/type";
 
 interface InquiryProps {
-  data?: InquiryData;
-  originalPrice?: string;
-  currentPrice?: string;
-  discount?: string;
-  costPerAdult?: number;
+  data: InquiryData;
 }
 
-function Inquiry({
-  data,
-  originalPrice = "$500",
-  currentPrice = "$1200.00",
-  discount = "save up to 30%",
-  costPerAdult = 1200,
-}: InquiryProps) {
+function Inquiry({ data }: InquiryProps) {
   const [guests, setGuests] = useState<GuestCounts>({
     infant: 0,
     child: 0,
-    adult: 0,
+    adult: 1, // Default to 1 adult
   });
-  const [totalCost, setTotalCost] = useState(1200);
+  const [totalCost, setTotalCost] = useState(0);
   const [selectedDates, setSelectedDates] = useState<{
     from: Date | null;
     to: Date | null;
   }>({ from: null, to: null });
 
+  // Get pricing based on number of adults (default to first price if no match)
+  const getCurrentPricing = () => {
+    if (!data.prices || data.prices.length === 0) {
+      return { originalPrice: 0, currentPrice: 0 };
+    }
+
+    const matchingPrice =
+      data.prices.find((price) => price.number_of_people === guests.adult) ||
+      data.prices[0];
+
+    return {
+      originalPrice: matchingPrice.original_price_usd,
+      currentPrice:
+        matchingPrice.discounted_price_usd > 0
+          ? matchingPrice.discounted_price_usd
+          : matchingPrice.original_price_usd,
+    };
+  };
+
+  const { originalPrice, currentPrice } = getCurrentPricing();
+
+  // Calculate discount percentage
+  const discountPercentage =
+    originalPrice > currentPrice
+      ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100)
+      : 0;
+
   useEffect(() => {
     const total =
-      guests.adult * costPerAdult + guests.child * (costPerAdult * 0.7);
+      guests.adult * currentPrice + guests.child * (currentPrice * 0.7);
     setTotalCost(Math.round(total));
-  }, [guests, costPerAdult]);
-
-  // const handleDateChange = (fromDate: Date | null, toDate: Date | null) => {
-  //   setSelectedDates({ from: fromDate, to: toDate });
-  // };
-
-  // const handleGuestChange = (newGuests: GuestCounts) => {
-  //   setGuests(newGuests);
-  // };
+  }, [guests, currentPrice]);
 
   const isFormComplete =
     selectedDates.from &&
@@ -60,24 +64,24 @@ function Inquiry({
   return (
     <div className="w-full max-w-sm mx-auto bg-[#71B34433] p-1 rounded-2xl shadow-lg overflow-hidden">
       <PriceHeader
-        originalPrice={originalPrice}
-        currentPrice={currentPrice}
-        discount={discount}
+        originalPrice={discountPercentage > 0 ? `$${originalPrice}` : ""}
+        currentPrice={`$${currentPrice}`}
+        discount={
+          discountPercentage > 0 ? `save up to ${discountPercentage}%` : ""
+        }
       />
 
       <div className="p-6 bg-white rounded-2xl">
-        {/* <DateSelector onDateChange={handleDateChange} />
+        <CostSummary costPerAdult={currentPrice} totalCost={totalCost} />
 
-        <GuestSelector onGuestChange={handleGuestChange} /> */}
-
-        <CostSummary costPerAdult={costPerAdult} totalCost={totalCost} />
-
-        <InfoNote message="This is where you might want to put any information you want to give to me in the form of the following corresponding." />
+        <InfoNote
+          impact={data.impact}
+        />
 
         <ActionButtons
           disabled={!isFormComplete}
-          id={data?.id}
-          title={data?.title}
+          id={data.id}
+          title={data.title}
           selectedDates={selectedDates}
           guests={guests}
           totalCost={totalCost}

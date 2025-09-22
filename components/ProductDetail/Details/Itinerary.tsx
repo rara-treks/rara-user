@@ -1,168 +1,293 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import {
-  ClockCounterClockwiseIcon,
-  MapPinAreaIcon,
-  MountainsIcon,
-  PersonSimpleHikeIcon,
-  PathIcon,
-} from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
-import { Itinerary as ItineraryType, ItineraryProps } from "../type";
+import { Cake, ChevronDown, ChevronUp, Clock, Home, Hotel, MapPin, MountainIcon } from "lucide-react";
+import React, { useState } from "react";
 
-const Itinerary = ({ data: itineraryData }: ItineraryProps) => {
-  const [expandedItems, setExpandedItems] = useState<string[]>([]);
-  const [isAllExpanded, setIsAllExpanded] = useState(false);
+interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  altitude: string;
+  duration: string;
+  location: string;
+  accommodation: string;
+  meals: string;
+  activities: string;
+}
 
-  const getItineraryAsArray = (itinerary: ItineraryType) => {
-    return Object.entries(itinerary).map(([key, dayData]) => ({
-      key,
-      dayNumber: parseInt(key.replace("day", "")),
-      data: dayData,
-    }));
-  };
+interface ItineraryProps {
+  data: ItineraryDay[];
+}
 
-  const itineraryArray = itineraryData
-    ? getItineraryAsArray(itineraryData)
-    : [];
+const Itinerary = ({ data }: ItineraryProps) => {
+  const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1])); // First day expanded by default
 
-  const handleExpandAll = () => {
-    if (isAllExpanded) {
-      // Collapse all
-      setExpandedItems([]);
-      setIsAllExpanded(false);
+  const toggleDay = (day: number) => {
+    const newExpandedDays = new Set(expandedDays);
+    if (newExpandedDays.has(day)) {
+      newExpandedDays.delete(day);
     } else {
-      // Expand all
-      const allItems = itineraryArray.map((item) => `item-${item.dayNumber}`);
-      setExpandedItems(allItems);
-      setIsAllExpanded(true);
+      newExpandedDays.add(day);
     }
+    setExpandedDays(newExpandedDays);
   };
 
-  const handleAccordionChange = (value: string) => {
-    const newExpandedItems = value ? [value] : [];
-    setExpandedItems(newExpandedItems);
-    setIsAllExpanded(newExpandedItems.length === itineraryArray.length);
+  const expandAll = () => {
+    const allDays = new Set(data.map((item) => item.day));
+    setExpandedDays(allDays);
   };
 
-  if (!itineraryData) {
+  const collapseAll = () => {
+    setExpandedDays(new Set());
+  };
+
+  // Helper function to strip HTML tags from description
+  const stripHtml = (html: string): string => {
+    if (typeof window !== "undefined") {
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      return div.textContent || div.innerText || "";
+    }
+    // Fallback for server-side rendering
+    return html.replace(/<[^>]*>/g, "").trim();
+  };
+
+  // Helper function to format meals
+  const formatMeals = (meals: string): string => {
+    if (!meals || meals === "N/A") return "Not specified";
+    return meals.replace(/,\s*/g, ", ").replace(/\b(B|L|D)\b/g, (match) => {
+      switch (match) {
+        case "B":
+          return "Breakfast";
+        case "L":
+          return "Lunch";
+        case "D":
+          return "Dinner";
+        default:
+          return match;
+      }
+    });
+  };
+
+  // Helper function to extract max altitude
+  const getMaxAltitude = (): number => {
+    return Math.max(
+      ...data.map((d) => {
+        const altStr = d.altitude.replace(/\D/g, "");
+        return altStr ? parseInt(altStr) : 0;
+      })
+    );
+  };
+
+  if (!data || data.length === 0) {
     return (
-      <div className="w-full flex flex-col gap-4">
-        <div className="w-full flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Itinerary</h1>
+      <div className="w-full">
+        <div className="mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Trek Itinerary
+          </h2>
+          <p className="text-gray-600">
+            No itinerary information available for this trek.
+          </p>
         </div>
-        <p className="text-gray-500">No itinerary data available.</p>
       </div>
     );
   }
 
+  const maxAltitude = getMaxAltitude();
+
   return (
-    <div className="w-full flex flex-col gap-4">
-      <div className="w-full flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Itinerary</h1>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleExpandAll}
-          className="bg-transparent border-none"
-        >
-          {isAllExpanded ? "Collapse all" : "Expand all"}
-        </Button>
-      </div>
-      <div className="w-full">
-        <Accordion
-          type="multiple"
-          value={expandedItems}
-          onValueChange={setExpandedItems}
-          className="w-full"
-        >
-          {itineraryArray.map((item, index) => (
-            <AccordionItem
-              key={item.key}
-              value={`item-${item.dayNumber}`}
-              className="bg-white rounded-3xl px-4 mb-4"
+    <div className="w-full">
+      {/* Header Section */}
+      <div className="mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              Trek Itinerary
+            </h2>
+            <p className="text-gray-600">
+              Detailed daily breakdown of your {data.length}-day adventure
+            </p>
+          </div>
+
+          {/* Expand/Collapse Controls */}
+          <div className="flex gap-2">
+            <button
+              onClick={expandAll}
+              className="px-4 py-2 text-sm font-medium text-[#71B344] border border-[#71B344] rounded-lg hover:bg-[#71B344] hover:text-white transition-colors duration-200"
             >
-              <AccordionTrigger className="w-full font-bold text-xl underline-none hover:underline-none text-[#3E641C]">
-                <div className="w-full text-start items-center flex justify-start gap-12 ">
-                  <span className="underline-none">
-                    Day <br />
-                    {item.dayNumber.toString().padStart(2, "0")}:
-                  </span>{" "}
-                  {item.data.title}
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <div className="w-full flex flex-col pl-16">
-                  <p className="text-[16px] pl-1">{item.data.description}</p>
+              Expand All
+            </button>
+            <button
+              onClick={collapseAll}
+              className="px-4 py-2 text-sm font-medium text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            >
+              Collapse All
+            </button>
+          </div>
+        </div>
+      </div>
 
-                  <div className="grid grid-cols-3 gap-4 mt-8">
-                    <div className="flex items-center justify-start gap-2">
-                      <ClockCounterClockwiseIcon className="w-6 h-6" />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Duration</p>
-                        <h1 className="font-bold">{item.data.duration}</h1>
+      {/* Itinerary Timeline */}
+      <div className="relative">
+        {/* Timeline Line */}
+        <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+
+        <div className="space-y-6">
+          {data.map((dayData, index) => {
+            const isExpanded = expandedDays.has(dayData.day);
+
+            return (
+              <div key={dayData.day} className="relative">
+                {/* Timeline Node */}
+                <div className="absolute left-4 md:left-6 w-4 h-4 bg-[#71B344] rounded-full border-4 border-white shadow-lg z-10"></div>
+
+                {/* Content Card */}
+                <div className="ml-12 md:ml-16">
+                  <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                    {/* Day Header - Always Visible */}
+                    <div
+                      className="p-4 md:p-6 cursor-pointer"
+                      onClick={() => toggleDay(dayData.day)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2 flex-wrap">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#71B344] text-white">
+                              Day {dayData.day}
+                            </span>
+                            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1">
+                              {dayData.title}
+                            </h3>
+                          </div>
+                        </div>
+                        <button className="ml-4 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 flex-shrink-0">
+                          {isExpanded ? (
+                            <ChevronUp className="w-5 h-5 text-gray-500" />
+                          ) : (
+                            <ChevronDown className="w-5 h-5 text-gray-500" />
+                          )}
+                        </button>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-start gap-2">
-                      <MapPinAreaIcon className="w-6 h-6" />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Location</p>
-                        <h1 className="font-bold">{item.data.location}</h1>
-                      </div>
-                    </div>
+                    {/* Expanded Content */}
+                    {isExpanded && (
+                      <div className="px-4 md:px-6 pb-4 md:pb-6 border-t border-gray-100">
+                        <div className="pt-4 space-y-4">
+                          {/* Description */}
+                          <div>
+                            <div className="text-gray-700 leading-relaxed">
+                              {stripHtml(dayData.description)}
+                            </div>
+                          </div>
 
-                    <div className="flex items-center justify-start gap-2">
-                      <Image
-                        src="/assets/maximum-altitude.svg"
-                        alt="altitude"
-                        width={24}
-                        height={24}
-                        className="w-6 h-6"
-                      />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Max Altitude</p>
-                        <h1 className="font-bold">{item.data.maxAltitude}</h1>
-                      </div>
-                    </div>
+                          {/* Details Grid */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                            {dayData.duration !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <Clock className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Duration
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {dayData.duration}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
 
-                    <div className="flex items-center justify-start gap-2">
-                      <PersonSimpleHikeIcon className="w-6 h-6" />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Activities</p>
-                        <h1 className="font-bold">{item.data.activities}</h1>
-                      </div>
-                    </div>
+                            {dayData.location !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <MapPin className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Location
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {dayData.location}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
 
-                    <div className="flex items-center justify-start gap-2">
-                      <PathIcon className="w-6 h-6" />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Accommodation</p>
-                        <h1 className="font-bold">{item.data.accommodation}</h1>
-                      </div>
-                    </div>
+                            {dayData.altitude !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <MountainIcon className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Altitude
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {dayData.altitude}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
 
-                    <div className="flex items-center justify-start gap-2">
-                      <MountainsIcon className="w-6 h-6" />
-                      <div className="flex flex-col items-start justify-start">
-                        <p className="text-sm text-gray-400">Meals</p>
-                        <h1 className="font-bold">{item.data.meal}</h1>
+                            {dayData.activities !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <Home className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Activities
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {dayData.activities}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {dayData.accommodation !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <Hotel className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Accommodation
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {dayData.accommodation}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Meals */}
+                            {dayData.meals !== "N/A" && (
+                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                <Cake className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <div className="font-medium text-gray-900">
+                                    Meals Included
+                                  </div>
+                                  <div className="text-sm text-gray-600">
+                                    {formatMeals(dayData.meals)}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer Note */}
+      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p className="text-sm text-blue-800">
+          <strong>Note:</strong> Itinerary may be subject to change due to
+          weather conditions, local circumstances, or safety considerations.
+          Your guide will inform you of any necessary adjustments during the
+          trek.
+        </p>
       </div>
     </div>
   );

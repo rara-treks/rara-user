@@ -1,22 +1,44 @@
-export interface GalleryImage {
+// Base interfaces for file structures
+export interface FileImage {
   id: number;
+  url: string;
+  alt?: string;
+}
+
+export interface GalleryImage {
+  id: string;
   src: string;
   alt: string;
+  isFeatured?: boolean;
 }
 
 export interface Gallery {
   images: GalleryImage[];
 }
 
+// Location interfaces
 export interface Location {
-  region: string;
-  district: string;
+  region?: string;
+  district?: string;
 }
 
+// Rating interfaces
 export interface Rating {
   score: number;
   maxScore: number;
-  reviewText: string;
+  reviewText?: string;
+}
+
+// Overview related interfaces
+export interface Overview {
+  duration?: number;
+  overview_location?: string;
+  trip_grade?: string;
+  max_altitude?: number;
+  group_size?: number;
+  activities?: string;
+  best_time?: string;
+  starts?: string;
 }
 
 export interface TripDetails {
@@ -36,17 +58,61 @@ export interface TripOverview {
   highlights: string[];
 }
 
+// Altitude Chart interfaces
 export interface AltitudeChart {
-  id: number;
   src: string;
   alt: string;
 }
 
-export interface CostItem {
-  id: number;
-  text: string;
+// Files structure from API
+export interface Files {
+  featuredImage?: FileImage;
+  featuredImages?: FileImage[];
+  galleryImages?: FileImage[];
+  altitudeChart?: FileImage;
+  locationCover?: FileImage;
 }
 
+// Cost related interfaces
+export interface CostItem {
+  id: number;
+  name: string;
+  icon?: string;
+  description?: string;
+}
+
+export interface CostDetail {
+  includes: CostItem[];
+  excludes: CostItem[];
+}
+
+// Itinerary interfaces
+export interface ItineraryItem {
+  id?: number;
+  order?: number;
+  time_window: string;
+  activity: string;
+  max_altitude?: number;
+  duration?: number;
+  location?: string;
+  accommodation?: string;
+  meal?: string;
+  activities?: string;
+}
+
+export interface TransformedItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  altitude: string;
+  duration: string;
+  location: string;
+  accommodation: string;
+  meals: string;
+  activities: string;
+}
+
+// Location interfaces
 export interface trip_location_image {
   id: number;
   src: string;
@@ -55,23 +121,67 @@ export interface trip_location_image {
 
 export interface trip_location {
   image: trip_location_image;
-  description: string;
+  how_to_get: string;
 }
 
-export interface CostDetail {
-  includes: CostItem[];
-  excludes: CostItem[];
+// Departure interfaces
+export interface DepartureItem {
+  id: number;
+  departure_from: string;
+  departure_to: string;
+  departure_per_price: number;
 }
 
-export interface ItineraryDay {
+export interface TransformedDepartureItem {
+  id: number;
+  dateRange: string;
+  price: string;
+  availability: string;
+  departure_from: string;
+  departure_to: string;
+  departure_per_price: number;
+}
+
+export interface DepartureData {
+  [month: string]: TransformedDepartureItem[];
+}
+
+export interface DepartureProps {
+  data: {
+    id: number;
+    title: string;
+    departureData: DepartureData;
+  };
+}
+
+// Price interfaces
+export interface Price {
+  number_of_people: number;
+  original_price_usd: string;
+  discounted_price_usd: string;
+}
+
+export interface TransformedPrice {
+  number_of_people: number;
+  original_price_usd: number;
+  discounted_price_usd: number;
+}
+
+// Inquiry interfaces
+export interface InquiryData {
+  id: number;
   title: string;
-  description: string;
-  duration: string;
-  location: string;
-  maxAltitude: string;
-  activities: string;
-  accommodation: string;
-  meal: string;
+  prices: TransformedPrice[];
+  impact: string;
+  what_to_bring: string[];
+}
+
+// FAQ interfaces
+export interface FAQ {
+  id: number;
+  question: string;
+  answer: string;
+  order?: number;
 }
 
 export interface FAQImage {
@@ -80,16 +190,12 @@ export interface FAQImage {
   alt: string;
 }
 
-export interface FAQ {
-  question: string;
-  answer: string;
-}
-
 export interface FAQData {
-  images: FAQImage[];
-  questions: FAQ[];
+  images?: FAQImage[];
+  questions?: FAQ[];
 }
 
+// Review interfaces
 export interface Review {
   id: string | number;
   name: string;
@@ -100,163 +206,143 @@ export interface Review {
   marginTop?: string;
 }
 
-export interface DepartureItem {
+export interface ReviewsData {
+  title: string;
+  average_rating: number;
+  total_rating: number;
+  total_comment: number;
+}
+
+// Related circuit interfaces
+export interface RelatedCircuit {
   id: number;
-  dateRange: string;
-  price: string;
-  statusSubtext?: string;
+  name: string;
+  slug: string;
+  type: string;
+  location: string;
+  category_details?: any;
+  tagline: string;
+  featuredImage?: FileImage;
+  featuredImages?: FileImage[];
+  prices?: Price[];
+  tags?: any[];
+  average_rating?: number;
+  total_rating?: number;
+  short_description: string;
+  overview?: Overview;
 }
 
-export interface DepartureData {
-  [month: string]: DepartureItem[];
+// Main API data structure
+export interface RootInterface {
+  data: {
+    id: number;
+    name: string;
+    slug?: string;
+    type: string;
+    location: string;
+    tagline: string;
+    impact: string;
+    short_description: string;
+    description: string;
+    average_rating?: number;
+    total_rating?: number;
+    total_comment?: number;
+    highlights?: string[];
+    overview?: Overview;
+    files?: Files;
+    itinerary?: ItineraryItem[];
+    included?: CostItem[];
+    excluded?: CostItem[];
+    how_to_get?: string;
+    departures?: DepartureItem[];
+    prices?: Price[];
+    what_to_bring?: string[];
+    faqs?: FAQ[];
+    related_circuit?: RelatedCircuit[];
+  };
 }
 
-export interface Itinerary {
-  [key: `day${number}`]: ItineraryDay;
+// Component prop interfaces
+export interface ProductDetailProps {
+  productData: RootInterface["data"];
 }
 
-export interface FlexibleItinerary {
-  [key: string]: ItineraryDay;
-}
-
-// Updated TrekData interface to include FAQ and Review data
-export interface TrekData {
+export interface HeaderData {
   type: string;
   title: string;
-  location: Location;
-  rating: Rating;
-  gallery: Gallery;
-  intro: string;
-  overview: TripOverview;
-  altitude_chart: AltitudeChart;
-  itinerary: Itinerary;
-  cost_detail: CostDetail;
-  trip_location: trip_location;
-  departureData: DepartureData;
-  faqData: FAQData;
-  reviewsData: Review[];
+  location: string;
+  rating: number;
+  total_rating: number;
+  tagline: string;
 }
 
-// Full API response type
-export interface TrekApiResponse {
-  success: boolean;
-  message: string;
-  data: TrekData;
+export interface IntroData {
+  intro: string;
+  description: string;
 }
 
 export interface HeaderProps {
-  data?: {
-    title?: string;
-    location?: Location;
-    rating?: Rating;
-  };
+  data: HeaderData;
 }
 
 export interface GalleryGridProps {
-  data?: Gallery;
-}
-
-export interface IntroProps {
-  data?: {
-    intro?: string;
-  };
-}
-
-export interface BreadcrumbsProps {
-  data?: {
-    title?: string;
-    type?: string;
-    location?: Location;
-  };
-}
-
-export interface TrekPageProps {
-  trekData?: TrekData;
-}
-
-export interface GalleryComponentProps {
   data: Gallery;
 }
 
-export interface GalleryDialogProps {
-  images: GalleryImage[];
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  currentImageIndex: number;
-  setCurrentImageIndex: (index: number) => void;
+export interface IntroProps {
+  data: IntroData;
+}
+
+export interface BreadcrumbsProps {
+  data: HeaderData;
 }
 
 export interface TripOverviewProps {
-  data?: TripOverview;
+  data: TripOverview;
 }
 
 export interface ItineraryProps {
-  data?: Itinerary;
-}
-
-export interface ItineraryDayProps {
-  dayNumber: number;
-  dayData: ItineraryDay;
-  isExpanded?: boolean;
-  onToggle?: () => void;
-}
-
-export interface ItineraryCardProps {
-  day: string;
-  dayData: ItineraryDay;
-  dayNumber: number;
-}
-
-export interface CostDetailProps {
-  data?: CostDetail;
-}
-
-export interface DepartureProps {
-  data?: {
-    id: string;
-    title: string;
-    departureData: DepartureData;
-  };
-}
-
-export interface TripLocationProps {
-  data?: trip_location;
-}
-
-export interface FaqProps {
-  data?: FAQData;
-}
-
-export interface ReviewProps {
-  data: Review[] | {
-    reviews: Review[];
-    title: string;
-    [key: string]: any; 
-  };
-}
-
-export interface CostItemProps {
-  item: CostItem;
-  type: "include" | "exclude";
+  data: TransformedItineraryDay[];
 }
 
 export interface AltitudeChartProps {
-  itineraryData?: Itinerary;
-  altitudeChartData?: AltitudeChart;
+  itineraryData: TransformedItineraryDay[];
+  altitudeChartData: AltitudeChart;
 }
 
-export type DayKey = keyof Itinerary;
+export interface CostDetailProps {
+  data: CostDetail;
+}
 
-export type ItineraryDayWithKey = {
+export interface LocationProps {
+  data: trip_location;
+}
+
+export interface FaqProps {
+  data: FAQ[];
+}
+
+export interface ReviewProps {
+  data: ReviewsData;
+}
+
+export interface InquiryProps {
+  data: InquiryData;
+}
+
+// Utility types
+export type DayKey = keyof any;
+
+export interface ItineraryDayWithKey {
   key: string;
   dayNumber: number;
-  data: ItineraryDay;
-};
+  data: TransformedItineraryDay;
+}
 
 export interface ItineraryUtils {
   getDayNumber: (dayKey: string) => number;
-  getItineraryAsArray: (itinerary: Itinerary) => ItineraryDayWithKey[];
-  getTotalDays: (itinerary: Itinerary) => number;
+  getItineraryAsArray: (itinerary: any) => ItineraryDayWithKey[];
+  getTotalDays: (itinerary: any) => number;
 }
 
 export interface ItineraryFilter {
@@ -272,4 +358,24 @@ export interface ItineraryFilter {
 export interface FilteredItineraryResult {
   matchedDays: ItineraryDayWithKey[];
   totalMatches: number;
+}
+
+// Legacy interfaces for backward compatibility
+export interface ItineraryDay {
+  title: string;
+  description: string;
+  duration: string;
+  location: string;
+  maxAltitude: string;
+  activities: string;
+  accommodation: string;
+  meal: string;
+}
+
+export interface Itinerary {
+  [key: `day${number}`]: ItineraryDay;
+}
+
+export interface FlexibleItinerary {
+  [key: string]: ItineraryDay;
 }
