@@ -8,6 +8,7 @@ import { IconSearch } from "@tabler/icons-react";
 import useHeader from "@/lib/hooks/use-header";
 import { EarthIcon, PhoneCallIcon } from "lucide-react";
 import NavigationMenu from "./NavigationMenu";
+import Search from "./search";
 
 export const TRANSPARENT_PATHS = new Set(["/"]);
 
@@ -33,17 +34,8 @@ function Header() {
               </Link>
             </div>
 
-            <div className="flex w-[600px] justify-center items-center">
-              {/* <QuickSearchPopup> */}
-              <div className="w-full flex items-center  border border-gray-300 rounded-full h-10 px-4 gap-3">
-                <input
-                  type="text"
-                  placeholder="Choose your destination..."
-                  className="flex-1 bg-transparent border-none outline-none text-sm text-gray-700 placeholder-gray-400"
-                />
-                <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
-              </div>
-              {/* </QuickSearchPopup> */}
+            <div className=" flex w-[600px] justify-center items-center">
+              <Search />
             </div>
 
             <div className="flex gap-8 justify-center items-center">

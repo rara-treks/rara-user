@@ -1,46 +1,17 @@
-"use client";
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { IconSearch } from "@tabler/icons-react";
-import useProductSearch from "@/lib/hooks/use-product-search";
-import { cn } from "@/lib/utils";
 
-interface Props {
-  className?: string;
-}
-
-const SEARCH_PATHS = ["/search", "/homestays", "/experiences", "/circuits", "/packages"];
-
-function Search({ className }: Props) {
-  const { filter } = useProductSearch();
-  const router = useRouter();
-
-  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const url = new URL(location.href);
-    if (!SEARCH_PATHS.includes(url.pathname)) {
-      url.pathname = "/search";
-    }
-    const query = e.currentTarget.search.value ?? "";
-    url.searchParams.set("q", query);
-    router.push(String(url));
-  }
-
+const Search = () => {
   return (
-    <form className={cn("relative", className)} onSubmit={handleSearch}>
-      <Input
-        key={filter.search}
-        name="search"
-        className="rounded-full border-black"
-        defaultValue={filter.search}
-        placeholder="Search"
-      />
-      <button className="absolute top-1/2 right-4 -translate-y-1/2">
-        <IconSearch />
-      </button>
-    </form>
+    <div className="flex w-[600px] justify-center items-center">
+      <div className="w-full flex items-center  border border-gray-300 rounded-full h-10 px-4 gap-3">
+        <input
+          type="text"
+          placeholder="Choose your destination..."
+          className="flex-1 bg-transparent border-none outline-none text-sm text-gray-700 placeholder-gray-400"
+        />
+        <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
+      </div>
+    </div>
   );
 }
-
-export default Search;
+export default Search
