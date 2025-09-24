@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import TourCarousel from "./TourCarousel";
 import { Product, ApiResponse } from "@/types/prod";
+import ProductSkeleton from "../productSkeleton";
 
 const MainTourComponent = () => {
   const [trekData, setTrekData] = useState<Product[]>([]);
@@ -84,7 +85,7 @@ const MainTourComponent = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
-        <div className="text-lg">Loading...</div>
+       <ProductSkeleton />
       </div>
     );
   }
