@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const experienceData = {
@@ -49,8 +50,6 @@ const experienceData = {
     ],
     callToAction: {
       text: "Plan your trip →",
-      className:
-        "bg-white text-green-700 px-4 py-2 md:px-6 md:py-2 rounded-full font-medium hover:bg-gray-100 transition-colors text-sm md:text-base",
     },
   },
 };
@@ -123,11 +122,12 @@ const Experience = ({ data = experienceData }) => {
                   {paragraph}
                 </p>
               ))}
-
-              {/* Dynamic CTA Button */}
-              <button className={content.callToAction.className}>
-                {content.callToAction.text}
-              </button>
+              
+              <Link href="/contact" className="mt-4">
+                <button className="bg-white text-green-700 px-4 py-2 md:px-6 md:py-2 mt-4 rounded-full font-medium hover:bg-gray-100 transition-colors text-sm md:text-base">
+                  {content.callToAction.text}
+                </button>
+              </Link>
             </div>
           </div>
         </div>

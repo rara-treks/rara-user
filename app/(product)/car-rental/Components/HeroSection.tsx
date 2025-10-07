@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import RentalForm from "./RentalForm";
 
 const carTypes = [
   "Economy Cars",
@@ -100,9 +101,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-[#71B344] text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300 shadow-md">
-                Book Now
-              </Button>
+              <RentalForm />
               <Button className="border-2 border-[#71B344] text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 hover:text-white transition-all duration-300 backdrop-blur-sm bg-white/50">
                 Learn More
               </Button>

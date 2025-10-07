@@ -10,6 +10,7 @@ import SpecialServicesSection from "./Components/SpecialServicesSection";
 import StatsSection from "./Components/StatsSection";
 import { Car } from "./Components/types";
 import HeroSection from "./Components/HeroSection";
+import RentalForm from "./Components/RentalForm";
 
 const Rental = () => {
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
@@ -37,18 +38,8 @@ const Rental = () => {
       <HeroSection />
       <FeaturesSection />
       <StatsSection />
-      <CarListings
-        onViewDetails={handleViewDetails}
-        onQuickBook={handleQuickBook}
-      />
       <SpecialServicesSection />
       <FAQSection />
-
-      <BookingDialog
-        isOpen={showBookingDialog}
-        onClose={handleCloseDialog}
-        selectedCar={selectedCar}
-      />
     </div>
   );
 };

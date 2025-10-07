@@ -1,6 +1,7 @@
 import React from "react";
 import { specialServices } from "./data";
 import { Button } from "@/components/ui/button";
+import RentalForm from "./RentalForm";
 
 const SpecialServicesSection: React.FC = () => {
   return (
@@ -24,9 +25,7 @@ const SpecialServicesSection: React.FC = () => {
                 {service.title}
               </h3>
               <p className="text-slate-800 mb-6">{service.description}</p>
-              <Button className="bg-[#71B344]  px-6 py-3 rounded-full transition-all">
-                {service.buttonText}
-              </Button>
+              <RentalForm />
             </div>
           ))}
         </div>
