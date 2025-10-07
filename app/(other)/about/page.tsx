@@ -5,6 +5,7 @@ import HowItWorksSection from "./_components/HowItWorksSection";
 import WhenYouBookSection from "./_components/WhenYouBookSection";
 import TabbedContentSection from "./_components/TabbedContentSection";
 import CTASection from "./_components/CTASection";
+import Team from "./_components/Team";
 
 const About = () => {
   return (
@@ -15,6 +16,7 @@ const About = () => {
         <WhoWeAreSection />
         <TabbedContentSection />
         <HowItWorksSection />
+        <Team />
         <WhenYouBookSection />
         <CTASection />
       </div>

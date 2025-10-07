@@ -46,11 +46,11 @@ const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
   const getPath = () => {
     switch (title.toLowerCase()) {
       case "trek":
-        return "/product/trek";
+        return "/trek";
       case "tour":
-        return "/product/tour";
+        return "/tour";
       case "activity":
-        return "/product/activities";
+        return "/activities";
       default:
         return "/";
     }

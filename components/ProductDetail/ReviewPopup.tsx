@@ -11,12 +11,23 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { ReviewData } from "./Reviews/types";
+interface ReviewData {
+  name: string;
+  email: string;
+  rating: number;
+  cleanliness: number;
+  hospitality: number;
+  value_for_money: number;
+  communication: number;
+  review: string;
+  photo: File | null;
+}
 
 interface TrekReviewDialogProps {
   isOpen: boolean;
   onClose: () => void;
   trekTitle: string;
+  prodId: number;
   onSubmit: (reviewData: ReviewData) => void;
 }
 
@@ -24,19 +35,11 @@ interface StarRatingProps {
   rating: number;
   onRatingChange: (rating: number) => void;
   label: string;
-  hoveredStar: number;
-  onHover: (star: number) => void;
-  onLeave: () => void;
 }
 
-const StarRating = ({
-  rating,
-  onRatingChange,
-  label,
-  hoveredStar,
-  onHover,
-  onLeave,
-}: StarRatingProps) => {
+const StarRating = ({ rating, onRatingChange, label }: StarRatingProps) => {
+  const [hoveredStar, setHoveredStar] = useState(0);
+
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium text-gray-700">{label} *</label>
@@ -46,8 +49,8 @@ const StarRating = ({
             key={star}
             type="button"
             onClick={() => onRatingChange(star)}
-            onMouseEnter={() => onHover(star)}
-            onMouseLeave={onLeave}
+            onMouseEnter={() => setHoveredStar(star)}
+            onMouseLeave={() => setHoveredStar(0)}
             className="transition-colors"
           >
             <Star
@@ -78,12 +81,38 @@ const TrekReviewDialog = ({
     name: "",
     email: "",
     rating: 0,
+    cleanliness: 0,
+    hospitality: 0,
+    value_for_money: 0,
+    communication: 0,
     review: "",
     photo: null,
   });
 
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [hoveredStar, setHoveredStar] = useState(0);
+
+  // Calculate overall rating automatically
+  React.useEffect(() => {
+    const ratings = [
+      reviewData.cleanliness,
+      reviewData.hospitality,
+      reviewData.value_for_money,
+      reviewData.communication,
+    ].filter((r) => r > 0);
+
+    if (ratings.length > 0) {
+      const average = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+      setReviewData((prev) => ({
+        ...prev,
+        rating: Number(average.toFixed(2)),
+      }));
+    }
+  }, [
+    reviewData.cleanliness,
+    reviewData.hospitality,
+    reviewData.value_for_money,
+    reviewData.communication,
+  ]);
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -107,7 +136,10 @@ const TrekReviewDialog = ({
     if (
       reviewData.name &&
       reviewData.email &&
-      reviewData.rating > 0 &&
+      reviewData.cleanliness > 0 &&
+      reviewData.hospitality > 0 &&
+      reviewData.value_for_money > 0 &&
+      reviewData.communication > 0 &&
       reviewData.review
     ) {
       onSubmit(reviewData);
@@ -117,11 +149,14 @@ const TrekReviewDialog = ({
         name: "",
         email: "",
         rating: 0,
+        cleanliness: 0,
+        hospitality: 0,
+        value_for_money: 0,
+        communication: 0,
         review: "",
         photo: null,
       });
       setPhotoPreview(null);
-      setHoveredStar(0);
       onClose();
     }
   };
@@ -129,7 +164,10 @@ const TrekReviewDialog = ({
   const isFormValid =
     reviewData.name.trim() !== "" &&
     reviewData.email.trim() !== "" &&
-    reviewData.rating > 0 &&
+    reviewData.cleanliness > 0 &&
+    reviewData.hospitality > 0 &&
+    reviewData.value_for_money > 0 &&
+    reviewData.communication > 0 &&
     reviewData.review.trim() !== "";
 
   return (
@@ -212,17 +250,70 @@ const TrekReviewDialog = ({
             />
           </div>
 
-          {/* Rating */}
-          <StarRating
-            rating={reviewData.rating}
-            onRatingChange={(rating) =>
-              setReviewData((prev) => ({ ...prev, rating }))
-            }
-            label="Overall Rating"
-            hoveredStar={hoveredStar}
-            onHover={setHoveredStar}
-            onLeave={() => setHoveredStar(0)}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Cleanliness Rating */}
+            <StarRating
+              rating={reviewData.cleanliness}
+              onRatingChange={(cleanliness) =>
+                setReviewData((prev) => ({ ...prev, cleanliness }))
+              }
+              label="Cleanliness"
+            />
+
+            {/* Hospitality Rating */}
+            <StarRating
+              rating={reviewData.hospitality}
+              onRatingChange={(hospitality) =>
+                setReviewData((prev) => ({ ...prev, hospitality }))
+              }
+              label="Hospitality"
+            />
+
+            {/* Value for Money Rating */}
+            <StarRating
+              rating={reviewData.value_for_money}
+              onRatingChange={(value_for_money) =>
+                setReviewData((prev) => ({ ...prev, value_for_money }))
+              }
+              label="Value for Money"
+            />
+
+            {/* Communication Rating */}
+            <StarRating
+              rating={reviewData.communication}
+              onRatingChange={(communication) =>
+                setReviewData((prev) => ({ ...prev, communication }))
+              }
+              label="Communication"
+            />
+          </div>
+
+          {/* Overall Rating (Auto-calculated) */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">
+              Overall Rating (Auto-calculated)
+            </label>
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    size={24}
+                    className={`${
+                      star <= Math.round(reviewData.rating)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-gray-700">
+                {reviewData.rating > 0
+                  ? `${reviewData.rating.toFixed(2)}/5`
+                  : "0/5"}
+              </span>
+            </div>
+          </div>
 
           {/* Review Text */}
           <div className="space-y-2">

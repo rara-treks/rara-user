@@ -57,7 +57,7 @@ const TrekCard = (product: Product) => {
     const slugParts = product.slug.split("/");
     const cleanSlug = slugParts[slugParts.length - 1];
 
-    const route = `/product/${routeType}/${cleanSlug}`;
+    const route = `/${routeType}/${cleanSlug}`;
     router.push(route);
   };
 

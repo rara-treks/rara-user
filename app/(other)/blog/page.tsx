@@ -17,7 +17,6 @@ interface ApiResponse {
   }[];
 }
 
-// Simplified - no props needed since we're not using params or searchParams
 const BlogPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);

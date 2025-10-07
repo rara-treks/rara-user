@@ -82,7 +82,7 @@ const NavigationMenu = () => {
       label: product.name,
       description:
         product.tagline || `Explore ${product.name} in ${product.location}`,
-      slug: `/product/${product.type}/${product.slug}`,
+      slug: `/${product.type}/${product.slug}`,
       image: product.featuredImage,
     }));
   };
@@ -97,21 +97,21 @@ const NavigationMenu = () => {
         id: "trekking",
         label: "Trekking",
         icon: "PersonSimpleHike",
-        slug: "/product/trek",
+        slug: "/trek",
         dropdownItems: transformProductsToDropdownItems(trek),
       },
       {
         id: "tour",
         label: "Tour",
         icon: "Jeep",
-        slug: "/product/tour",
+        slug: "/tour",
         dropdownItems: transformProductsToDropdownItems(tour),
       },
       {
         id: "activities",
         label: "Activities",
         icon: "Mountains",
-        slug: "/product/activities",
+        slug: "/activities",
         dropdownItems: transformProductsToDropdownItems(activities),
       },
       {

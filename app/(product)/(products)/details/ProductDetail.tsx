@@ -339,6 +339,7 @@ const faqImages: FAQImage[] =
 
   // Reviews data mapping with safe number conversion
   const reviewsData: ReviewsData = {
+    id: productData.id,
     slug: productData.slug,
     title: productData.name,
     average_rating: safeNumber(productData.average_rating, 0),

@@ -222,6 +222,7 @@ export interface Review {
 }
 
 export interface ReviewsData {
+  id: number;
   slug: string;
   title: string;
   average_rating: number;

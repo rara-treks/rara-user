@@ -10,6 +10,7 @@ import { Review as ReviewType, ReviewData } from "./Reviews/types";
 
 interface ReviewProps {
   data: {
+    id: number;
     slug: string;
     title: string;
     average_rating: number;
@@ -194,6 +195,7 @@ const Review = ({ data }: ReviewProps) => {
         isOpen={isDialogOpen}
         onClose={handleCloseDialog}
         trekTitle={title}
+        prodId= {data.id}
         onSubmit={handleReviewSubmit}
       />
     </div>
