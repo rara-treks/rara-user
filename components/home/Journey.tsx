@@ -56,7 +56,7 @@ const Journey = () => {
             {journeyItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center gap-3 group cursor-pointer transform transition-all duration-300 hover:scale-110"
+                className="flex flex-col items-center justify-center gap-3 group transform transition-all duration-300 hover:scale-110"
               >
                 <div className="flex rounded-full p-3 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                   <Image
@@ -79,7 +79,7 @@ const Journey = () => {
             {journeyItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col mb-4 items-center justify-center gap-2 group cursor-pointer transform transition-all duration-300 hover:scale-105"
+                className="flex flex-col mb-4 items-center justify-center gap-2 group transform transition-all duration-300 hover:scale-105"
               >
                 <div className="flex rounded-full p-2 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                   <Image
@@ -102,7 +102,7 @@ const Journey = () => {
             {journeyItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center mb-4 justify-center gap-1 group cursor-pointer transform transition-all duration-300 hover:scale-105 active:scale-95"
+                className="flex flex-col items-center mb-4 justify-center gap-1 group transform transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 <div className="flex rounded-full p-2 bg-white shadow-md group-hover:shadow-lg transition-shadow duration-300">
                   <Image

@@ -1,81 +1,81 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Linkedin } from "lucide-react";
 
 interface TeamMember {
-  id: number;
   name: string;
   position: string;
-  description: string;
-  image: string;
-  linkedin: string;
+  bio: string;
+  linkedin_link: string;
+  whyUsImage: string;
+}
+
+interface ApiResponse {
+  code: number;
+  message: string;
+  data: TeamMember[];
 }
 
 const Team = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const teamMembers: TeamMember[] = [
-    {
-      id: 1,
-      name: "Suman Pradhan",
-      position: "Chief Executive Officer",
-      description:
-        "Visionary leader with 15+ years driving innovation in tech. Passionate about building products that make a difference in Nepal's digital landscape.",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/sumanpradhan",
-    },
-    {
-      id: 2,
-      name: "Rajesh Shrestha",
-      position: "Head of Engineering",
-      description:
-        "Full-stack architect specializing in scalable systems. Leads our technical vision with creativity and precision to build world-class solutions.",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/rajeshshrestha",
-    },
-    {
-      id: 3,
-      name: "Anita Gurung",
-      position: "Design Director",
-      description:
-        "Award-winning designer crafting beautiful, intuitive experiences. Believes great design is invisible yet impactful and user-centered.",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/anitagurung",
-    },
-    {
-      id: 4,
-      name: "Bikash Tamang",
-      position: "Product Manager",
-      description:
-        "Customer-focused strategist turning insights into action. Bridges the gap between vision and execution seamlessly with data-driven decisions.",
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/bikashtamang",
-    },
-    {
-      id: 5,
-      name: "Priya Khatri",
-      position: "Marketing Lead",
-      description:
-        "Growth expert with a data-driven mindset. Crafts compelling narratives that resonate with diverse audiences across digital platforms.",
-      image:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/priyakhatri",
-    },
-    {
-      id: 6,
-      name: "Aakash Thapa",
-      position: "Operations Manager",
-      description:
-        "Process optimizer ensuring smooth daily operations. Transforms complexity into clarity with systematic thinking and innovative approaches.",
-      image:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
-      linkedin: "https://www.linkedin.com/in/aakashthapa",
-    },
-  ];
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/product/page/team");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch team data");
+        }
+
+        const result: ApiResponse = await response.json();
+
+        if (result.code === 0 && result.data) {
+          setTeamMembers(result.data);
+        } else {
+          throw new Error(result.message || "Failed to load team data");
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("Error fetching team data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-black rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading team members...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
@@ -94,11 +94,11 @@ const Team = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {teamMembers.map((member) => (
+          {teamMembers.map((member, index) => (
             <div
-              key={member.id}
+              key={index}
               className="relative group cursor-pointer"
-              onMouseEnter={() => setHoveredId(member.id)}
+              onMouseEnter={() => setHoveredId(index)}
               onMouseLeave={() => setHoveredId(null)}
             >
               {/* Card */}
@@ -106,10 +106,10 @@ const Team = () => {
                 {/* Image Container */}
                 <div className="relative h-72 overflow-hidden bg-gray-100 rounded-t-3xl">
                   <img
-                    src={member.image}
+                    src={member.whyUsImage}
                     alt={member.name}
                     className={`w-full h-full object-cover transition-all duration-700 ${
-                      hoveredId === member.id
+                      hoveredId === index
                         ? "scale-110 rotate-2"
                         : "scale-100 rotate-0"
                     }`}
@@ -118,20 +118,20 @@ const Team = () => {
                   {/* Overlay on hover */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent transition-all duration-500 ${
-                      hoveredId === member.id ? "opacity-100" : "opacity-0"
+                      hoveredId === index ? "opacity-100" : "opacity-0"
                     }`}
                   />
 
                   {/* Description on hover */}
                   <div
                     className={`absolute inset-0 flex items-end p-8 transition-all duration-500 ${
-                      hoveredId === member.id
+                      hoveredId === index
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-8"
                     }`}
                   >
                     <p className="text-white text-sm leading-relaxed font-light">
-                      {member.description}
+                      {member.bio}
                     </p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ const Team = () => {
 
                   {/* LinkedIn Icon */}
                   <a
-                    href={member.linkedin}
+                    href={member.linkedin_link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all duration-300 hover:scale-110"
@@ -161,7 +161,7 @@ const Team = () => {
               {/* Decorative element */}
               <div
                 className={`absolute -bottom-2 -right-2 w-24 h-24 bg-gray-100 rounded-full -z-10 transition-all duration-500 ${
-                  hoveredId === member.id
+                  hoveredId === index
                     ? "scale-150 opacity-50"
                     : "scale-100 opacity-100"
                 }`}
