@@ -13,7 +13,6 @@ const MainTourComponent = () => {
 
   const fetchData = async (type: string): Promise<Product[]> => {
     try {
-      // Updated URL to include the full path
       const response = await fetch(
         `/api/product/homepage/product-list/${type}`,
         {
@@ -35,7 +34,7 @@ const MainTourComponent = () => {
       const result: ApiResponse = await response.json();
 
       if (result.code === 0 && result.data && Array.isArray(result.data)) {
-        return result.data;
+        return result.data; 
       } else {
         console.log(
           `${type} API returned code: ${result.code}, message: ${result.message}`

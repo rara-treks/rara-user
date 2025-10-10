@@ -13,8 +13,8 @@ const   TrekCard = (product: Product) => {
   const router = useRouter();
 
   const images = [
-    product.featuredImage.url,
-    ...product.featuredImages.map((img) => img.url),
+    product.featuredImage?.url,
+    ...product.featuredImages.map((img) => img?.url),
   ];
 
   const lowestPrice = product.prices.reduce((min, price) => {
