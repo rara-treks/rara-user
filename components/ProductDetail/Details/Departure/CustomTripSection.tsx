@@ -5,6 +5,7 @@ import CustomTripInquiryPopup from "./CustomInquiry";
 
 const CustomTripSection = ({
   trekTitle,
+  trekId,
 }: CustomTripSectionProps) => {
   return (
     <div className="w-full flex flex-col gap-3 p-6 bg-white rounded-2xl">
@@ -14,10 +15,11 @@ const CustomTripSection = ({
         trips plan its structure and you can event set differnet checkpoints
         according to your need and preferences.
       </p>
-      <div>       
+      <div>
         <CustomTripInquiryPopup
           buttonText="Create Custom Trip"
           trekTitle={trekTitle}
+          trekId={trekId}
         />
       </div>
     </div>

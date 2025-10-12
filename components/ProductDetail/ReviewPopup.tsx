@@ -38,7 +38,6 @@ interface StarRatingProps {
 
 const StarRating = ({ rating, onRatingChange, label }: StarRatingProps) => {
   const [hoveredStar, setHoveredStar] = useState(0);
-  
 
   return (
     <div className="space-y-2">
@@ -89,6 +88,7 @@ const TrekReviewDialog = ({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Calculate overall rating automatically
   React.useEffect(() => {
@@ -152,23 +152,29 @@ const TrekReviewDialog = ({
           throw new Error(data.error || "Failed to submit review");
         }
 
-        setReviewData({
-          name: "",
-          email: "",
-          rating: 0,
-          cleanliness: 0,
-          hospitality: 0,
-          value_for_money: 0,
-          communication: 0,
-          review: "",
-        });
-        onClose();
+        setShowSuccess(true);
       } catch (err: any) {
         setError(err.message || "Failed to submit review. Please try again.");
       } finally {
         setIsSubmitting(false);
       }
     }
+  };
+
+  const handleCloseDialog = () => {
+    setShowSuccess(false);
+    setReviewData({
+      name: "",
+      email: "",
+      rating: 0,
+      cleanliness: 0,
+      hospitality: 0,
+      value_for_money: 0,
+      communication: 0,
+      review: "",
+    });
+    setError("");
+    onClose();
   };
 
   const isFormValid =
@@ -181,151 +187,209 @@ const TrekReviewDialog = ({
     reviewData.review.trim() !== "";
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleCloseDialog}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center">
-            Review for {trekTitle}
-          </DialogTitle>
-          <DialogDescription className="text-center text-gray-600">
-            Share your experience and help other trekkers
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6 py-4">
-          {/* Name Input */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Your Name *
-            </label>
-            <input
-              type="text"
-              value={reviewData.name}
-              onChange={(e) =>
-                setReviewData((prev) => ({ ...prev, name: e.target.value }))
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter your name"
-            />
-          </div>
-
-          {/* Email Input */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Your Email *
-            </label>
-            <input
-              type="email"
-              value={reviewData.email}
-              onChange={(e) =>
-                setReviewData((prev) => ({ ...prev, email: e.target.value }))
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter your email"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Cleanliness Rating */}
-            <StarRating
-              rating={reviewData.cleanliness}
-              onRatingChange={(cleanliness) =>
-                setReviewData((prev) => ({ ...prev, cleanliness }))
-              }
-              label="Cleanliness"
-            />
-
-            {/* Hospitality Rating */}
-            <StarRating
-              rating={reviewData.hospitality}
-              onRatingChange={(hospitality) =>
-                setReviewData((prev) => ({ ...prev, hospitality }))
-              }
-              label="Hospitality"
-            />
-
-            {/* Value for Money Rating */}
-            <StarRating
-              rating={reviewData.value_for_money}
-              onRatingChange={(value_for_money) =>
-                setReviewData((prev) => ({ ...prev, value_for_money }))
-              }
-              label="Value for Money"
-            />
-
-            {/* Communication Rating */}
-            <StarRating
-              rating={reviewData.communication}
-              onRatingChange={(communication) =>
-                setReviewData((prev) => ({ ...prev, communication }))
-              }
-              label="Communication"
-            />
-          </div>
-
-          {/* Overall Rating (Auto-calculated) */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Overall Rating (Auto-calculated)
-            </label>
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center space-x-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    size={24}
-                    className={`${
-                      star <= Math.round(reviewData.rating)
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    }`}
+        {showSuccess ? (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-center text-green-600">
+                Review Submitted Successfully!
+              </DialogTitle>
+              <DialogDescription className="text-center text-gray-600">
+                Thank you for sharing your experience with us
+              </DialogDescription>
+            </DialogHeader>
+            <div className="py-8 text-center">
+              <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
                   />
-                ))}
+                </svg>
               </div>
-              <span className="text-sm font-semibold text-gray-700">
-                {reviewData.rating > 0
-                  ? `${reviewData.rating.toFixed(2)}/5`
-                  : "0/5"}
-              </span>
+              <p className="text-gray-700 mb-2">
+                Your review for <strong>{trekTitle}</strong> has been submitted.
+              </p>
+              <p className="text-gray-600 text-sm">
+                It will be published after verification.
+              </p>
             </div>
-          </div>
+            <DialogFooter>
+              <Button
+                onClick={handleCloseDialog}
+                className="w-full bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
+              >
+                Close
+              </Button>
+            </DialogFooter>
+          </>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-center">
+                Review for {trekTitle}
+              </DialogTitle>
+              <DialogDescription className="text-center text-gray-600">
+                Share your experience and help other trekkers
+              </DialogDescription>
+            </DialogHeader>
 
-          {/* Review Text */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Your Review *
-            </label>
-            <textarea
-              value={reviewData.review}
-              onChange={(e) =>
-                setReviewData((prev) => ({ ...prev, review: e.target.value }))
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              rows={4}
-              placeholder="Share your experience about this trek..."
-            />
-          </div>
-        </div>
+            <div className="space-y-6 py-4">
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
 
-        <DialogFooter className="flex gap-3">
-          <Button
-            onClick={onClose}
-            className="px-4 py-2 text-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            disabled={!isFormValid}
-            className={`px-6 py-2 rounded-md transition-colors ${
-              isFormValid
-                ? "bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#71B344] hover:border-[#5A8F37]"
-                : "bg-gray-300 text-gray-500 rounded-full cursor-not-allowed"
-            }`}
-          >
-            Submit Review
-          </Button>
-        </DialogFooter>
+              {/* Name Input */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Your Name *
+                </label>
+                <input
+                  type="text"
+                  value={reviewData.name}
+                  onChange={(e) =>
+                    setReviewData((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              {/* Email Input */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Your Email *
+                </label>
+                <input
+                  type="email"
+                  value={reviewData.email}
+                  onChange={(e) =>
+                    setReviewData((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Cleanliness Rating */}
+                <StarRating
+                  rating={reviewData.cleanliness}
+                  onRatingChange={(cleanliness) =>
+                    setReviewData((prev) => ({ ...prev, cleanliness }))
+                  }
+                  label="Cleanliness"
+                />
+
+                {/* Hospitality Rating */}
+                <StarRating
+                  rating={reviewData.hospitality}
+                  onRatingChange={(hospitality) =>
+                    setReviewData((prev) => ({ ...prev, hospitality }))
+                  }
+                  label="Hospitality"
+                />
+
+                {/* Value for Money Rating */}
+                <StarRating
+                  rating={reviewData.value_for_money}
+                  onRatingChange={(value_for_money) =>
+                    setReviewData((prev) => ({ ...prev, value_for_money }))
+                  }
+                  label="Value for Money"
+                />
+
+                {/* Communication Rating */}
+                <StarRating
+                  rating={reviewData.communication}
+                  onRatingChange={(communication) =>
+                    setReviewData((prev) => ({ ...prev, communication }))
+                  }
+                  label="Communication"
+                />
+              </div>
+
+              {/* Overall Rating (Auto-calculated) */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Overall Rating (Auto-calculated)
+                </label>
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={24}
+                        className={`${
+                          star <= Math.round(reviewData.rating)
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-sm font-semibold text-gray-700">
+                    {reviewData.rating > 0
+                      ? `${reviewData.rating.toFixed(2)}/5`
+                      : "0/5"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Review Text */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Your Review *
+                </label>
+                <textarea
+                  value={reviewData.review}
+                  onChange={(e) =>
+                    setReviewData((prev) => ({
+                      ...prev,
+                      review: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  rows={4}
+                  placeholder="Share your experience about this trek..."
+                />
+              </div>
+            </div>
+
+            <DialogFooter className="flex gap-3">
+              <Button
+                onClick={handleCloseDialog}
+                className="px-4 py-2 text-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                disabled={!isFormValid || isSubmitting}
+                className={`px-6 py-2 rounded-md transition-colors ${
+                  isFormValid && !isSubmitting
+                    ? "bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#71B344] hover:border-[#5A8F37]"
+                    : "bg-gray-300 text-gray-500 rounded-full cursor-not-allowed"
+                }`}
+              >
+                {isSubmitting ? "Submitting..." : "Submit Review"}
+              </Button>
+            </DialogFooter>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );

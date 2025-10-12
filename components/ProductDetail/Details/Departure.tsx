@@ -157,6 +157,7 @@ const Departure = ({ data }: DepartureProps) => {
       {/* Custom Trip Section */}
       <CustomTripSection
         trekTitle={title}
+        trekId={id}
         onCreateCustomTrip={handleCreateCustomTrip}
       />
     </div>
