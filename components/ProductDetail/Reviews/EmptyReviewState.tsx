@@ -10,7 +10,6 @@ interface EmptyReviewStateProps {
   isDialogOpen: boolean;
   onWriteReviewClick: () => void;
   onCloseDialog: () => void;
-  onSubmit: (reviewData: ReviewData) => void;
 }
 
 const EmptyReviewState = ({
@@ -19,7 +18,6 @@ const EmptyReviewState = ({
   isDialogOpen,
   onWriteReviewClick,
   onCloseDialog,
-  onSubmit,
 }: EmptyReviewStateProps) => {
   return (
     <div className="w-full flex flex-col gap-4 mb-6">
@@ -34,7 +32,6 @@ const EmptyReviewState = ({
         onClose={onCloseDialog}
         trekTitle={title || "This Trek"}
         prodId={prodId}
-        onSubmit={onSubmit}
       />
     </div>
   );

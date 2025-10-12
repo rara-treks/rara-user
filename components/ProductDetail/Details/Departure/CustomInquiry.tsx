@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/select";
 import {
   MapPin,
-  Users,
   Mail,
   Phone,
   User,
@@ -30,6 +29,7 @@ import {
   UserCheck,
   Clock,
 } from "lucide-react";
+import ActivitiesMultiSelect from "./ActivitiesMultiSelect";
 
 interface CustomTripFormData {
   fullName: string;
@@ -39,25 +39,40 @@ interface CustomTripFormData {
   destination: string;
   adults: string;
   children: string;
-  startDate: string;
-  endDate: string;
+  departure_from: string;
+  departure_to: string;
   duration: string;
   budget: string;
   accommodation: string;
   transportation: string;
-  activities: string;
+  activities: number[];
   specialRequirements: string;
   message: string;
 }
 
+interface TransformedDepartureItem {
+  id: number;
+  dateRange: string;
+  availability: string;
+  price: string;
+  departure_from?: string;
+  departure_to?: string;
+}
+
 interface CustomTripInquiryPopupProps {
   defaultDestination?: string;
-    trekTitle?: string;
+  trekTitle?: string;
+  trekId?: number;
+  departure?: TransformedDepartureItem;
+  buttonText: string;
 }
 
 export default function CustomTripInquiryPopup({
   defaultDestination = "",
   trekTitle,
+  trekId,
+  departure,
+  buttonText,
 }: CustomTripInquiryPopupProps) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<CustomTripFormData>({
@@ -65,63 +80,71 @@ export default function CustomTripInquiryPopup({
     email: "",
     phone: "",
     country: "",
-    destination: trekTitle || defaultDestination,
+    destination: "",
     adults: "",
     children: "",
-    startDate: "",
-    endDate: "",
+    departure_from: "",
+    departure_to: "",
     duration: "",
     budget: "",
     accommodation: "",
     transportation: "",
-    activities: "",
+    activities: [],
     specialRequirements: "",
     message: "",
   });
 
-  // Calculate duration when dates change
-  const calculateDuration = (startDate: string, endDate: string): string => {
-    if (!startDate || !endDate) return "";
-
-    try {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) return "";
-      if (end <= start) return "";
-
-      const diffTime = end.getTime() - start.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      return `${diffDays} day${diffDays > 1 ? "s" : ""}`;
-    } catch (error) {
+  // Calculate duration
+  const calculateDuration = (
+    departure_from: string,
+    departure_to: string
+  ): string => {
+    if (!departure_from || !departure_to) return "";
+    const start = new Date(departure_from);
+    const end = new Date(departure_to);
+    if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start)
       return "";
-    }
+    const diffDays = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    return `${diffDays} day${diffDays > 1 ? "s" : ""}`;
   };
+
+  // Initialize form when component mounts or departure changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      destination: trekTitle || defaultDestination || "",
+      departure_from: departure?.departure_from || "",
+      departure_to: departure?.departure_to || "",
+      duration:
+        departure?.departure_from && departure?.departure_to
+          ? calculateDuration(departure.departure_from, departure.departure_to)
+          : "",
+    }));
+  }, [departure, trekTitle, defaultDestination]);
 
   // Auto-calculate duration when dates change
   useEffect(() => {
-    const duration = calculateDuration(formData.startDate, formData.endDate);
-    if (duration && duration !== formData.duration) {
-      setFormData((prev) => ({
-        ...prev,
-        duration,
-      }));
+    if (formData.departure_from && formData.departure_to) {
+      const duration = calculateDuration(
+        formData.departure_from,
+        formData.departure_to
+      );
+      if (duration && duration !== formData.duration) {
+        setFormData((prev) => ({ ...prev, duration }));
+      }
     }
-  }, [formData.startDate, formData.endDate]);
+  }, [formData.departure_from, formData.departure_to]);
 
   const handleInputChange = (
     field: keyof CustomTripFormData,
-    value: string
+    value: string | number[]
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = () => {
-    // Basic validation
     if (
       !formData.fullName ||
       !formData.email ||
@@ -133,21 +156,23 @@ export default function CustomTripInquiryPopup({
       return;
     }
 
-    // Validate dates
-    if (formData.startDate && formData.endDate) {
-      const start = new Date(formData.startDate);
-      const end = new Date(formData.endDate);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (formData.departure_from && formData.departure_to) {
+      const start = new Date(formData.departure_from);
+      const end = new Date(formData.departure_to);
       if (end <= start) {
         alert("End date must be after start date");
         return;
       }
     }
 
-    // Process form submission here
-    console.log("Custom Trip Form submitted:", formData);
-    alert(
-      "Thank you for your custom trip inquiry! We will contact you soon with a personalized itinerary."
-    );
+    console.log("Form Data:", formData);
+    alert("Thank you for your custom trip inquiry! We will contact you soon.");
     setOpen(false);
 
     // Reset form
@@ -156,26 +181,33 @@ export default function CustomTripInquiryPopup({
       email: "",
       phone: "",
       country: "",
-      destination: trekTitle || defaultDestination,
+      destination: trekTitle || defaultDestination || "",
       adults: "",
       children: "",
-      startDate: "",
-      endDate: "",
-      duration: "",
+      departure_from: departure?.departure_from || "",
+      departure_to: departure?.departure_to || "",
+      duration:
+        departure?.departure_from && departure?.departure_to
+          ? calculateDuration(departure.departure_from, departure.departure_to)
+          : "",
       budget: "",
       accommodation: "",
       transportation: "",
-      activities: "",
+      activities: [],
       specialRequirements: "",
       message: "",
     });
   };
 
+  const hasPrefilledDate = Boolean(
+    departure?.departure_from && departure?.departure_to
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
-          Create Custom Trip
+          {buttonText}
         </Button>
       </DialogTrigger>
 
@@ -207,7 +239,6 @@ export default function CustomTripInquiryPopup({
                 placeholder="Enter your full name"
                 value={formData.fullName}
                 onChange={(e) => handleInputChange("fullName", e.target.value)}
-                className="w-full"
               />
             </div>
 
@@ -225,7 +256,6 @@ export default function CustomTripInquiryPopup({
                 placeholder="your.email@example.com"
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
-                className="w-full"
               />
             </div>
           </div>
@@ -245,7 +275,6 @@ export default function CustomTripInquiryPopup({
                 placeholder="+1 (555) 123-4567"
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
-                className="w-full"
               />
             </div>
 
@@ -259,7 +288,6 @@ export default function CustomTripInquiryPopup({
                 placeholder="Enter your country"
                 value={formData.country}
                 onChange={(e) => handleInputChange("country", e.target.value)}
-                className="w-full"
               />
             </div>
           </div>
@@ -274,15 +302,13 @@ export default function CustomTripInquiryPopup({
               type="text"
               value={formData.destination}
               onChange={(e) => handleInputChange("destination", e.target.value)}
-              placeholder="Where would you like to go? (e.g., Nepal, Bhutan, Tibet)"
-              className={`w-full ${
-                trekTitle ? "bg-gray-100 cursor-not-allowed" : ""
-              }`}
+              placeholder="Where would you like to go?"
+              className={trekTitle ? "bg-gray-100 cursor-not-allowed" : ""}
               readOnly={!!trekTitle}
             />
           </div>
 
-          {/* Group Size - Adults and Children */}
+          {/* Group Size */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label
@@ -296,18 +322,15 @@ export default function CustomTripInquiryPopup({
                 value={formData.adults}
                 onValueChange={(value) => handleInputChange("adults", value)}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger>
                   <SelectValue placeholder="Select number of adults" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1 Adult</SelectItem>
-                  <SelectItem value="2">2 Adults</SelectItem>
-                  <SelectItem value="3">3 Adults</SelectItem>
-                  <SelectItem value="4">4 Adults</SelectItem>
-                  <SelectItem value="5">5 Adults</SelectItem>
-                  <SelectItem value="6">6 Adults</SelectItem>
-                  <SelectItem value="7">7 Adults</SelectItem>
-                  <SelectItem value="8">8 Adults</SelectItem>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                    <SelectItem key={num} value={String(num)}>
+                      {num} Adult{num > 1 ? "s" : ""}
+                    </SelectItem>
+                  ))}
                   <SelectItem value="9+">9+ Adults</SelectItem>
                 </SelectContent>
               </Select>
@@ -325,15 +348,16 @@ export default function CustomTripInquiryPopup({
                 value={formData.children}
                 onValueChange={(value) => handleInputChange("children", value)}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger>
                   <SelectValue placeholder="Select number of children" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="0">No Children</SelectItem>
-                  <SelectItem value="1">1 Child</SelectItem>
-                  <SelectItem value="2">2 Children</SelectItem>
-                  <SelectItem value="3">3 Children</SelectItem>
-                  <SelectItem value="4">4 Children</SelectItem>
+                  {[1, 2, 3, 4].map((num) => (
+                    <SelectItem key={num} value={String(num)}>
+                      {num} Child{num > 1 ? "ren" : ""}
+                    </SelectItem>
+                  ))}
                   <SelectItem value="5+">5+ Children</SelectItem>
                 </SelectContent>
               </Select>
@@ -349,9 +373,14 @@ export default function CustomTripInquiryPopup({
               </Label>
               <Input
                 type="date"
-                value={formData.startDate}
-                onChange={(e) => handleInputChange("startDate", e.target.value)}
-                className="w-full"
+                value={formData.departure_from}
+                onChange={(e) =>
+                  handleInputChange("departure_from", e.target.value)
+                }
+                readOnly={hasPrefilledDate}
+                className={
+                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                }
                 min={new Date().toISOString().split("T")[0]}
               />
             </div>
@@ -363,11 +392,17 @@ export default function CustomTripInquiryPopup({
               </Label>
               <Input
                 type="date"
-                value={formData.endDate}
-                onChange={(e) => handleInputChange("endDate", e.target.value)}
-                className="w-full"
+                value={formData.departure_to}
+                onChange={(e) =>
+                  handleInputChange("departure_to", e.target.value)
+                }
+                readOnly={hasPrefilledDate}
+                className={
+                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                }
                 min={
-                  formData.startDate || new Date().toISOString().split("T")[0]
+                  formData.departure_from ||
+                  new Date().toISOString().split("T")[0]
                 }
               />
             </div>
@@ -381,7 +416,7 @@ export default function CustomTripInquiryPopup({
                 type="text"
                 value={formData.duration}
                 readOnly
-                className="w-full bg-gray-100 cursor-not-allowed"
+                className="bg-gray-100 cursor-not-allowed"
                 placeholder="Auto-calculated"
               />
             </div>
@@ -397,7 +432,7 @@ export default function CustomTripInquiryPopup({
                 value={formData.budget}
                 onValueChange={(value) => handleInputChange("budget", value)}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger>
                   <SelectValue placeholder="Select your budget range" />
                 </SelectTrigger>
                 <SelectContent>
@@ -421,7 +456,7 @@ export default function CustomTripInquiryPopup({
                   handleInputChange("accommodation", value)
                 }
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger>
                   <SelectValue placeholder="Select accommodation type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -451,7 +486,7 @@ export default function CustomTripInquiryPopup({
                 handleInputChange("transportation", value)
               }
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger>
                 <SelectValue placeholder="Select transportation preference" />
               </SelectTrigger>
               <SelectContent>
@@ -464,17 +499,17 @@ export default function CustomTripInquiryPopup({
             </Select>
           </div>
 
+          {/* Activities Multi-Select */}
           <div className="space-y-2">
             <Label htmlFor="activities" className="text-sm font-medium">
-              Preferred Activities
+              Preferred Activities (Add-ons)
             </Label>
-            <Textarea
-              id="activities"
-              placeholder="What activities interest you? (e.g., trekking, cultural tours, wildlife safari, spiritual experiences, adventure sports, etc.)"
-              value={formData.activities}
-              onChange={(e) => handleInputChange("activities", e.target.value)}
-              rows={3}
-              className="w-full resize-none"
+            <ActivitiesMultiSelect
+              selectedActivities={formData.activities}
+              onActivitiesChange={(activities) =>
+                handleInputChange("activities", activities)
+              }
+              placeholder="Select activities you'd like to add to your trek"
             />
           </div>
 
@@ -493,7 +528,6 @@ export default function CustomTripInquiryPopup({
               onChange={(e) =>
                 handleInputChange("specialRequirements", e.target.value)
               }
-              className="w-full"
             />
           </div>
 
@@ -503,11 +537,10 @@ export default function CustomTripInquiryPopup({
             </Label>
             <Textarea
               id="message"
-              placeholder="Tell us more about your travel style, interests, must-see places, or any specific requirements for your custom trip..."
+              placeholder="Tell us more about your travel style, interests, must-see places..."
               value={formData.message}
               onChange={(e) => handleInputChange("message", e.target.value)}
               rows={4}
-              className="w-full resize-none"
             />
           </div>
 
@@ -521,7 +554,7 @@ export default function CustomTripInquiryPopup({
             </Button>
             <Button
               onClick={handleSubmit}
-              className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
+              className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2"
             >
               Submit Custom Trip Request
             </Button>

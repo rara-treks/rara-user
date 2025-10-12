@@ -137,9 +137,7 @@ const Review = ({ data }: ReviewProps) => {
     }
   }, [slug, data]);
 
-  const handleReviewSubmit = (reviewData: ReviewData) => {
-    console.log("Review submitted");
-  };
+ 
 
   const handleWriteReviewClick = () => {
     setIsDialogOpen(true);
@@ -176,7 +174,6 @@ const Review = ({ data }: ReviewProps) => {
         isDialogOpen={isDialogOpen}
         onWriteReviewClick={handleWriteReviewClick}
         onCloseDialog={handleCloseDialog}
-        onSubmit={handleReviewSubmit}
       />
     );
   }
@@ -197,7 +194,6 @@ const Review = ({ data }: ReviewProps) => {
         onClose={handleCloseDialog}
         trekTitle={title}
         prodId= {data.id}
-        onSubmit={handleReviewSubmit}
       />
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import type { SimplifiedProduct, Departure } from "@/types/departure";
+import CustomTripInquiryPopup from "@/components/ProductDetail/Details/Departure/CustomInquiry";
 
 interface DepartureTableProps {
   title?: string;
@@ -15,10 +16,21 @@ interface GroupedDeparture {
   startDate: string;
   endDate: string;
   price: string;
+  departure_from: string;
+  departure_to: string;
 }
 
 interface GroupedData {
   [monthYear: string]: GroupedDeparture[];
+}
+
+interface TransformedDepartureItem {
+  id: number;
+  dateRange: string;
+  availability: string;
+  price: string;
+  departure_from?: string;
+  departure_to?: string;
 }
 
 const DepartureTable: React.FC<DepartureTableProps> = ({
@@ -61,6 +73,8 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
             }
           ),
           price: departure.departure_per_price,
+          departure_from: departure.departure_from,
+          departure_to: departure.departure_to,
         });
       });
     });
@@ -83,6 +97,20 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
   const months = Object.keys(groupedData);
   const [selectedMonth, setSelectedMonth] = useState<string>(months[0] || "");
   const currentData = groupedData[selectedMonth] || [];
+
+  // Helper function to transform departure data for CustomTripInquiryPopup
+  const transformDepartureData = (
+    departure: GroupedDeparture
+  ): TransformedDepartureItem => {
+    return {
+      id: departure.id,
+      dateRange: `${departure.startDate} - ${departure.endDate}`,
+      availability: "Available",
+      price: departure.price,
+      departure_from: departure.departure_from,
+      departure_to: departure.departure_to,
+    };
+  };
 
   // Show message if no data available
   if (products.length === 0) {
@@ -168,9 +196,12 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
                     </div>
                   </td>
                   <td className="p-4 text-center">
-                    <button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6 py-2 transition-colors duration-200 font-medium">
-                      Enquire Now
-                    </button>
+                    <CustomTripInquiryPopup
+                      departure={transformDepartureData(departure)}
+                      trekId={departure.productId}
+                      trekTitle={departure.productName}
+                      buttonText="Enquire Now"
+                    />
                   </td>
                 </tr>
               ))}
@@ -225,9 +256,12 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
               </div>
 
               {/* Enquire Button */}
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-full py-3 transition-colors duration-200 font-medium">
-                Enquire Now
-              </button>
+              <CustomTripInquiryPopup
+                departure={transformDepartureData(departure)}
+                trekId={departure.productId}
+                trekTitle={departure.productName}
+                buttonText="Enquire Now"
+              />
             </div>
           </div>
         ))}

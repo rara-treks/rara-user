@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import TrekInquiryPopup from "../Departure/Inquire";
+import CustomTripInquiryPopup from "../Departure/CustomInquiry";
 
 interface GuestCounts {
   infant: number;
@@ -28,7 +29,8 @@ function ActionButtons({
 }: ActionButtonsProps) {
   return (
     <div className="space-y-3">
-      <TrekInquiryPopup buttonText="Enquire Now" trekTitle={title} />
+      <CustomTripInquiryPopup buttonText="Enquire Now" trekTitle={title} />
+
       {/* 
       <Button
         variant="outline"

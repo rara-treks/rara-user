@@ -53,7 +53,7 @@ interface TrekInquiryPopupProps {
 
 export default function TrekInquiryPopup({
   departure,
-  trekId,
+  trekId, 
   trekTitle,
   buttonText = "Enquire Now",
   buttonClassName,

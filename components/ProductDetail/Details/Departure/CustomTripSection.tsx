@@ -1,11 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { CustomTripSectionProps } from "./types";
 import CustomTripInquiryPopup from "./CustomInquiry";
 
 const CustomTripSection = ({
-  onCreateCustomTrip,
   trekTitle,
 }: CustomTripSectionProps) => {
   return (
@@ -16,14 +14,11 @@ const CustomTripSection = ({
         trips plan its structure and you can event set differnet checkpoints
         according to your need and preferences.
       </p>
-      <div>
-        {/* <Button
-          onClick={onCreateCustomTrip}
-          className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
-        >
-          Create Custom Trip
-        </Button> */}
-        <CustomTripInquiryPopup trekTitle={trekTitle} />
+      <div>       
+        <CustomTripInquiryPopup
+          buttonText="Create Custom Trip"
+          trekTitle={trekTitle}
+        />
       </div>
     </div>
   );

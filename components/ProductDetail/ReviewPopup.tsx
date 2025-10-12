@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Star, Upload, X } from "lucide-react";
+import { Star } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,6 @@ interface ReviewData {
   value_for_money: number;
   communication: number;
   review: string;
-  photo: File | null;
 }
 
 interface TrekReviewDialogProps {
@@ -29,7 +28,6 @@ interface TrekReviewDialogProps {
   onClose: () => void;
   trekTitle: string;
   prodId: number;
-  onSubmit: (reviewData: ReviewData) => void;
 }
 
 interface StarRatingProps {
@@ -40,6 +38,7 @@ interface StarRatingProps {
 
 const StarRating = ({ rating, onRatingChange, label }: StarRatingProps) => {
   const [hoveredStar, setHoveredStar] = useState(0);
+  
 
   return (
     <div className="space-y-2">
@@ -76,7 +75,7 @@ const TrekReviewDialog = ({
   isOpen,
   onClose,
   trekTitle,
-  onSubmit,
+  prodId,
 }: TrekReviewDialogProps) => {
   const [reviewData, setReviewData] = useState<ReviewData>({
     name: "",
@@ -87,10 +86,9 @@ const TrekReviewDialog = ({
     value_for_money: 0,
     communication: 0,
     review: "",
-    photo: null,
   });
-
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   // Calculate overall rating automatically
   React.useEffect(() => {
@@ -115,25 +113,7 @@ const TrekReviewDialog = ({
     reviewData.communication,
   ]);
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setReviewData((prev) => ({ ...prev, photo: file }));
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setPhotoPreview(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const removePhoto = () => {
-    setReviewData((prev) => ({ ...prev, photo: null }));
-    setPhotoPreview(null);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       reviewData.name &&
       reviewData.email &&
@@ -143,22 +123,51 @@ const TrekReviewDialog = ({
       reviewData.communication > 0 &&
       reviewData.review
     ) {
-      onSubmit(reviewData);
+      setIsSubmitting(true);
+      setError("");
 
-      // Reset form
-      setReviewData({
-        name: "",
-        email: "",
-        rating: 0,
-        cleanliness: 0,
-        hospitality: 0,
-        value_for_money: 0,
-        communication: 0,
-        review: "",
-        photo: null,
-      });
-      setPhotoPreview(null);
-      onClose();
+      try {
+        const payload = {
+          product_id: prodId,
+          email: reviewData.email,
+          full_name: reviewData.name,
+          cleanliness: reviewData.cleanliness,
+          hospitality: reviewData.hospitality,
+          value_for_money: reviewData.value_for_money,
+          communication: reviewData.communication,
+          public_review: reviewData.review,
+        };
+
+        const response = await fetch("/api/product/profile/add-review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to submit review");
+        }
+
+        setReviewData({
+          name: "",
+          email: "",
+          rating: 0,
+          cleanliness: 0,
+          hospitality: 0,
+          value_for_money: 0,
+          communication: 0,
+          review: "",
+        });
+        onClose();
+      } catch (err: any) {
+        setError(err.message || "Failed to submit review. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -184,41 +193,6 @@ const TrekReviewDialog = ({
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          {/* Photo Upload */}
-          <div className="space-y-3">
-            <label className="text-sm font-medium text-gray-700">
-              Upload Photo
-            </label>
-            {photoPreview ? (
-              <div className="relative">
-                <img
-                  src={photoPreview}
-                  alt="Review photo"
-                  className="w-full h-48 object-cover rounded-lg border-2 border-gray-200"
-                />
-                <button
-                  onClick={removePhoto}
-                  className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-            ) : (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Upload className="w-8 h-8 mb-2 text-gray-400" />
-                  <p className="text-sm text-gray-500">Click to upload photo</p>
-                </div>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                />
-              </label>
-            )}
-          </div>
-
           {/* Name Input */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">

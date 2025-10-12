@@ -9,8 +9,6 @@ export interface Review {
   rating: number; 
   review: string; 
   marginTop?: string; 
-
-  // Additional API data (optional, for future use)
   cleanliness?: number;
   hospitality?: number;
   value_for_money?: number;
@@ -26,7 +24,6 @@ export interface ReviewData {
   review: string;
   name: string;
   email: string;
-  photo: File | null;
 }
 
 export interface ReviewProps {
