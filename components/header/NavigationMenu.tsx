@@ -150,6 +150,7 @@ const NavigationMenu = () => {
             onItemClick={handleItemClick}
             hasDropdown={!!hasDropdown}
             slug={navItem.slug}
+            productType={navItem.id === "trekking" ? "trek" : navItem.id} // Pass the product type
             onDirectClick={() =>
               navItem.slug && handleDirectNavigation(navItem.slug)
             }

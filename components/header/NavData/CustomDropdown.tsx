@@ -35,6 +35,7 @@ interface CustomDropdownProps {
   hasDropdown: boolean;
   slug?: string;
   onDirectClick?: () => void;
+  productType?: string; // 'trek', 'tour', or 'activities'
 }
 
 const CustomDropdown = ({
@@ -46,6 +47,7 @@ const CustomDropdown = ({
   hasDropdown,
   slug,
   onDirectClick,
+  productType = "trek",
 }: CustomDropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -160,7 +162,7 @@ const CustomDropdown = ({
                     {selectedProducts.map((product) => (
                       <Link
                         key={product.id}
-                        href={`/${product.slug}`}
+                        href={`/${productType}/${product.slug}`}
                         onClick={() => onItemClick(product)}
                         className="group"
                       >
