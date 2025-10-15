@@ -5,7 +5,7 @@ import SocialIcons from "../footer/social-icons";
 
 const ICON_STROKE = 1.5;
 
-function ContactCard() {
+function    ContactCard() {
   return (
     <section className="bg-neutral-800 text-white rounded-2xl p-5 md:p-10 flex flex-col gap-8 justify-between">
       <div>
@@ -16,8 +16,8 @@ function ContactCard() {
         <li>
           <IconPhone stroke={ICON_STROKE} className="text-primary/80" />
           <div className="flex flex-wrap">
-            <Link href="tel:+977-01-4519039">+977-01-4519039</Link> <span className="px-1">|</span>{" "}
-            <Link href="tel:+977-9801902572">9801902572</Link>
+            <Link href="tel:+977-01-4519039">+977-01-2145326</Link> <span className="px-1">|</span>{" "}
+            <Link href="tel:+977-9801902572">9874563210</Link>
           </div>
         </li>
         <li>

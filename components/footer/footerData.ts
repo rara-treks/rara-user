@@ -28,8 +28,8 @@ export const footerData: FooterData = {
     },
     {
       icon: Phone,
-      text: "977-9857766245",
-      href: "tel:+9779857766245",
+      text: "977-9874563210",
+      href: "tel:+9779874563210",
       type: "phone",
     },
    

@@ -18,7 +18,7 @@ const HeroSection = () => {
 
           <div className=" w-full px-3 md:px-20">
             {/* Social Media Icons */}
-            <SocialIcons socialMedia={data.socialMedia} />
+            <SocialIcons />
 
             {/* Google Rating */}
             <RatingComponent rating={data.rating} />

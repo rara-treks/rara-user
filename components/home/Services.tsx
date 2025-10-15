@@ -48,8 +48,6 @@ const Services = () => {
           // Map API data to display format
           const mappedServices: ServiceDisplay[] = result.data.map(
             (service: Service, index: number) => {
-              // Determine width based on position in layout
-              // Pattern: wide, wide, narrow, narrow, wide, wide, wide, wide, narrow
               const widthPattern = [
                 "wide",
                 "wide",

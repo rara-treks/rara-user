@@ -3,9 +3,7 @@ export interface SocialMedia {
     | "Facebook"
     | "Instagram"
     | "Twitter"
-    | "Youtube"
-    | "Linkedin"
-    | "Github";
+    | "Pinterest"; 
   url: string;
   hoverColor: string;
 }
