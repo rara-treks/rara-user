@@ -8,6 +8,7 @@ import Why from "@/components/home/Why";
 import Adventure from "@/components/home/Adventure";
 import Testimonial from "@/components/home/Testimonial/Testimonial";
 import News from "@/components/home/News";
+import HomePopup from "@/components/home-popup";
 
 async function Home() {
   return (
@@ -27,6 +28,8 @@ async function Home() {
         <Testimonial />
       </div>
       <News />
+
+      <HomePopup />
     </main>
   );
 }
