@@ -111,8 +111,8 @@ export const footerData: FooterData = {
     },
   ],
   rating: {
-    value: 4.5,
-    totalReviews: 150,
+    value: 4.6,
+    totalReviews: 14,
   },
   copyright: {
     year: 2025,

@@ -7,23 +7,37 @@ interface RatingComponentProps {
   rating: Rating;
 }
 
-export const RatingComponent = ({
-  rating,
-}: RatingComponentProps) => {
+export const RatingComponent = ({ rating }: RatingComponentProps) => {
   const renderStars = (
     ratingScore: number,
     maxStars: number
   ): JSX.Element[] => {
-    return Array.from({ length: maxStars }, (_, index: number) => (
-      <Star
-        key={index}
-        className={`w-5 h-5 ${
-          index < Math.floor(ratingScore)
-            ? "text-black fill-black"
-            : "text-gray-300"
-        }`}
-      />
-    ));
+    return Array.from({ length: maxStars }, (_, index: number) => {
+      const starPosition = index + 1;
+      const isFullStar = ratingScore >= starPosition;
+      const isPartialStar = ratingScore > index && ratingScore < starPosition;
+      const fillPercentage = isPartialStar
+        ? ((ratingScore - index) * 100).toFixed(0)
+        : "0";
+
+      if (isFullStar) {
+        return <Star key={index} className="w-5 h-5 text-black fill-black" />;
+      } else if (isPartialStar) {
+        return (
+          <div key={index} className="relative w-5 h-5">
+            <Star className="w-5 h-5 text-gray-300 absolute top-0 left-0" />
+            <div
+              className="overflow-hidden absolute top-0 left-0"
+              style={{ width: `${fillPercentage}%` }}
+            >
+              <Star className="w-5 h-5 text-black fill-black" />
+            </div>
+          </div>
+        );
+      } else {
+        return <Star key={index} className="w-5 h-5 text-gray-300" />;
+      }
+    });
   };
 
   return (

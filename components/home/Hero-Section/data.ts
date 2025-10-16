@@ -24,7 +24,7 @@ export const heroData: HeroData = {
     },
   ],
   rating: {
-    score: 4.0,
+    score: 4.6,
     maxStars: 5,
     googleIcon: "/assets/google.svg",
   },
