@@ -14,13 +14,13 @@ interface Service {
   name: string;
   slug: string;
   type: string;
-  featuredImage: FeaturedImage;
-  featuredImages: FeaturedImage[];
+  featuredImage?: FeaturedImage;
+  featuredImages?: FeaturedImage[];
 }
 
 interface ServiceDisplay {
   title: string;
-  image: string;
+  image?: string;
   route: string;
   width: "wide" | "narrow";
   type: string;
@@ -64,7 +64,7 @@ const Services = () => {
 
               return {
                 title: service.name,
-                image: service.featuredImage.url,
+                image: service.featuredImage?.url,
                 route: `/${service.type}/${service.slug}`,
                 width,
                 type: service.type,
@@ -163,18 +163,28 @@ const Services = () => {
                     : "w-[332px] flex-shrink-0"
                 }`}
               >
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover transform group-hover:scale-105 transition duration-300"
-                  sizes="(max-width: 434px) 100vw, 434px"
-                />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition duration-300">
-                  <h3 className="text-white text-2xl font-semibold text-center px-4 leading-[150%]">
-                    {service.title}
-                  </h3>
-                </div>
+                {service.image ? (
+                  <>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transform group-hover:scale-105 transition duration-300"
+                      sizes="(max-width: 434px) 100vw, 434px"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition duration-300">
+                      <h3 className="text-white text-2xl font-semibold text-center px-4 leading-[150%]">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center group-hover:bg-gray-300 transition duration-300">
+                    <h3 className="text-gray-700 text-2xl font-semibold text-center px-4 leading-[150%]">
+                      {service.title}
+                    </h3>
+                  </div>
+                )}
               </Link>
             ))}
           </div>
