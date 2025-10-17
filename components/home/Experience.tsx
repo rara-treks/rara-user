@@ -65,6 +65,9 @@ const Experience = ({ data = experienceData }) => {
           alt={backgroundImage.alt}
           width={backgroundImage.width}
           height={backgroundImage.height}
+          quality={85}
+          loading={"lazy"}
+          sizes="100vw"
           className="w-full h-full object-cover rounded-lg min-h-[500px] md:min-h-[600px] lg:min-h-[700px]"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">
@@ -86,6 +89,9 @@ const Experience = ({ data = experienceData }) => {
                   alt={galleryImages[0].alt}
                   width={galleryImages[0].width}
                   height={galleryImages[0].height}
+                  quality={85}
+                  loading={"lazy"}
+                  sizes="100vw"
                   className={`${galleryImages[0].className} object-cover rounded-lg`}
                 />
               </div>
@@ -99,6 +105,9 @@ const Experience = ({ data = experienceData }) => {
                     alt={image.alt}
                     width={image.width}
                     height={image.height}
+                    quality={85}
+                    loading={"lazy"}
+                    sizes="100vw"
                     className={`${image.className} object-cover rounded-lg`}
                   />
                 ))}
@@ -122,7 +131,7 @@ const Experience = ({ data = experienceData }) => {
                   {paragraph}
                 </p>
               ))}
-              
+
               <Link href="/contact" className="mt-4">
                 <button className="bg-white text-green-700 px-4 py-2 md:px-6 md:py-2 mt-4 rounded-full font-medium hover:bg-gray-100 transition-colors text-sm md:text-base">
                   {content.callToAction.text}

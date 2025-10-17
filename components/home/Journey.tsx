@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const Journey = () => {
+  const [bgImageLoaded, setbgImageLoaded] = useState(false);
+
   const journeyItems = [
     {
       icon: "/assets/icons/journey.svg",
@@ -45,13 +49,23 @@ const Journey = () => {
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-full relative min-h-[350px] md:min-h-[300px]">
+        {/* Loading placeholder */}
+        {!bgImageLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 animate-pulse" />
+        )}
+
+        {/* Background Image */}
         <Image
           src="/assets/mountain.png"
           alt="Mountain Journey Background"
-          width={1000}
-          height={500}
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
           priority
+          quality={85}
+          sizes="100vw"
+          className={`object-cover transition-opacity duration-500 ${
+            bgImageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={() => setbgImageLoaded(true)}
         />
 
         {/* Overlay gradient for better text readability */}
@@ -65,6 +79,7 @@ const Journey = () => {
                 key={index}
                 href={`/${item.slug}`}
                 className="flex flex-col items-center justify-center gap-3 group transform transition-all duration-300 hover:scale-110"
+                prefetch={false}
               >
                 <div className="flex rounded-full p-3 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                   <Image
@@ -73,6 +88,7 @@ const Journey = () => {
                     width={50}
                     height={50}
                     className="w-12 h-12 object-contain"
+                    loading="lazy"
                   />
                 </div>
                 <p className="text-white font-bold text-lg xl:text-xl text-center drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300">
@@ -89,6 +105,7 @@ const Journey = () => {
                 key={index}
                 href={`/${item.slug}`}
                 className="flex flex-col mb-4 items-center justify-center gap-2 group transform transition-all duration-300 hover:scale-105"
+                prefetch={false}
               >
                 <div className="flex rounded-full p-2 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                   <Image
@@ -97,6 +114,7 @@ const Journey = () => {
                     width={40}
                     height={40}
                     className="w-10 h-10 object-contain"
+                    loading="lazy"
                   />
                 </div>
                 <p className="text-white font-bold text-sm text-center drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300">
@@ -113,6 +131,7 @@ const Journey = () => {
                 key={index}
                 href={`/${item.slug}`}
                 className="flex flex-col items-center mb-4 justify-center gap-1 group transform transition-all duration-300 hover:scale-105 active:scale-95"
+                prefetch={false}
               >
                 <div className="flex rounded-full p-2 bg-white shadow-md group-hover:shadow-lg transition-shadow duration-300">
                   <Image
@@ -121,6 +140,7 @@ const Journey = () => {
                     width={32}
                     height={32}
                     className="w-8 h-8 object-contain"
+                    loading="lazy"
                   />
                 </div>
                 <p className="text-white font-semibold text-xs text-center drop-shadow-md leading-tight group-hover:text-yellow-200 transition-colors duration-300">
