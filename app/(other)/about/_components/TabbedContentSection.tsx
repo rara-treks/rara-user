@@ -115,7 +115,7 @@ const TabbedContentSection = () => {
                       ))}
                     </div>
                     <span className="text-sm text-gray-600">
-                      Rated 4.9/5 by our travelers
+                      Rated 4.6/5 by our travelers
                     </span>
                   </div>
                 </div>

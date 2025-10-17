@@ -1,4 +1,5 @@
 import { Shield, HeadphonesIcon, FileCheck, Gift } from "lucide-react";
+import Link from "next/link";
 
 interface BenefitItem {
   icon: React.ReactNode;
@@ -73,16 +74,20 @@ const WhenYouBookSection = () => {
             and let us help you plan the perfect adventure.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <div className="bg-white px-6 py-3 rounded-full shadow-sm">
-              <span className="text-sm text-gray-700">
-                📞 Free Consultation Call
-              </span>
-            </div>
-            <div className="bg-white px-6 py-3 rounded-full shadow-sm">
-              <span className="text-sm text-gray-700">
-                📧 Email Response in 2hrs
-              </span>
-            </div>
+            <Link href="/contact">
+              <div className="bg-white px-6 py-3 rounded-full shadow-sm">
+                <span className="text-sm text-gray-700">
+                  📞 Free Consultation Call
+                </span>
+              </div>
+            </Link>
+            <Link href="mailto:info@raratreks.com">
+              <div className="bg-white px-6 py-3 rounded-full shadow-sm cursor-pointer hover:shadow-md transition">
+                <span className="text-sm text-gray-700">
+                  📧 Email Response in 2hrs
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

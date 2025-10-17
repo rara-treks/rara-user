@@ -3,10 +3,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import IconFacebook from "../icons/facebook";
 import IconInstagram from "../icons/instagram";
-import IconTiktok from "../icons/tiktok";
-import IconYouTube from "../icons/youtube";
-import IconLinkedIn from "../icons/linkedin";
 import IconPinterest from "../icons/pinterest";
+import { IconX } from "@tabler/icons-react";
 
 interface Props {
   size: number;
@@ -25,32 +23,22 @@ function SocialIcons({ size = 30, className }: Props) {
         className
       )}
     >
-      <Link href="https://www.facebook.com/communityhomestay/" target="_blank">
+      <Link href="#" target="_blank">
         <li>
           <IconFacebook />
         </li>
       </Link>
-      <Link href="https://www.instagram.com/communityhomestaynetwork/" target="_blank">
+      <Link href="#" target="_blank">
         <li>
           <IconInstagram />
         </li>
       </Link>
-      <Link href="https://www.tiktok.com/@communityhomestaynetwork" target="_blank">
+      <Link href="#" target="_blank">
         <li>
-          <IconTiktok />
+          <IconX />
         </li>
       </Link>
-      <Link href="https://www.youtube.com/channel/UCIA_U1g4o0qye40kaCri8Mw" target="_blank">
-        <li>
-          <IconYouTube />
-        </li>
-      </Link>
-      <Link href="https://www.linkedin.com/company/communityhomestay-com/" target="_blank">
-        <li>
-          <IconLinkedIn />
-        </li>
-      </Link>
-      <Link href="https://www.pinterest.com/communityhomestaynetwork/" target="_blank">
+      <Link href="#" target="_blank">
         <li>
           <IconPinterest />
         </li>
