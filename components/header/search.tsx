@@ -1,5 +1,8 @@
+"use client";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface SearchResult {
   id: number;
@@ -17,6 +20,7 @@ interface SearchResponse {
 }
 
 const Search = () => {
+  const router = useRouter();
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -110,7 +114,9 @@ const Search = () => {
 
   const handleResultClick = (result: SearchResult) => {
     setIsOpen(false);
-    // Navigate or handle selection here
+
+    // Use window.location for navigation to ensure it works
+    window.location.href = `/${result.type}/${result.slug}`;
   };
 
   return (
@@ -132,12 +138,14 @@ const Search = () => {
         )}
 
         {query && !isLoading && (
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handleClear}
-            className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+            className="h-8 w-8 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 hover:bg-transparent"
           >
             <IconX size={20} />
-          </button>
+          </Button>
         )}
 
         <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
@@ -153,35 +161,49 @@ const Search = () => {
 
             <div className="grid grid-cols-3 gap-3">
               {results.map((result) => (
-                <button
+                <Button
                   key={result.id}
-                  onClick={() => handleResultClick(result)}
-                  className="group flex flex-col bg-gray-50 rounded-xl overflow-hidden hover:bg-gray-100 transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleResultClick(result);
+                  }}
+                  className="group h-auto p-0 flex flex-col bg-gray-50 rounded-xl overflow-hidden hover:bg-gray-100 transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
                 >
                   <div className="relative w-full h-32 bg-gray-200 overflow-hidden">
-                    <img
-                      src={result.featured_image}
-                      alt={result.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23e5e7eb' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' dy='.3em' fill='%239ca3af'%3ENo Image%3C/text%3E%3C/svg%3E";
-                      }}
-                    />
-                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-gray-700 capitalize">
+                    {result.featured_image &&
+                    result.featured_image.trim() !== "" ? (
+                      <img
+                        src={result.featured_image}
+                        alt={result.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23e5e7eb' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' dy='.3em' fill='%239ca3af'%3ENo Image%3C/text%3E%3C/svg%3E";
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                        <span className="text-gray-400 text-sm">No Image</span>
+                      </div>
+                    )}
+                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-gray-700 capitalize pointer-events-none">
                       {result.type}
                     </div>
                   </div>
 
-                  <div className="p-3 text-left">
+                  <div className="p-3 text-left w-full">
                     <h3 className="font-semibold text-sm text-gray-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
                       {result.name}
                     </h3>
-                    <p className="text-xs text-gray-500 mt-1 line-clamp-1">
-                      {result.tagline}
-                    </p>
+                    {result.tagline && (
+                      <p className="text-xs text-gray-500 mt-1 line-clamp-1">
+                        {result.tagline}
+                      </p>
+                    )}
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </div>
