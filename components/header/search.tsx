@@ -97,7 +97,6 @@ const Search = () => {
       setError("An error occurred while searching");
       setResults([]);
       setIsOpen(false);
-      console.error("Search error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +109,6 @@ const Search = () => {
   };
 
   const handleResultClick = (result: SearchResult) => {
-    console.log("Selected:", result);
     setIsOpen(false);
     // Navigate or handle selection here
   };

@@ -60,10 +60,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           throw new Error(apiData.message || "Failed to fetch news data");
         }
       } catch (err) {
-        console.error("Error fetching news:", err);
         setError(err instanceof Error ? err.message : "Failed to fetch news");
-
-        // Fallback to empty array or you could use static data as fallback
         setNews([]);
       } finally {
         setLoading(false);

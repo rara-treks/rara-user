@@ -53,7 +53,6 @@ const BlogPage = () => {
           throw new Error(apiData.message || "Failed to fetch news data");
         }
       } catch (err) {
-        console.error("Error fetching news:", err);
         setError(err instanceof Error ? err.message : "Failed to fetch news");
         setNews([]);
       } finally {

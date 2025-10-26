@@ -15,7 +15,6 @@ async function purgeCloudflare(paths: string[], purgeEverything = false) {
       data: purgeEverything ? { purge_everything: true } : { files: paths },
     });
   } catch (error) {
-    console.log(error);
     const axiosError = error as AxiosError;
     await uploadError({
       name: axiosError.name,

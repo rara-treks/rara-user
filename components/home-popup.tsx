@@ -32,16 +32,12 @@ const HomePopup = () => {
         const response = await fetch("/api/product/homepage/popup/list");
         const result = await response.json();
 
-        // Add these console logs
-        console.log("Popup API Response:", result);
-        console.log("Response code:", result.code);
-        console.log("Data array:", result.data);
+        
 
         if (result.code === 0 && result.data && result.data.length > 0) {
           const activePopup = result.data.find(
             (popup: PopupData) => popup.status === 1
           );
-          console.log("Active popup found:", activePopup);
           if (activePopup) {
             setPopupData(activePopup);
           }

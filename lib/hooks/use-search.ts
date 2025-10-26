@@ -75,7 +75,6 @@ export const useSearch = () => {
     } catch (err) {
       setError("An error occurred while searching");
       setResults([]);
-      console.error("Search error:", err);
     } finally {
       setIsLoading(false);
     }

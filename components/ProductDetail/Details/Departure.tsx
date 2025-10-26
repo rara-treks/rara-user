@@ -55,8 +55,6 @@ const Departure = ({ data }: DepartureProps) => {
   // Handle enquire action
   const handleEnquire = useCallback(
     (departure: TransformedDepartureItem): void => {
-      // You can replace this with actual enquiry logic
-      console.log("Enquiry for departure:", departure);
       alert(
         `Enquiry for: ${departure.dateRange}\nPrice: ${
           departure.price
@@ -67,9 +65,7 @@ const Departure = ({ data }: DepartureProps) => {
   );
 
   // Handle custom trip creation
-  const handleCreateCustomTrip = useCallback((): void => {
-    // You can replace this with actual custom trip logic
-    console.log("Creating custom trip for:", title);
+  const handleCreateCustomTrip = useCallback((): void => {    
     alert(
       `Redirecting to custom trip creation for: ${title || "Unknown Trek"}`
     );

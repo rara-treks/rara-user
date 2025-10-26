@@ -53,12 +53,10 @@ export default function ActivitiesMultiSelect({
       }
 
       const data = await response.json();
-      console.log(data)
       setActivities(data.data || data || []);
       setError(null);
     } catch (err) {
       setError("Failed to load activities");
-      console.error("Error fetching activities:", err);
     } finally {
       setIsLoading(false);
     }

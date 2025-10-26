@@ -65,7 +65,6 @@ export async function fetchGooglePlaceDetails(
       throw error;
     }
 
-    console.error("Error fetching Google Place details:", error);
     throw new GooglePlacesError(
       "Failed to fetch place details from Google Places API",
       500
@@ -115,7 +114,6 @@ export async function searchPlaceByText(
       throw error;
     }
 
-    console.error("Error searching places:", error);
     throw new GooglePlacesError(
       "Failed to search places from Google Places API",
       500

@@ -131,7 +131,6 @@ const MobileMenu = () => {
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error occurred";
-        console.error("Error loading navigation data:", errorMessage);
       }
     };
 

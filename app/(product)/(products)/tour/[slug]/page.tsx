@@ -42,7 +42,6 @@ const TourDetail = () => {
         }
 
         const data: ProductDetailResponse = await response.json();
-        console.log("Data is as: ", data.data);
 
         if (data.code === 0 && data.data) {
           setProductData(data.data);
@@ -50,7 +49,6 @@ const TourDetail = () => {
           throw new Error(data.message || "Invalid response format");
         }
       } catch (err) {
-        console.error("Error fetching product detail:", err);
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setLoading(false);

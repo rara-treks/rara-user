@@ -95,7 +95,6 @@ const NavigationMenu = () => {
         }
 
         const data: ApiResponse = await response.json();
-        console.log("data is :", data);
 
         // Store raw categories - NO TRANSFORMATION
         setDropdownData({
@@ -106,7 +105,6 @@ const NavigationMenu = () => {
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error occurred";
-        console.error("Error loading navigation data:", errorMessage);
       }
     };
 

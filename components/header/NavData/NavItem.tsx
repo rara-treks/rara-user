@@ -36,7 +36,6 @@ const NavItem = ({
 
   // If icon is not found, return null or a default icon
   if (!IconComponent) {
-    console.warn(`Icon "${icon}" not found in iconComponents`);
     return null;
   }
 

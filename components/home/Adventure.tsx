@@ -78,7 +78,6 @@ const MainTourComponent = () => {
         const response = await fetch("/api/product/homepage/adventure/list");
         const data: ApiResponse = await response.json();
 
-        console.log("Fetched Adventures Data:", data);
 
         setAdventures(data.data);
       } catch (error) {

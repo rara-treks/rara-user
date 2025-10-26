@@ -48,28 +48,11 @@ const Departures = () => {
           ),
         };
 
-        setDepartureData(simplifiedData);
-
-        // Log to console with proper formatting
-        console.log("=== DEPARTURE DATA ===");
-        console.log("Tours:", simplifiedData.tours);
-        console.log("Activities:", simplifiedData.activities);
-
-        // Log individual products
-        simplifiedData.tours.forEach((tour) => {
-          console.log(`Tour: ${tour.name} (ID: ${tour.id})`);
-          console.log("Departures:", tour.departures);
-        });
-
-        simplifiedData.activities.forEach((activity) => {
-          console.log(`Activity: ${activity.name} (ID: ${activity.id})`);
-          console.log("Departures:", activity.departures);
-        });
+        setDepartureData(simplifiedData);       
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to fetch departures";
         setError(errorMessage);
-        console.error("Error fetching departures:", err);
       } finally {
         setLoading(false);
       }

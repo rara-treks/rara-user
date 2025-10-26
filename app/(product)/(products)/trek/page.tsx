@@ -124,7 +124,6 @@ const TrekProductList = () => {
         throw new Error(data.message || "Failed to fetch data");
       }
     } catch (error) {
-      console.error("Error fetching trek data:", error);
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setLoading(false);

@@ -217,7 +217,6 @@ export default function CustomTripInquiryPopup({
         special_requirement: formData.specialRequirements || null,
       };
 
-      console.log("custom trip: ", trekId);
 
       const response = await fetch("/api/product/inquiry/new", {
         method: "POST",
@@ -261,7 +260,6 @@ export default function CustomTripInquiryPopup({
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting inquiry:", error);
       alert("Failed to submit inquiry. Please try again.");
     } finally {
       setIsSubmitting(false);

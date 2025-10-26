@@ -107,7 +107,6 @@ export default function TrekInquiryPopup({
 
       return `${diffDays} days`;
     } catch (error) {
-      console.error("Error calculating duration:", error);
       return "";
     }
   };
@@ -120,7 +119,6 @@ export default function TrekInquiryPopup({
       const dates = dateRange.split(" - ");
       return dates[0]?.trim() || "";
     } catch (error) {
-      console.error("Error extracting start date:", error);
       return "";
     }
   };
@@ -180,7 +178,6 @@ export default function TrekInquiryPopup({
       submittedAt: new Date().toISOString(),
     };
 
-    console.log("Form submitted:", submissionData);
     alert("Thank you for your inquiry! We will contact you soon.");
     setOpen(false);
 

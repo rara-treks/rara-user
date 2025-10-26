@@ -24,10 +24,7 @@ const MainTourComponent = () => {
       );
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error(
-          `HTTP error! status: ${response.status}, response: ${errorText}`
-        );
+        const errorText = await response.text();       
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -35,14 +32,10 @@ const MainTourComponent = () => {
 
       if (result.code === 0 && result.data && Array.isArray(result.data)) {
         return result.data; 
-      } else {
-        console.log(
-          `${type} API returned code: ${result.code}, message: ${result.message}`
-        );
+      } else {        
         return [];
       }
     } catch (error) {
-      console.error(`Error fetching ${type}:`, error);
       return [];
     }
   };
@@ -71,7 +64,6 @@ const MainTourComponent = () => {
           setError("No data available for any category");
         }
       } catch (err) {
-        console.error("Error in fetchAllData:", err);
         setError("Failed to fetch data");
       } finally {
         setLoading(false);
