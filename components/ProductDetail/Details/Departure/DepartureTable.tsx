@@ -6,6 +6,7 @@ import { DepartureTableProps } from "./types";
 import { TransformedDepartureItem } from "../../type";
 import TrekInquiryPopup from "./Inquire";
 import CustomTripInquiryPopup from "./CustomInquiry";
+import CustomTripBookingPopup from "./Booking";
 
 interface ExtendedDepartureTableProps {
   trekId?: number;
@@ -52,12 +53,19 @@ const DepartureTable = ({
                     <p className="text-xs text-[#F2F5F080]">per person</p>
                   </div>
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center flex gap-2">
                   <CustomTripInquiryPopup
                     departure={departure}
                     trekId={trekId}
                     trekTitle={trekTitle}
                     buttonText="Enquire Now"
+                  />
+
+                  <CustomTripBookingPopup
+                    departure={departure}
+                    trekId={trekId}
+                    trekTitle={trekTitle}
+                    buttonText="Book Now"
                   />
                 </TableCell>
               </TableRow>

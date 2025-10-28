@@ -61,7 +61,7 @@ interface TransformedDepartureItem {
   departure_to?: string;
 }
 
-interface CustomTripInquiryPopupProps {
+interface CustomTripBookingPopupProps {
   defaultDestination?: string;
   trekTitle?: string;
   trekId?: number;
@@ -69,13 +69,13 @@ interface CustomTripInquiryPopupProps {
   buttonText: string;
 }
 
-export default function CustomTripInquiryPopup({
+export default function CustomTripBookingPopup({
   defaultDestination = "",
   trekTitle,
   trekId,
   departure,
   buttonText,
-}: CustomTripInquiryPopupProps) {
+}: CustomTripBookingPopupProps) {
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -185,8 +185,8 @@ export default function CustomTripInquiryPopup({
       // Determine type based on whether departure dates are provided
       const inquiryType =
         departure?.departure_from && departure?.departure_to
-          ? "inquiry"
-          : "custom";
+          ? "booking"
+          : "booking";
 
       // Parse duration to get numeric value
       const durationMatch = formData.duration.match(/(\d+)/);
@@ -227,7 +227,7 @@ export default function CustomTripInquiryPopup({
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit inquiry");
+        throw new Error("Failed to submit booking");
       }
 
       // Close the form dialog and open success dialog
@@ -260,7 +260,7 @@ export default function CustomTripInquiryPopup({
         message: "",
       });
     } catch (error) {
-      alert("Failed to submit inquiry. Please try again.");
+      alert("Failed to submit booking. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -274,7 +274,7 @@ export default function CustomTripInquiryPopup({
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
+          <Button className="bg-[#0D9488] hover:bg-[#0F766E] text-white rounded-full px-6 py-2 transition-all duration-200">
             {buttonText}
           </Button>
         </DialogTrigger>
@@ -283,7 +283,7 @@ export default function CustomTripInquiryPopup({
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center text-gray-800 flex items-center justify-center gap-2">
               <MapPin className="w-6 h-6 text-orange-600" />
-              Custom Trip Planning Inquiry
+              Custom Trip Planning Booking
             </DialogTitle>
             <p className="text-center text-gray-600 mt-2">
               Let us create a personalized travel experience just for you
@@ -648,10 +648,10 @@ export default function CustomTripInquiryPopup({
               <CheckCircle2 className="h-6 w-6 text-green-600" />
             </div>
             <DialogTitle className="text-center text-xl font-semibold">
-              Inquiry Submitted Successfully!
+              Booking Submitted Successfully!
             </DialogTitle>
             <DialogDescription className="text-center pt-2">
-              Thank you for your custom trip inquiry! Our team will review your
+              Thank you for your custom trip booking! Our team will review your
               request and contact you soon at the email address you provided.
             </DialogDescription>
           </DialogHeader>

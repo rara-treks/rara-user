@@ -1,4 +1,5 @@
 
+import CustomTripBookingPopup from "../Departure/Booking";
 import CustomTripInquiryPopup from "../Departure/CustomInquiry";
 
 interface GuestCounts {
@@ -26,9 +27,14 @@ function ActionButtons({
   id,
 }: ActionButtonsProps) {
   return (
-    <div className="space-y-3">
+    <div className=" gap-4 flex">
       <CustomTripInquiryPopup
         buttonText="Enquire Now"
+        trekTitle={title}
+        trekId={id}
+      />
+      <CustomTripBookingPopup
+        buttonText="Book Now"
         trekTitle={title}
         trekId={id}
       />

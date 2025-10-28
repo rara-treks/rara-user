@@ -2,6 +2,7 @@
 import { useState, useMemo } from "react";
 import type { SimplifiedProduct, Departure } from "@/types/departure";
 import CustomTripInquiryPopup from "@/components/ProductDetail/Details/Departure/CustomInquiry";
+import CustomTripBookingPopup from "@/components/ProductDetail/Details/Departure/Booking";
 
 interface DepartureTableProps {
   title?: string;
@@ -33,11 +34,11 @@ interface TransformedDepartureItem {
   departure_to?: string;
 }
 
-const DepartureTable: React.FC<DepartureTableProps> = ({
+const DepartureTable = ({
   title = "Trek Departure Date",
   message = "Select Departure Dates",
   products,
-}) => {
+}: DepartureTableProps) => {
   // Transform and group departures by month
   const groupedData = useMemo<GroupedData>(() => {
     const grouped: GroupedData = {};
@@ -195,12 +196,18 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
                       <span className="text-xs text-gray-500">per person</span>
                     </div>
                   </td>
-                  <td className="p-4 text-center">
+                  <td className="p-4 text-center flex gap-2">
                     <CustomTripInquiryPopup
                       departure={transformDepartureData(departure)}
                       trekId={departure.productId}
                       trekTitle={departure.productName}
                       buttonText="Enquire Now"
+                    />
+                    <CustomTripBookingPopup
+                      departure={transformDepartureData(departure)}
+                      trekId={departure.productId}
+                      trekTitle={departure.productName}
+                      buttonText="Book Now"
                     />
                   </td>
                 </tr>
@@ -255,13 +262,22 @@ const DepartureTable: React.FC<DepartureTableProps> = ({
                 </div>
               </div>
 
-              {/* Enquire Button */}
-              <CustomTripInquiryPopup
-                departure={transformDepartureData(departure)}
-                trekId={departure.productId}
-                trekTitle={departure.productName}
-                buttonText="Enquire Now"
-              />
+              <div className="flex gap-2">
+                {/* Enquire Button */}
+                <CustomTripInquiryPopup
+                  departure={transformDepartureData(departure)}
+                  trekId={departure.productId}
+                  trekTitle={departure.productName}
+                  buttonText="Enquire Now"
+                />
+
+                <CustomTripBookingPopup
+                  departure={transformDepartureData(departure)}
+                  trekId={departure.productId}
+                  trekTitle={departure.productName}
+                  buttonText="Book Now"
+                />
+              </div>
             </div>
           </div>
         ))}
