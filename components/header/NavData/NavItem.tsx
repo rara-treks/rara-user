@@ -41,7 +41,7 @@ const NavItem = ({
 
   const content = (
     <div className="flex flex-col items-center gap-1 cursor-pointer transition-all duration-200 group">
-      <IconComponent
+      {/* <IconComponent
         size={32}
         weight={isActive ? "fill" : "regular"}
         className={`transition-all duration-200 ${
@@ -49,7 +49,7 @@ const NavItem = ({
             ? "text-green-600"
             : "text-[#1E2F22]/40 group-hover:text-[#1E2F22]/70 group-hover:scale-110"
         }`}
-      />
+      /> */}
       <span className="flex items-center gap-1">
         <p
           className={`text-sm transition-colors duration-200 ${

@@ -6,9 +6,9 @@ import FooterBottomMenuAndImage from "./footer-bottom-menu-and-image";
 function Footer() {
   return (
     <footer>
-      {/* <div id="newsletter">
+      <div id="newsletter">
         <Newsletter />
-      </div> */}
+      </div>
       <FooterBottomMenuAndImage />
     </footer>
   );

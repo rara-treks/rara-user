@@ -25,7 +25,7 @@ function Header() {
       >
         <div className="w-full container bg-[#F2F5F0]  flex flex-col items-center">
           <div className=" w-full px-8 flex justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-[20px] my-8 items-center py-3">
-            <div>
+            <div >
               <Link href="/">
                 <CHNLogo
                   variant={isTransparent ? "white" : "default"}
@@ -33,8 +33,11 @@ function Header() {
                 />
               </Link>
             </div>
+            <div >
+              <NavigationMenu />
+            </div>
 
-            <div className=" flex w-[600px] justify-center items-center">
+            <div className=" flex  justify-center items-center">
               <Search />
             </div>
 
@@ -54,7 +57,7 @@ function Header() {
             </div>
           </div>
 
-          <NavigationMenu />
+          {/* <NavigationMenu /> */}
         </div>
       </header>
       <MobileHeader />

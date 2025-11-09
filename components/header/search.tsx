@@ -3,6 +3,12 @@ import { IconSearch, IconX } from "@tabler/icons-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface SearchResult {
   id: number;
@@ -24,26 +30,10 @@ const Search = () => {
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Debounced search effect
   useEffect(() => {
@@ -53,7 +43,6 @@ const Search = () => {
 
     if (query.trim().length === 0) {
       setResults([]);
-      setIsOpen(false);
       return;
     }
 
@@ -92,15 +81,12 @@ const Search = () => {
 
       if (data.code === 0) {
         setResults(data.data);
-        setIsOpen(data.data.length > 0);
       } else {
         setError("Failed to fetch results");
-        setIsOpen(false);
       }
     } catch (err) {
       setError("An error occurred while searching");
       setResults([]);
-      setIsOpen(false);
     } finally {
       setIsLoading(false);
     }
@@ -109,130 +95,155 @@ const Search = () => {
   const handleClear = () => {
     setQuery("");
     setResults([]);
-    setIsOpen(false);
   };
 
   const handleResultClick = (result: SearchResult) => {
-    setIsOpen(false);
+    setIsDialogOpen(false);
+    setQuery("");
+    setResults([]);
 
     // Use window.location for navigation to ensure it works
     window.location.href = `/${result.type}/${result.slug}`;
   };
 
+  const handleDialogOpen = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    setQuery("");
+    setResults([]);
+    setError("");
+  };
+
   return (
-    <div
-      className="flex w-[600px] justify-center items-center relative"
-      ref={dropdownRef}
-    >
-      <div className="w-full flex items-center border border-gray-300 rounded-full h-10 px-4 gap-3 bg-white focus-within:border-blue-500 focus-within:shadow-lg transition-all duration-200">
-        <input
-          type="text"
-          placeholder="Choose your destination..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 bg-transparent border-none outline-none text-sm text-gray-700 placeholder-gray-400"
-        />
+    <>
+      {/* Search Icon Button */}
+      <button
+        onClick={handleDialogOpen}
+        className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+        title="Search"
+      >
+        <IconSearch size={20} className="text-gray-600" />
+      </button>
 
-        {isLoading && (
-          <div className="w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin flex-shrink-0" />
-        )}
+      {/* Search Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
+        <DialogContent className="w-full max-w-2xl top-20 left-1/2 -translate-x-1/2 translate-y-0">
+          <DialogHeader>
+            <DialogTitle>Search Destinations</DialogTitle>
+          </DialogHeader>
 
-        {query && !isLoading && (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleClear}
-            className="h-8 w-8 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 hover:bg-transparent"
-          >
-            <IconX size={20} />
-          </Button>
-        )}
+          <div className="w-full space-y-6">
+            {/* Search Input */}
+            <div className="flex items-center border border-gray-300 rounded-full h-11 px-4 gap-3 bg-white focus-within:border-blue-500 focus-within:shadow-lg transition-all duration-200">
+              <input
+                type="text"
+                placeholder="Choose your destination..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                autoFocus
+                className="flex-1 bg-transparent border-none outline-none text-sm text-gray-700 placeholder-gray-400"
+              />
 
-        <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
-      </div>
+              {isLoading && (
+                <div className="w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin flex-shrink-0" />
+              )}
 
-      {/* Dropdown Results */}
-      {isOpen && (
-        <div className="absolute top-12 left-0 w-full bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-[500px] overflow-y-auto z-50 animate-fadeIn">
-          <div className="p-4">
-            <p className="text-xs text-gray-500 mb-3">
-              {results.length} result{results.length !== 1 ? "s" : ""} found
-            </p>
-
-            <div className="grid grid-cols-3 gap-3">
-              {results.map((result) => (
+              {query && !isLoading && (
                 <Button
-                  key={result.id}
                   variant="ghost"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleResultClick(result);
-                  }}
-                  className="group h-auto p-0 flex flex-col bg-gray-50 rounded-xl overflow-hidden hover:bg-gray-100 transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
+                  size="icon"
+                  onClick={handleClear}
+                  className="h-8 w-8 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 hover:bg-transparent"
                 >
-                  <div className="relative w-full h-32 bg-gray-200 overflow-hidden">
-                    {result.featured_image &&
-                    result.featured_image.trim() !== "" ? (
-                      <img
-                        src={result.featured_image}
-                        alt={result.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23e5e7eb' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' dy='.3em' fill='%239ca3af'%3ENo Image%3C/text%3E%3C/svg%3E";
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                        <span className="text-gray-400 text-sm">No Image</span>
-                      </div>
-                    )}
-                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-gray-700 capitalize pointer-events-none">
-                      {result.type}
-                    </div>
-                  </div>
-
-                  <div className="p-3 text-left w-full">
-                    <h3 className="font-semibold text-sm text-gray-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                      {result.name}
-                    </h3>
-                    {result.tagline && (
-                      <p className="text-xs text-gray-500 mt-1 line-clamp-1">
-                        {result.tagline}
-                      </p>
-                    )}
-                  </div>
+                  <IconX size={20} />
                 </Button>
-              ))}
+              )}
+
+              <IconSearch size={20} className="text-gray-400 flex-shrink-0" />
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
+
+            {/* Results Count */}
+            {query && results.length > 0 && (
+              <p className="text-xs text-gray-500">
+                {results.length} result{results.length !== 1 ? "s" : ""} found
+              </p>
+            )}
+
+            {/* Search Results */}
+            {query && results.length > 0 ? (
+              <div className="grid grid-cols-3 gap-4 max-h-[400px] overflow-y-auto">
+                {results.map((result) => (
+                  <Button
+                    key={result.id}
+                    variant="ghost"
+                    onClick={() => handleResultClick(result)}
+                    className="group h-auto p-0 flex flex-col bg-gray-50 rounded-xl overflow-hidden hover:bg-gray-100 transition-all duration-200 hover:shadow-md border border-transparent hover:border-blue-200"
+                  >
+                    <div className="relative w-full h-40 bg-gray-200 overflow-hidden">
+                      {result.featured_image &&
+                      result.featured_image.trim() !== "" ? (
+                        <img
+                          src={result.featured_image}
+                          alt={result.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23e5e7eb' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' dy='.3em' fill='%239ca3af'%3ENo Image%3C/text%3E%3C/svg%3E";
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                          <span className="text-gray-400 text-sm">
+                            No Image
+                          </span>
+                        </div>
+                      )}
+                      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-gray-700 capitalize pointer-events-none">
+                        {result.type}
+                      </div>
+                    </div>
+
+                    <div className="p-3 text-left w-full">
+                      <h3 className="font-semibold text-sm text-gray-800 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        {result.name}
+                      </h3>
+                      {result.tagline && (
+                        <p className="text-xs text-gray-500 mt-1 line-clamp-1">
+                          {result.tagline}
+                        </p>
+                      )}
+                    </div>
+                  </Button>
+                ))}
+              </div>
+            ) : query && !isLoading && results.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <p className="text-gray-500 text-sm">
+                  No destinations found for "{query}"
+                </p>
+              </div>
+            ) : !query ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <IconSearch size={48} className="text-gray-300 mb-3" />
+                <p className="text-gray-500 text-sm">
+                  Start typing to search for destinations
+                </p>
+              </div>
+            ) : null}
           </div>
-        </div>
-      )}
-
-      {/* Error Message */}
-      {error && isOpen && (
-        <div className="absolute top-12 left-0 w-full bg-white rounded-2xl shadow-2xl border border-red-200 p-4 z-50">
-          <p className="text-sm text-red-600">{error}</p>
-        </div>
-      )}
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.2s ease-out;
-        }
-      `}</style>
-    </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

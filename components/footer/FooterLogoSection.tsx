@@ -27,7 +27,7 @@ function FooterLogoSection({
           Reg. No. {companyInfo.regNumber} | License No.{" "}
           {companyInfo.licenseNumber}
         </p>
-        <div className="w-full overflow-hidden">
+        {/* <div className="w-full overflow-hidden">
           <iframe
             src={companyInfo.mapEmbedUrl}
             width="100%"
@@ -37,7 +37,7 @@ function FooterLogoSection({
             className="w-full h-[150px] sm:h-[180px] md:h-[200px] rounded-md max-w-full"
             style={{ border: 0 }}
           ></iframe>
-        </div>
+        </div> */}
       </div>
     </div>
   );

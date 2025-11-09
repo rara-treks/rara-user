@@ -9,8 +9,8 @@ import { FooterData } from "@/types/footer";
 
 export const footerData: FooterData = {
   companyInfo: {
-    regNumber: "154784-73-74",
-    licenseNumber: "3013",
+    regNumber: "12345-67-89",
+    licenseNumber: "0987",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14127.905919144652!2d85.29046207666397!3d27.71801246669333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fbea7fee3b%3A0x30a630e6fa209247!2sRara%20Treks%20Tours%20%26%20Travels%20(P.)%20Ltd!5e0!3m2!1sen!2snp!4v1755407616273!5m2!1sen!2snp",
   },

@@ -47,6 +47,12 @@ interface NavigationItem {
 
 // Static navigation structure
 const STATIC_NAVIGATION: NavigationItem[] = [
+  // {
+  //   id: "destination",
+  //   label: "Destination",
+  //   icon: "PersonSimpleHike",
+  //   slug: "/trek",
+  // },
   {
     id: "trekking",
     label: "Trekking",
@@ -84,6 +90,7 @@ const NavigationMenu = () => {
   const [dropdownData, setDropdownData] = useState<Record<string, Category[]>>(
     {}
   );
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,7 +118,26 @@ const NavigationMenu = () => {
     fetchData();
   }, []);
 
+  const handleMouseEnter = (itemId: string) => {
+    // Clear any pending timeout
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+    }
+    setActiveDropdown(itemId);
+  };
+
+  const handleMouseLeave = () => {
+    // Set a small delay before closing to allow moving between items smoothly
+    const timeout = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 200);
+    setHoverTimeout(timeout);
+  };
+
   const handleDropdownToggle = (itemId: string) => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+    }
     setActiveDropdown(activeDropdown === itemId ? null : itemId);
   };
 
@@ -124,35 +150,40 @@ const NavigationMenu = () => {
   };
 
   return (
-    <div className="w-full flex justify-center gap-24 pb-6 bg-[#F2F5F0] items-center py-6">
+    <div className="w-full flex justify-center gap-4 pb-6 bg-[#F2F5F0] items-center py-6">
       {STATIC_NAVIGATION.map((navItem) => {
         const isActive = activeDropdown === navItem.id;
         const dropdownItems = dropdownData[navItem.id] || [];
         const hasDropdown = dropdownItems.length > 0;
 
         return (
-          <CustomDropdown
+          <div
             key={navItem.id}
-            items={dropdownItems}
-            trigger={
-              <NavItem
-                icon={navItem.icon}
-                label={navItem.label}
-                isActive={hasDropdown ? isActive : false}
-                hasDropdown={hasDropdown}
-                slug={navItem.slug}
-              />
-            }
-            isOpen={isActive}
-            onToggle={() => handleDropdownToggle(navItem.id)}
-            onItemClick={handleItemClick}
-            hasDropdown={!!hasDropdown}
-            slug={navItem.slug}
-            productType={navItem.id === "trekking" ? "trek" : navItem.id} // Pass the product type
-            onDirectClick={() =>
-              navItem.slug && handleDirectNavigation(navItem.slug)
-            }
-          />
+            onMouseEnter={() => hasDropdown && handleMouseEnter(navItem.id)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <CustomDropdown
+              items={dropdownItems}
+              trigger={
+                <NavItem
+                  icon={navItem.icon}
+                  label={navItem.label}
+                  isActive={hasDropdown ? isActive : false}
+                  hasDropdown={hasDropdown}
+                  slug={navItem.slug}
+                />
+              }
+              isOpen={isActive}
+              onToggle={() => handleDropdownToggle(navItem.id)}
+              onItemClick={handleItemClick}
+              hasDropdown={!!hasDropdown}
+              slug={navItem.slug}
+              productType={navItem.id === "trekking" ? "trek" : navItem.id}
+              onDirectClick={() =>
+                navItem.slug && handleDirectNavigation(navItem.slug)
+              }
+            />
+          </div>
         );
       })}
     </div>
