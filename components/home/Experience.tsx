@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const experienceData = {
   backgroundImage: {
@@ -19,25 +20,6 @@ const experienceData = {
       id: 1,
       src: "/assets/1.png",
       alt: "Experience 1",
-      width: 350,
-      height: 200,
-      className: "w-full h-48 md:h-40 lg:h-48",
-    },
-    {
-      id: 2,
-      src: "/assets/2.png",
-      alt: "Experience 2",
-      width: 170,
-      height: 120,
-      className: "w-full h-28 md:h-32 lg:h-52",
-    },
-    {
-      id: 3,
-      src: "/assets/3.png",
-      alt: "Experience 3",
-      width: 170,
-      height: 120,
-      className: "w-full h-20 md:h-24 lg:h-28",
     },
   ],
   content: {
@@ -56,6 +38,23 @@ const experienceData = {
 
 const Experience = ({ data = experienceData }) => {
   const { backgroundImage, title, galleryImages, content } = data;
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.offsetHeight);
+    }
+
+    const handleResize = () => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="w-full lg:min-h-screen flex flex-col items-center justify-center ">
@@ -79,43 +78,32 @@ const Experience = ({ data = experienceData }) => {
           </h2>
 
           {/* Responsive Layout Container */}
-          <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl gap-6 md:gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-start justify-between w-full max-w-7xl gap-6 md:gap-8 lg:gap-12">
             {/* Images Section - Dynamic Gallery */}
             <div className="grid grid-cols-1 gap-4 flex-1 max-w-md w-full">
-              {/* First image - full width */}
-              <div className="w-full lg:pr-6">
+              {/* First image - height based on content */}
+              <div
+                className="w-full"
+                style={{ height: contentHeight || "auto" }}
+              >
                 <Image
                   src={galleryImages[0].src}
                   alt={galleryImages[0].alt}
-                  width={galleryImages[0].width}
-                  height={galleryImages[0].height}
+                  width={500}
+                  height={500}
                   quality={85}
                   loading={"lazy"}
                   sizes="100vw"
-                  className={`${galleryImages[0].className} object-cover rounded-lg`}
+                  className="w-full h-full object-cover rounded-lg"
                 />
-              </div>
-
-              {/* Remaining images in grid */}
-              <div className="grid grid-cols-2 gap-4 md:gap-6 lg:pl-4">
-                {galleryImages.slice(1).map((image) => (
-                  <Image
-                    key={image.id}
-                    src={image.src}
-                    alt={image.alt}
-                    width={image.width}
-                    height={image.height}
-                    quality={85}
-                    loading={"lazy"}
-                    sizes="100vw"
-                    className={`${image.className} object-cover rounded-lg`}
-                  />
-                ))}
               </div>
             </div>
 
             {/* Content Section - Dynamic Content */}
-            <div className="flex-1 text-white space-y-3 md:space-y-4 lg:space-y-6 w-full">
+            <div
+              ref={contentRef}
+              className="flex-1 text-white space-y-3 md:space-y-4 lg:space-y-6 w-full"
+            >
               <h3 className="text-lg md:text-xl lg:text-xl font-semibold text-[#71B344]">
                 {content.subtitle}
               </h3>
@@ -145,6 +133,5 @@ const Experience = ({ data = experienceData }) => {
   );
 };
 
-// Export both the component and the data for easy customization
 export default Experience;
 export { experienceData };

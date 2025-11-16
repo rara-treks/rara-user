@@ -22,10 +22,12 @@ async function Home() {
       <Experience />
       <Why />
       <Adventure />
-      <div id="reviews">
-        <Testimonial />
+      <div className="flex flex-col">
+        <div id="reviews">
+          <Testimonial />
+        </div>
+        <News />
       </div>
-      <News />
 
       <HomePopup />
     </main>

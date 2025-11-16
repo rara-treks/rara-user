@@ -27,7 +27,7 @@ const Journey = () => {
       slug: "trek",
     },
     {
-      icon: "/assets/icons/wildlife.svg",
+      icon: "/assets/icons/life.svg",
       title: "Wildlife & Nature",
       alt: "Wildlife Icon",
       slug: "activities",

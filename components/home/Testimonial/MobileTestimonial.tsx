@@ -1,8 +1,7 @@
 "use client";
 
+import MobileCarousel from "./MobileCarousel";
 import TestimonialHeader from "./TestimonialHeader";
-import Image from "next/image";
-import HorizontalScrollingRow from "./MobileScrollingColumn";
 
 interface MobileTestimonialProps {
   className?: string;
@@ -34,35 +33,23 @@ export default function MobileTestimonial({
   };
 
   return (
-    <div
-      className={`w-full flex items-start min-h-[85vh] overflow-hidden justify-start ${className}`}
-    >
-      <div className="w-full min-h-[85vh] relative flex flex-col items-start justify-end relative gap-12">
-        <div className="">
-          <Image
-            src="/assets/testimonialbg.png"
-            width={1200}
-            height={400}
-            alt="Testimonial Background"
-            className="w-full object-cover"
-            priority
-          />
-        </div>
+    <div className="w-[100vw] flex items-start overflow-hidden justify-start">
+      <div className="w-[100vw] relative flex flex-col items-start justify-end gap-12">
         {/* Content Overlay */}
-        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start absolute top-0">
+        <div className="w-[100vw] z-2 flex flex-col items-start justify-start px-4">
           {/* Header Section */}
           <TestimonialHeader onReadAllClick={handleReadAllClick} />
 
           {isLoading ? (
-            <div className="w-full flex items-center justify-center py-12">
+            <div className="w-[100vw] flex items-center justify-center py-4">
               <p className="text-gray-600">Loading testimonials...</p>
             </div>
           ) : error ? (
-            <div className="w-full flex items-center justify-center py-12">
+            <div className="w-[100vw] flex items-center justify-center py-4">
               <p className="text-red-600">Error: {error}</p>
             </div>
           ) : (
-            <HorizontalScrollingRow testimonials={testimonials} />
+            <MobileCarousel testimonials={testimonials} />
           )}
         </div>
       </div>

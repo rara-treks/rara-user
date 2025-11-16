@@ -90,7 +90,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
   // Loading state
   if (loading) {
     return (
-      <div className="w-full container flex flex-col gap-4 pt-8">
+      <div className="w-full container flex flex-col gap-4">
         <div className="flex w-full items-end justify-between lg:mb-8">
           <div className="flex flex-col gap-1">
             <p className="text-xl lg:text-2xl font-satisfy">

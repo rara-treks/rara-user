@@ -99,7 +99,7 @@ const MainTourComponent = () => {
   }
 
   return (
-    <div className="w-full md:container px-4 py-8">
+    <div className="w-full md:container px-4">
       <AdventureGrid title="Adventures" data={adventures} />
     </div>
   );
