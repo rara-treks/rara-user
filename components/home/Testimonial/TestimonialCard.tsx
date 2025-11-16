@@ -51,7 +51,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       <div className="w-full text-white">
-        <p className="text-sm leading-relaxed">{review}</p>
+        <p className="text-sm leading-relaxed line-clamp-5">{review}</p>
       </div>
     </div>
   );

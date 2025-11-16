@@ -55,13 +55,13 @@ const Why = () => {
   ];
 
   return (
-    <div className="w-full flex items-center justify-center py-4 bg-[#1E2F22]">
-      <div className="w-full flex flex-col items-center justify-center md:container py-6">
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center flex items-center justify-center gap-2">
+    <div className="w-full flex items-center justify-center py-8 bg-gradient-to-b from-[#1E2F22] to-[#162319]">
+      <div className="w-full flex flex-col items-center justify-center md:container px-4 md:px-0 py-6">
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
           Why choose <span className="text-[#71B344]">Rara Trek</span>
         </h2>
 
-        <div className="w-full px-4 md:px-0">
+        <div className="w-full">
           <Carousel
             opts={{
               align: "start",
@@ -73,7 +73,7 @@ const Why = () => {
               {cardData.map((card: CardData, index: number) => (
                 <CarouselItem
                   key={index}
-                  className="basis-1/2 pl-2 md:basis-1/4 md:pl-4"
+                  className="basis-full md:basis-1/3 pl-2 md:pl-4"
                 >
                   <Card
                     icon={card.icon}
@@ -83,8 +83,8 @@ const Why = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
           </Carousel>
         </div>
       </div>

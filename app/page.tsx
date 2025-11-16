@@ -3,7 +3,6 @@ import HeroSection from "@/components/home/hero-section";
 import Journey from "@/components/home/Journey";
 import MainTourComponent from "@/components/home/TravelContent";
 import Experience from "@/components/home/Experience";
-import Services from "@/components/home/Services";
 import Why from "@/components/home/Why";
 import Adventure from "@/components/home/Adventure";
 import Testimonial from "@/components/home/Testimonial/Testimonial";
@@ -13,7 +12,7 @@ import HomePopup from "@/components/home-popup";
 async function Home() {
   return (
     <main className="flex flex-col gap-10 pb-10">
-      <div>
+      <div className="w-full">
         <HeroSection />
       </div>
       <Journey />
@@ -21,7 +20,6 @@ async function Home() {
         <MainTourComponent />
       </div>
       <Experience />
-      <Services />
       <Why />
       <Adventure />
       <div id="reviews">

@@ -9,20 +9,20 @@ interface CardProps {
 
 const Card = ({ icon, title, description }: CardProps) => {
   return (
-    <div className="w-lg md:w-full flex flex-col items-center justify-center text-center p-1 md:p-6 h-full">
-      <div className="mb-3">
+    <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 md:p-8 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl">
+      <div className="mb-4">
         <Image
           src={icon}
           alt={`${title} Icon`}
           width={60}
           height={60}
-          className="w-full h-auto object-contain mb-4"
+          className="w-16 h-16 object-contain"
         />
       </div>
-      <h3 className="text-xl font-bold text-white mb-4 leading-tight max-w-xs">
+      <h3 className="text-lg md:text-xl font-bold text-white mb-4 leading-tight max-w-xs">
         {title}
       </h3>
-      <p className="text-sm leading-relaxed text-gray-300 max-w-xs opacity-80">
+      <p className="text-sm md:text-base leading-relaxed text-white/80 max-w-xs">
         {description}
       </p>
     </div>

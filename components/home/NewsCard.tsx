@@ -38,7 +38,7 @@ const NewsCard = ({ news, onReadMore }: NewsCardProps) => {
           width={500}
           height={300}
           alt={news.title}
-          className="w-full h-[420px] rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-[250px] rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 

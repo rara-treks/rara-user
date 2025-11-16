@@ -108,10 +108,9 @@ export default function Testimonial({
     >
       <div className="w-full hidden lg:flex flex-col items-start justify-start relative gap-12">
         {/* Background Image */}
-        <TestimonialBackground />
 
         {/* Content Overlay */}
-        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start absolute inset-0">
+        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start ">
           {/* Header Section */}
           <TestimonialHeader />
 

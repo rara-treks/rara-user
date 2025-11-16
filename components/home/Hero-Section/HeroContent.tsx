@@ -56,7 +56,7 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
   }, []);
 
   return (
-    <div className="self-stretch rounded-[20px] h-[541px] overflow-hidden shrink-0 relative bg-gray-900">
+    <div className="self-stretch h-[541px] overflow-hidden shrink-0 relative bg-gray-900">
       {/* Video element with optimized settings */}
       <video
         ref={videoRef}
@@ -82,10 +82,22 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
       )}
 
       {/* Content overlay */}
-      <div className="relative h-full flex flex-col items-center justify-start pt-[90px] px-2 md:px-5 pb-[68px] gap-4 z-10">
+      <div className="relative h-full flex flex-col items-center justify-start pt-[190px] px-2 md:px-5 pb-[68px] gap-4 z-10">
         <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center mb-2 lg:mb-6 leading-[150%] font-extrabold text-white drop-shadow-lg">
           {hero.title}
         </h1>
+      </div>
+      <div className="flex items-center gap-12 relative left-10 bottom-20">
+        <Link href="#trips" aria-label="View available trips">
+          <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
+            <span className="leading-[150%]">{hero.buttonText}</span>
+            <ChevronRightIcon
+              className="text-white"
+              size={16}
+              aria-hidden="true"
+            />
+          </Button>
+        </Link>
 
         <Link href="#trips" aria-label="View available trips">
           <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
