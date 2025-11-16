@@ -16,7 +16,7 @@ export default function WhatsAppButton() {
   )}`;
 
   return (
-    <div className="fixed bottom-8 right-4 sm:right-6 md:right-8 z-40">
+    <div className="z-99">
       
       {/* WhatsApp Button */}
       <Link

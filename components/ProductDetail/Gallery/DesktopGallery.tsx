@@ -23,11 +23,9 @@ const DesktopGallery = ({
     );
   }
 
-  // Handle cases with fewer than 4 images
   const mainImage = images[0];
-  const tallImage = images[1];
-  const smallImage = images[2];
-  const overlayImage = images[3];
+  const smallImage = images[1];
+  const overlayImage = images[2];
 
   const remainingImagesCount = Math.max(0, images.length - 4);
   const showRemainingCount = remainingImagesCount > 0;

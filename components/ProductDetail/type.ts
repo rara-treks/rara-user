@@ -145,8 +145,8 @@ export interface trip_location_image {
 export interface trip_location {
   image: trip_location_image;
   how_to_get: string;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 // Departure interfaces

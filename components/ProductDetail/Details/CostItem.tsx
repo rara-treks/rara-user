@@ -19,7 +19,7 @@ const CostItem = ({ item, type }: CostItemProps) => {
   const iconAlt = type === "include" ? "checkmark" : "cancel";
 
   return (
-    <span className={`flex items-center gap-2 ${textColor}`}>
+    <span className={`flex items-center text-sm gap-2 ${textColor}`}>
       <Image
         src={iconSrc}
         width={100}

@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import { Sen, Satisfy, Mulish } from "next/font/google";
 import "./globals.css";

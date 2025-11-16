@@ -67,6 +67,9 @@ interface CustomTripInquiryPopupProps {
   trekId?: number;
   departure?: TransformedDepartureItem;
   buttonText: string;
+  isMobile?: boolean;
+  icon?: React.ReactNode;
+  label?: string;
 }
 
 export default function CustomTripInquiryPopup({
@@ -75,6 +78,9 @@ export default function CustomTripInquiryPopup({
   trekId,
   departure,
   buttonText,
+  isMobile = false,
+  icon,
+  label,
 }: CustomTripInquiryPopupProps) {
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -98,7 +104,6 @@ export default function CustomTripInquiryPopup({
     message: "",
   });
 
-  // Calculate duration
   const calculateDuration = (
     departure_from: string,
     departure_to: string
@@ -114,7 +119,6 @@ export default function CustomTripInquiryPopup({
     return `${diffDays} day${diffDays > 1 ? "s" : ""}`;
   };
 
-  // Initialize form when component mounts or departure changes
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
@@ -128,7 +132,6 @@ export default function CustomTripInquiryPopup({
     }));
   }, [departure, trekTitle, defaultDestination]);
 
-  // Auto-calculate duration when dates change
   useEffect(() => {
     if (formData.departure_from && formData.departure_to) {
       const duration = calculateDuration(
@@ -178,21 +181,17 @@ export default function CustomTripInquiryPopup({
     setIsSubmitting(true);
 
     try {
-      // Calculate group size
       const groupSize =
         parseInt(formData.adults || "0") + parseInt(formData.children || "0");
 
-      // Determine type based on whether departure dates are provided
       const inquiryType =
         departure?.departure_from && departure?.departure_to
           ? "inquiry"
           : "custom";
 
-      // Parse duration to get numeric value
       const durationMatch = formData.duration.match(/(\d+)/);
       const durationValue = durationMatch ? parseInt(durationMatch[1]) : null;
 
-      // Transform form data to API format
       const payload = {
         product_id: trekId || null,
         from_date: formData.departure_from || null,
@@ -229,11 +228,9 @@ export default function CustomTripInquiryPopup({
         throw new Error("Failed to submit inquiry");
       }
 
-      // Close the form dialog and open success dialog
       setOpen(false);
       setSuccessOpen(true);
 
-      // Reset form
       setFormData({
         fullName: "",
         email: "",
@@ -273,16 +270,23 @@ export default function CustomTripInquiryPopup({
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
-            {buttonText}
-          </Button>
+          {isMobile ? (
+            <button className="flex flex-col bg-transparent text-black  items-center justify-center w-full gap-1 hover:opacity-80 transition-all">
+              {icon}
+              <span className="text-[6px] text-center font-medium">{label}</span>
+            </button>
+          ) : (
+            <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
+              {buttonText}
+            </Button>
+          )}
         </DialogTrigger>
 
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center text-gray-800 flex items-center justify-center gap-2">
               <MapPin className="w-6 h-6 text-orange-600" />
-              Plan you Journey With us{" "}
+              Plan Your Journey With us
             </DialogTitle>
             <p className="text-center text-gray-600 mt-2">
               Let us create a personalized travel experience just for you
@@ -572,20 +576,6 @@ export default function CustomTripInquiryPopup({
                   <SelectItem value="no-preference">No Preference</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-
-            {/* Activities Multi-Select */}
-            <div className="space-y-2">
-              <Label htmlFor="activities" className="text-sm font-medium">
-                Preferred Activities (Add-ons)
-              </Label>
-              <ActivitiesMultiSelect
-                selectedActivities={formData.activities}
-                onActivitiesChange={(activities) =>
-                  handleInputChange("activities", activities)
-                }
-                placeholder="Select activities you'd like to add to your trek"
-              />
             </div>
 
             <div className="space-y-2">

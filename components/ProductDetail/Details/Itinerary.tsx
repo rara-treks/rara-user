@@ -131,7 +131,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
       {/* Itinerary Timeline */}
       <div className="relative">
         {/* Timeline Line */}
-        <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+        <div className="hidden md:block md:absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
 
         <div className="space-y-6">
           {data.map((dayData, index) => {
@@ -140,23 +140,23 @@ const Itinerary = ({ data }: ItineraryProps) => {
             return (
               <div key={dayData.day} className="relative">
                 {/* Timeline Node */}
-                <div className="absolute left-4 md:left-6 w-4 h-4 bg-[#71B344] rounded-full border-4 border-white shadow-lg z-10"></div>
+                <div className="hidden md:block md:absolute left-4 md:left-6 w-4 h-4 bg-[#71B344] rounded-full border-4 border-white shadow-lg z-10"></div>
 
                 {/* Content Card */}
-                <div className="ml-12 md:ml-16">
+                <div className=" md:ml-16">
                   <div className="bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                     {/* Day Header - Always Visible */}
                     <div
-                      className="p-4 md:p-6 cursor-pointer"
+                      className="py-3 px-4 md:p-4 cursor-pointer"
                       onClick={() => toggleDay(dayData.day)}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2 flex-wrap">
+                          <div className="flex items-center gap-3 flex-wrap">
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#71B344] text-white">
                               Day {dayData.day}
                             </span>
-                            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-1">
+                            <h3 className="text-md md:text-lg font-semibold text-gray-900 mb-1">
                               {dayData.title}
                             </h3>
                           </div>
@@ -173,22 +173,22 @@ const Itinerary = ({ data }: ItineraryProps) => {
 
                     {/* Expanded Content */}
                     {isExpanded && (
-                      <div className="px-4 md:px-6 pb-4 md:pb-6 border-t border-gray-100">
-                        <div className="pt-4 space-y-4">
+                      <div className="px-4 md:px-4 pb-2 md:pb-4 border-t border-gray-100">
+                        <div className="pt-2 space-y-2">
                           {/* Description */}
                           <div>
-                            <div className="text-gray-700 leading-relaxed">
+                            <div className="text-sm md:text-md text-gray-700 leading-relaxed">
                               {stripHtml(dayData.description)}
                             </div>
                           </div>
 
                           {/* Details Grid */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 pt-2">
                             {dayData.duration !== "N/A" && (
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Clock className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Duration
                                   </div>
                                   <div className="text-sm text-gray-600">
@@ -202,7 +202,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <MapPin className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Location
                                   </div>
                                   <div className="text-sm text-gray-600">
@@ -216,7 +216,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <MountainIcon className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Altitude
                                   </div>
                                   <div className="text-sm text-gray-600">
@@ -230,7 +230,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Home className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Activities
                                   </div>
                                   <div className="text-sm text-gray-600">
@@ -244,7 +244,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Hotel className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Accommodation
                                   </div>
                                   <div className="text-sm text-gray-600">
@@ -259,7 +259,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
                               <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Cake className="w-5 h-5 text-[#71B344] mt-0.5 flex-shrink-0" />
                                 <div>
-                                  <div className="font-medium text-gray-900">
+                                  <div className="font-medium text-gray-900 text-md">
                                     Meals Included
                                   </div>
                                   <div className="text-sm text-gray-600">

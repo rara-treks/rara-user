@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRef, useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,6 +9,34 @@ import {
 import { FaqProps } from "../type";
 
 const Faq = ({ data, images }: FaqProps) => {
+  const accordionRef = useRef<HTMLDivElement>(null);
+  const [imageHeight, setImageHeight] = useState<number | string>("auto");
+
+  useEffect(() => {
+    const updateImageHeight = () => {
+      if (accordionRef.current) {
+        const accordionHeight = accordionRef.current.offsetHeight;
+        setImageHeight(accordionHeight);
+      }
+    };
+
+    // Initial measurement
+    updateImageHeight();
+
+    // Measure after accordion content changes
+    const observer = new ResizeObserver(updateImageHeight);
+    if (accordionRef.current) {
+      observer.observe(accordionRef.current);
+    }
+
+    window.addEventListener("resize", updateImageHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateImageHeight);
+    };
+  }, []);
+
   if (!data || data.length === 0) {
     return (
       <div className="w-full flex flex-col gap-4">
@@ -26,60 +55,34 @@ const Faq = ({ data, images }: FaqProps) => {
   const imageArray = Array.isArray(images) ? images : images ? [images] : [];
 
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="w-full flex flex-col mb-6">
       <h1 className="text-3xl font-bold">FAQs</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="w-full">
           {imageArray.length > 0 && (
-            <div className=" w-full flex flex-col gap-4 h-auto">
-              <div className="flex gap-2 w-full">
+            <div className="w-full fgrid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="hidden md:flex gap-2 w-full h-80 lg:h-auto">
                 {imageArray[0] && (
                   <Image
                     src={imageArray[0].src}
                     alt={imageArray[0].alt || "FAQ Image 1"}
                     width={180}
                     height={140}
-                    className=" w-full h-full object-cover"
-                  />
-                )}
-
-                {imageArray[1] && (
-                  <Image
-                    src={imageArray[1].src}
-                    alt={imageArray[1].alt || "FAQ Image 2"}
-                    width={160}
-                    height={120}
-                    className=" w-full h-full object-cover"
-                  />
-                )}
-              </div>
-
-              <div className="flex gap-4 w-full pl-4">
-                {imageArray[2] && (
-                  <Image
-                    src={imageArray[2].src}
-                    alt={imageArray[2].alt || "FAQ Image 3"}
-                    width={160}
-                    height={120}
-                    className=" w-full h-full object-cover"
-                  />
-                )}
-
-                {imageArray[3] && (
-                  <Image
-                    src={imageArray[3].src}
-                    alt={imageArray[3].alt || "FAQ Image 4"}
-                    width={140}
-                    height={100}
-                    className="w-full h-full object-cover mt-4"
+                    className="w-full object-cover"
+                    style={{
+                      height:
+                        typeof imageHeight === "number"
+                          ? `${imageHeight}px`
+                          : "auto",
+                    }}
                   />
                 )}
               </div>
             </div>
           )}
         </div>
-        <div className="w-full">
+        <div className="w-full" ref={accordionRef}>
           <Accordion type="single" collapsible className="w-full">
             {sortedFaqs.map((faq, index) => (
               <AccordionItem

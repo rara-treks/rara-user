@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Breadcrumbs from "@/components/ProductDetail/Breadcrumbs";
 import AltitudeChart from "@/components/ProductDetail/Details/Altitude_chart";
 import CostDetail from "@/components/ProductDetail/Details/Cost_detail";
-import Departure from "@/components/ProductDetail/Details/Departure";
+// import Departure from "@/components/ProductDetail/Details/Departure";
 import Faq from "@/components/ProductDetail/Details/Faq";
 import Inquiry from "@/components/ProductDetail/Details/Inquiry";
 import Itinerary from "@/components/ProductDetail/Details/Itinerary";
@@ -37,6 +37,7 @@ import {
 } from "@/components/ProductDetail/type";
 import RelatedProductCover from "@/components/home/RelatedProductCover";
 import MobilePrice from "@/components/ProductDetail/Details/MobilePrice";
+import MobileFloatingMenu from "@/components/mobile-floating-menu";
 
 const Product_Detail = ({ productData }: ProductDetailProps) => {
   const [activeTab, setActiveTab] = useState<string>("Trip_Overview");
@@ -60,7 +61,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     { id: "Itinerary", label: "Itinerary" },
     { id: "Cost_Detail", label: "Cost Detail" },
     { id: "Tour_Location", label: "Location" },
-    { id: "Departure_Date", label: "Departure" },
+    // { id: "Departure_Date", label: "Departure" },
     { id: "FAQs", label: "FAQs" },
     { id: "Review", label: "Reviews" },
   ];
@@ -449,9 +450,9 @@ const faqImages: FAQImage[] =
               <Location data={locationData} />
             </div>
 
-            <div id="Departure_Date">
+            {/* <div id="Departure_Date">
               <Departure data={departureData} />
-            </div>
+            </div> */}
 
             {faqData.length > 0 && (
               <div id="FAQs">
@@ -459,6 +460,18 @@ const faqImages: FAQImage[] =
               </div>
             )}
           </div>
+          <div id="Review" className="w-full ">
+            <Review data={reviewsData} />
+          </div>
+
+          {relatedPackagesData.length > 0 && (
+            <div>
+              <RelatedProductCover
+                title="Related Treks"
+                data={relatedPackagesData}
+              />
+            </div>
+          )}
         </div>
 
         <div className="hidden lg:block lg:col-span-3">
@@ -466,20 +479,8 @@ const faqImages: FAQImage[] =
             <Inquiry data={inquiryData} />
           </div>
         </div>
+        <MobileFloatingMenu data={inquiryData} />
       </div>
-
-      <div id="Review" className="w-full container">
-        <Review data={reviewsData} />
-      </div>
-
-      {relatedPackagesData.length > 0 && (
-        <div className="container">
-          <RelatedProductCover
-            title="Related Treks"
-            data={relatedPackagesData}
-          />
-        </div>
-      )}
     </div>
   );
 };

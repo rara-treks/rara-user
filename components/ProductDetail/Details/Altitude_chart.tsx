@@ -26,7 +26,7 @@ const Altitude_chart = ({ altitudeChartData }: UpdatedAltitudeChartProps) => {
     <div className="flex flex-col w-full gap-6">
       <h1 className="text-3xl font-bold">Altitude Chart</h1>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Altitude Chart Section */}
         <div>
           {altitudeChartData?.src ? (
@@ -40,7 +40,7 @@ const Altitude_chart = ({ altitudeChartData }: UpdatedAltitudeChartProps) => {
                 width={400}
                 height={500}
                 priority
-                className="w-full max-h-[420px] object-fit rounded-lg shadow-sm"
+                className="w-full max-h-[340px] object-fit rounded-lg shadow-sm"
               />
             </div>
           ) : (
@@ -55,7 +55,7 @@ const Altitude_chart = ({ altitudeChartData }: UpdatedAltitudeChartProps) => {
         {/* Dummy Text Section */}
         <div className="bg-white rounded-3xl p-6 shadow-sm flex flex-col gap-4">
           <h2 className="text-2xl font-semibold">Elevation Overview</h2>
-          <div className="space-y-3 text-gray-700">
+          <div className="text-sm mdLtext-md space-y-3 text-gray-700">
             <p>
               The altitude chart above displays the elevation profile of your
               trek, showing how the terrain changes throughout your journey.

@@ -84,14 +84,14 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
           alt={label.toLowerCase()}
           width={24}
           height={24}
-          className="w-6 h-6 text-[#71B344]"
+          className="w-5 h-5 text-[#71B344]"
         />
       ) : (
-        <IconComponent className="w-6 h-6 text-[#71B344]" />
+        <IconComponent className="w-5 h-5 text-[#71B344]" />
       )}
       <div className="flex flex-col items-start justify-start">
         <p className="text-sm text-gray-500 font-medium">{label}</p>
-        <h3 className="font-bold text-gray-800">{value}</h3>
+        <h3 className="font-bold text-sm text-gray-800">{value}</h3>
       </div>
     </div>
   );
@@ -99,7 +99,7 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
 
 const WhatToBringItem = ({ item }: { item: WhatToBringItem }) => {
   return (
-    <div className="flex gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#71B344] hover:bg-green-50 transition-all items-start">
+    <div className="flex gap-2 p-2 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#71B344] hover:bg-green-50 transition-all items-start">
       <div className="flex-shrink-0">
         {React.createElement(WHAT_TO_BRING_ICONS[item.icon] || IconBackpack, {
           className: "w-6 h-6 text-[#71B344]",
@@ -131,17 +131,17 @@ const Trip_Overview = ({ data }: UpdatedTripOverviewProps) => {
 
   return (
     <div className="w-full flex flex-col gap-6">
-      <h1 className="text-3xl font-bold">Trip Overview</h1>
+      <h1 className="text-2xl md:text-3xl font-bold">Trip Overview</h1>
       <div className="rounded-3xl bg-white p-6 flex flex-col w-full gap-6 shadow-sm">
         {data.intro && (
           <p
-            className="text-lg text-[#3E641C] leading-relaxed"
+            className="text-sm md:text-md text-[#3E641C] leading-relaxed"
             dangerouslySetInnerHTML={{ __html: data.intro }}
           />
         )}
         <div className="flex flex-col gap-4">
           <h2 className="text-xl font-bold text-gray-800">Trip Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <ActivityDetailItem
               icon="duration"
               label="Duration"
@@ -188,15 +188,17 @@ const Trip_Overview = ({ data }: UpdatedTripOverviewProps) => {
 
       <div className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
         <h2 className="font-bold text-xl text-[#3E641C]">Trip Highlights</h2>
-        <div
-          className="[&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-2"
-          dangerouslySetInnerHTML={{ __html: data.description }}
-        />
+        <div className="text-sm md:text-md ">
+          <div
+            className="[&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-2"
+            dangerouslySetInnerHTML={{ __html: data.description }}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
         <h2 className="font-bold text-xl text-[#3E641C]">What to Bring</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {data.what_to_bring && data.what_to_bring.length > 0 ? (
             data.what_to_bring.map((item) => (
               <WhatToBringItem key={item.id} item={item} />

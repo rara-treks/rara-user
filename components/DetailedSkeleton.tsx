@@ -20,10 +20,9 @@ const DetailedSkeleton = () => {
         <div className="grid grid-cols-1 gap-8">
           <Card className="bg-transparent p-4 shadow-none">
             <CardContent className="p-0">
-              <div className="grid grid-cols-3 gap-2">
-                <Skeleton className="bg-gray-300 h-80 w-full rounded-tl-lg" />
-                <Skeleton className="bg-gray-300 h-80 w-full rounded-tl-lg" />
-                <div className="grid grid-rows-2 gap-2">
+              <div className="flex items-center gap-2">
+                <Skeleton className="bg-gray-300 h-80 w-full md:w-4/5 rounded-tl-lg" />
+                <div className="hidden md:grid grid-rows-1 w-1/5 gap-2">
                   <Skeleton className="bg-gray-300 h-[158px] w-full rounded-tr-lg" />
                   <Skeleton className="bg-gray-300 h-[158px] w-full" />
                 </div>
@@ -31,7 +30,7 @@ const DetailedSkeleton = () => {
             </CardContent>
           </Card>
           <div className="flex flex-col lg:flex-row items-start gap-8">
-            <div className="grid grid-cols-1 gap-6 w-[70%]">
+            <div className="grid grid-cols-1 gap-6 w-full md:w-[70%]">
               {/* Trip Overview */}
               <Card className="bg-transparent p-4 shadow-none">
                 <CardHeader>
