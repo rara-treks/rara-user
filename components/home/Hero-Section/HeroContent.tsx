@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Hero } from "./types";
 import Link from "next/link";
 import GeneralInquiryPopup from "./GeneralInquiryPopup";
+import BrowseTreks from "./BrowseTreks";
 
 interface HeroContentProps {
   hero: Hero;
@@ -92,16 +93,7 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <GeneralInquiryPopup buttonText="Plan Your Trip" />
 
-          <Link href="/departures" aria-label="View available trips">
-            <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
-              <span className="leading-[150%]">Browse Treks</span>
-              <ChevronRightIcon
-                className="text-white"
-                size={16}
-                aria-hidden="true"
-              />
-            </Button>
-          </Link>
+          <BrowseTreks />
         </div>
       </div>
     </div>
