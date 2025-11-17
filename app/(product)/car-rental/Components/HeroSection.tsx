@@ -3,14 +3,31 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import RentalForm from "./RentalForm";
 import Link from "next/link";
+import Image from "next/image";
+import RentalForm from "./RentalForm";
 
-const carTypes = [
-  "Economy Cars",
-  "Luxury Cars",
-  "SUVs",
-  "Electric Cars",
+const carData = [
+  {
+    type: "Economy Cars",
+    image: "/assets/car/tata.png",
+    alt: "Economy Car",
+  },
+  {
+    type: "Luxury Cars",
+    image: "/assets/car/fortuner.png",
+    alt: "Luxury Car",
+  },
+  {
+    type: "SUVs",
+    image: "/assets/car/scorpio.png",
+    alt: "Luxury SUV",
+  },
+  {
+    type: "Electric Cars",
+    image: "/assets/car/jmev.png",
+    alt: "Electric Car",
+  },
 ];
 
 const HeroSection = () => {
@@ -19,17 +36,17 @@ const HeroSection = () => {
   // Auto-rotate car types
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentCarType((prev) => (prev + 1) % carTypes.length);
+      setCurrentCarType((prev) => (prev + 1) % carData.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   const nextCarType = () => {
-    setCurrentCarType((prev) => (prev + 1) % carTypes.length);
+    setCurrentCarType((prev) => (prev + 1) % carData.length);
   };
 
   const prevCarType = () => {
-    setCurrentCarType((prev) => (prev - 1 + carTypes.length) % carTypes.length);
+    setCurrentCarType((prev) => (prev - 1 + carData.length) % carData.length);
   };
 
   return (
@@ -76,7 +93,7 @@ const HeroSection = () => {
                 </button>
                 <div className="text-center flex-1">
                   <span className="text-xl font-semibold bg-gradient-to-r from-teal-700 to-green-700 bg-clip-text text-transparent">
-                    {carTypes[currentCarType]}
+                    {carData[currentCarType].type}
                   </span>
                 </div>
                 <button
@@ -87,7 +104,7 @@ const HeroSection = () => {
                 </button>
               </div>
               <div className="flex justify-center mt-4 space-x-2">
-                {carTypes.map((_, index) => (
+                {carData.map((_, index) => (
                   <div
                     key={index}
                     className={`h-2 rounded-full transition-all duration-300 ${
@@ -120,15 +137,33 @@ const HeroSection = () => {
                 <div className="absolute bottom-20 left-10 w-24 h-24 bg-gradient-to-tr from-green-400/20 to-teal-500/20 rounded-full blur-lg"></div>
               </div>
 
-              {/* Car images with stacked effect */}
+              {/* Car images with dynamic transition */}
               <div className="relative space-y-8">
-                {/* Front car */}
-                <div className="relative transform hover:scale-105 transition-transform duration-500">
-                  <img
-                    src="/assets/car/scorpio.png"
-                    alt="Luxury SUV"
-                    className="relative w-full h-full object-cover rounded-2xl "
+                {/* Front car with fade and slide transition */}
+                <div className="relative transform hover:scale-105 transition-all duration-500">
+                  <Image
+                    key={currentCarType}
+                    src={carData[currentCarType].image}
+                    alt={carData[currentCarType].alt}
+                    width={600}
+                    height={400}
+                    className="relative w-full h-full object-cover rounded-2xl animate-fadeInSlide"
                   />
+                  <style>{`
+                    @keyframes fadeInSlide {
+                      from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                      }
+                      to {
+                        opacity: 1;
+                        transform: translateY(0);
+                      }
+                    }
+                    .animate-fadeInSlide {
+                      animation: fadeInSlide 0.5s ease-out;
+                    }
+                  `}</style>
                 </div>
               </div>
 
