@@ -25,7 +25,7 @@ const Location = ({ data }: LocationProps) => {
 
   return (
     <section id="Tour_Location">
-      <div className="container mx-auto px-4">
+      <div className=" mx-auto">
         <h2 className="text-2xl font-bold mb-6">Location</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">

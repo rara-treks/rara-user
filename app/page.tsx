@@ -13,10 +13,12 @@ import Newsletter from "@/components/footer/Newsletter";
 async function Home() {
   return (
     <main className="flex flex-col gap-10">
-      <div className="w-full">
-        <HeroSection />
+      <div>
+        <div className="w-full">
+          <HeroSection />
+        </div>
+        <Why />
       </div>
-      <Why />
       <div className="container" id="trips">
         <MainTourComponent />
       </div>
@@ -33,9 +35,9 @@ async function Home() {
       </div>
 
       <HomePopup />
-       <div id="newsletter">
-              <Newsletter />
-            </div>
+      <div id="newsletter">
+        <Newsletter />
+      </div>
     </main>
   );
 }

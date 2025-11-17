@@ -74,29 +74,6 @@ interface ActivityDetailProps {
   value: string;
 }
 
-const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
-  const IconComponent = ICONS[icon];
-  return (
-    <div className="flex items-center gap-3 justify-start p-3 bg-white rounded-lg shadow-sm">
-      {typeof IconComponent === "string" ? (
-        <Image
-          src={IconComponent}
-          alt={label.toLowerCase()}
-          width={24}
-          height={24}
-          className="w-5 h-5 text-[#71B344]"
-        />
-      ) : (
-        <IconComponent className="w-5 h-5 text-[#71B344]" />
-      )}
-      <div className="flex flex-col items-start justify-start">
-        <p className="text-sm text-gray-500 font-medium">{label}</p>
-        <h3 className="font-bold text-sm text-gray-800">{value}</h3>
-      </div>
-    </div>
-  );
-};
-
 const WhatToBringItem = ({ item }: { item: WhatToBringItem }) => {
   return (
     <div className="flex gap-2 p-2 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#71B344] hover:bg-green-50 transition-all items-start">
@@ -139,51 +116,6 @@ const Trip_Overview = ({ data }: UpdatedTripOverviewProps) => {
             dangerouslySetInnerHTML={{ __html: data.intro }}
           />
         )}
-        <div className="flex flex-col gap-4">
-          <h2 className="text-xl font-bold text-gray-800">Trip Details</h2>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <ActivityDetailItem
-              icon="duration"
-              label="Duration"
-              value={data.details.duration}
-            />
-            <ActivityDetailItem
-              icon="location"
-              label="Location"
-              value={data.details.location}
-            />
-            <ActivityDetailItem
-              icon="tripGrade"
-              label="Trip Grade"
-              value={data.details.tripGrade}
-            />
-            <ActivityDetailItem
-              icon="maximumAltitude"
-              label="Maximum Altitude"
-              value={data.details.maximumAltitude}
-            />
-            <ActivityDetailItem
-              icon="groupSize"
-              label="Group Size"
-              value={data.details.groupSize}
-            />
-            <ActivityDetailItem
-              icon="activities"
-              label="Activities"
-              value={data.details.activities}
-            />
-            <ActivityDetailItem
-              icon="bestTime"
-              label="Best Time"
-              value={data.details.bestTime}
-            />
-            <ActivityDetailItem
-              icon="starts"
-              label="Starts/Ends"
-              value={data.details.starts}
-            />
-          </div>
-        </div>
       </div>
 
       <div className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">

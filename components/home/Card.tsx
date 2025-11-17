@@ -9,7 +9,7 @@ interface CardProps {
 
 const Card = ({ icon, title, description }: CardProps) => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 md:p-8 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl">
+    <div className="w-full h-full flex flex-col items-center justify-center text-center p-2 md:p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl">
       <div className="mb-4">
         <Image
           src={icon}

@@ -1,10 +1,21 @@
 "use client";
+import { useState } from "react";
 import {
   FileArrowDownIcon,
   MapPinAreaIcon,
   ShareNetworkIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { Star } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface Dossier {
   id: number;
@@ -31,6 +42,12 @@ interface HeaderProps {
 }
 
 const Header = ({ data, shareData }: HeaderProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [pendingDossier, setPendingDossier] = useState<Dossier | null>(null);
+
   if (!data) return null;
 
   const { title, name, location, rating, total_rating, tagline } = data;
@@ -82,76 +99,170 @@ const Header = ({ data, shareData }: HeaderProps) => {
       return;
     }
 
-    const link = document.createElement("a");
-    link.href = dossier.pdf_file;
-    link.download = displayTitle
-      ? `${displayTitle.replace(/\s+/g, "_")}_dossier.pdf`
-      : `tour_${dossier.id}_dossier.pdf`;
-    link.target = "_blank";
+    setPendingDossier(dossier);
+    setEmail("");
+    setError("");
+    setDialogOpen(true);
+  };
+
+  const handleContinue = async () => {
+    if (!email.trim()) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
 
     try {
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      window.open(dossier.pdf_file, "_blank");
+      const response = await fetch("/api/user/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe");
+      }
+
+      setDialogOpen(false);
+
+      setTimeout(() => {
+        performDownload();
+      }, 100);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to subscribe. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const performDownload = () => {
+    if (!pendingDossier?.pdf_file) {
+      alert("No dossier available to download");
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = pendingDossier.pdf_file;
+    link.download = displayTitle
+      ? `${displayTitle.replace(/\s+/g, "_")}_dossier.pdf`
+      : `tour_${pendingDossier.id}_dossier.pdf`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setPendingDossier(null);
+    setEmail("");
+  };
+
   return (
-    <div className="flex flex-col w-full">
-      <div className="w-full flex flex-col items-start justify-start gap-2">
-       
-        <h1 className="text-3xl md:text-5xl font-bold">{displayTitle}</h1>
+    <>
+      <div className="flex flex-col w-full">
+        <div className="w-full flex flex-col items-start justify-start gap-2">
+          <h1 className="text-3xl md:text-5xl font-bold">{displayTitle}</h1>
 
-        <div className="flex items-center justify-between w-full">
-          <span className="w-full md:w-auto flex items-center justify-between md:gap-4">
-            {location && (
-              <span className="flex items-center gap-1">
-                <MapPinAreaIcon className="w-4 h-4 md:w-5 md:h-5" />
-                <p className="text-xs md:text-lg">{location}</p>
-              </span>
-            )}
+          <div className="flex items-center justify-between w-full">
+            <span className="w-full md:w-auto flex items-center justify-between md:gap-4">
+              {location && (
+                <span className="flex items-center gap-1">
+                  <MapPinAreaIcon className="w-4 h-4 md:w-5 md:h-5" />
+                  <p className="text-xs md:text-lg">{location}</p>
+                </span>
+              )}
 
-            {(rating && total_rating) || (!rating && !total_rating) ? (
-              <span className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-green-500 fill-current" />
-                <p className="text-xs md:text-base">
-                  {formatRating(rating, total_rating)}
+              {(rating && total_rating) || (!rating && !total_rating) ? (
+                <span className="flex items-center gap-1">
+                  <Star className="w-4 h-4 text-green-500 fill-current" />
+                  <p className="text-xs md:text-base">
+                    {formatRating(rating, total_rating)}
+                  </p>
+                </span>
+              ) : null}
+            </span>
+
+            <span className="hidden md:flex items-center gap-4">
+              <button
+                className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity p-2 rounded-lg hover:bg-gray-100"
+                onClick={handleShare}
+                type="button"
+              >
+                <ShareNetworkIcon className="w-5 h-5" />
+                <p className="text-sm">Share</p>
+              </button>
+
+              <button
+                className={`flex items-center gap-1 cursor-pointer transition-opacity p-2 rounded-lg hover:bg-gray-100 ${
+                  !hasDossier
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:opacity-80"
+                }`}
+                onClick={handleDownload}
+                type="button"
+                disabled={!hasDossier}
+              >
+                <FileArrowDownIcon className="w-5 h-5" />
+                <p className="text-sm">
+                  {hasDossier ? "Download" : "No Dossier"}
                 </p>
-              </span>
-            ) : null}
-          </span>
-
-          <span className="hidden md:flex items-center gap-4">
-            <button
-              className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity p-2 rounded-lg hover:bg-gray-100"
-              onClick={handleShare}
-              type="button"
-            >
-              <ShareNetworkIcon className="w-5 h-5" />
-              <p className="text-sm">Share</p>
-            </button>
-
-            <button
-              className={`flex items-center gap-1 cursor-pointer transition-opacity p-2 rounded-lg hover:bg-gray-100 ${
-                !hasDossier
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:opacity-80"
-              }`}
-              onClick={hasDossier ? handleDownload : undefined}
-              type="button"
-              disabled={!hasDossier}
-            >
-              <FileArrowDownIcon className="w-5 h-5" />
-              <p className="text-sm">
-                {hasDossier ? "Download" : "No Dossier"}
-              </p>
-            </button>
-          </span>
+              </button>
+            </span>
+          </div>
         </div>
       </div>
-    </div>  
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Download Dossier</DialogTitle>
+            <DialogDescription>
+              Enter your email to download the dossier for {displayTitle}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
+              disabled={isLoading}
+              className="col-span-3"
+            />
+            {error && <p className="text-sm text-red-500">{error}</p>}
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setDialogOpen(false)}
+              disabled={isLoading}
+            >
+              Cancel
+            </Button>
+            <Button type="button" onClick={handleContinue} disabled={isLoading}>
+              {isLoading ? "Subscribing..." : "Continue"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

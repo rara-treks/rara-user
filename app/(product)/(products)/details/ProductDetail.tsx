@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Breadcrumbs from "@/components/ProductDetail/Breadcrumbs";
 import AltitudeChart from "@/components/ProductDetail/Details/Altitude_chart";
 import CostDetail from "@/components/ProductDetail/Details/Cost_detail";
-// import Departure from "@/components/ProductDetail/Details/Departure";
+import Departure from "@/components/ProductDetail/Details/Departure";
 import Faq from "@/components/ProductDetail/Details/Faq";
 import Inquiry from "@/components/ProductDetail/Details/Inquiry";
 import Itinerary from "@/components/ProductDetail/Details/Itinerary";
@@ -38,6 +38,7 @@ import {
 import RelatedProductCover from "@/components/home/RelatedProductCover";
 import MobilePrice from "@/components/ProductDetail/Details/MobilePrice";
 import MobileFloatingMenu from "@/components/mobile-floating-menu";
+import Trip_Data from "@/components/ProductDetail/Details/Trip_Data";
 
 const Product_Detail = ({ productData }: ProductDetailProps) => {
   const [activeTab, setActiveTab] = useState<string>("Trip_Overview");
@@ -380,7 +381,7 @@ const faqImages: FAQImage[] =
     })) || [];
 
   return (
-    <div className="w-full flex flex-col gap-4 bg-[#F2F5F0]">
+    <div className="w-full flex flex-col gap-4 px-2 md:px-8 lg:px-12 bg-[#F2F5F0]">
       <div className="w-full flex flex-col gap-4 container mt-8">
         <Breadcrumbs data={headerData} />
         <Header data={headerData} shareData={shareData} />
@@ -392,6 +393,8 @@ const faqImages: FAQImage[] =
           <Intro data={introData} />
         </div>
       </div>
+
+      <Trip_Data data={overviewData} />
 
       <div className="container w-full flex md:hidden">
         <HeaderBtm data={shareData} />
@@ -450,9 +453,9 @@ const faqImages: FAQImage[] =
               <Location data={locationData} />
             </div>
 
-            {/* <div id="Departure_Date">
+            <div id="Departure_Date">
               <Departure data={departureData} />
-            </div> */}
+            </div>
 
             {faqData.length > 0 && (
               <div id="FAQs">

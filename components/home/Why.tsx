@@ -18,39 +18,33 @@ const Why = () => {
   const cardData: CardData[] = [
     {
       icon: "/assets/why/one.svg",
-      title: "Tailored Treks, Your Way",
-      description:
-        "We create customized itineraries that fit your pace, interests, and budget always.",
+      title: "Tailored Treks",
+      description: "Customized itineraries for your pace and budget.",
     },
     {
       icon: "/assets/why/two.svg",
-      title: "Led by Locals Who Live the Mountains",
-      description:
-        "Our guides are from the very communities you explore, offering unmatched insight and care.",
+      title: "Local Guides",
+      description: "Experts from the communities you explore.",
     },
     {
       icon: "/assets/why/three.svg",
-      title: "Fair Pricing, Honest Experience",
-      description:
-        "Transparent rates with no hidden costs. What you see is what you get.",
+      title: "Fair Pricing",
+      description: "Transparent rates with no hidden costs.",
     },
     {
       icon: "/assets/why/four.svg",
-      title: "Safety Comes First",
-      description:
-        "We're deeply committed to your comfort and safety in every step of the journey.",
+      title: "Safety First",
+      description: "Your comfort and safety, always.",
     },
     {
       icon: "/assets/why/five.svg",
-      title: "Rooted in Sustainability",
-      description:
-        "We tread lightly preserving nature, supporting locals, and respecting culture.",
+      title: "Sustainability",
+      description: "Preserving nature, supporting locals, respecting culture.",
     },
     {
       icon: "/assets/why/six.svg",
-      title: "Loved by Adventurers Worldwide",
-      description:
-        "Many of our guests return and bring friends. That says a lot.",
+      title: "Trusted by Many",
+      description: "Guests return and bring friends.",
     },
   ];
 
@@ -73,7 +67,7 @@ const Why = () => {
               {cardData.map((card: CardData, index: number) => (
                 <CarouselItem
                   key={index}
-                  className="basis-full md:basis-1/3 pl-2 md:pl-4"
+                  className="basis-full md:basis-1/5 pl-2 md:pl-4"
                 >
                   <Card
                     icon={card.icon}
