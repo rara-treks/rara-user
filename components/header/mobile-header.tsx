@@ -23,7 +23,7 @@ function MobileHeader() {
             isTransparent && "[&_svg]:text-white"
           )}
         >
-          <div className="w-full px-4 flex flex-col justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-full mt-8 mb-3 items-center py-3">
+          <div className="w-full px-4 flex flex-col justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-full my-1 items-center py-3">
             <div className="flex w-full justify-between items-center">
               <div>
                 <Link href="/">
