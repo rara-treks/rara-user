@@ -14,7 +14,7 @@ interface PrivacyData {
   featuredImage: string;
 }
 
-const Terms = () => {
+const Privacy = () => {
   const [data, setData] = useState<PrivacyData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +24,7 @@ const Terms = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "/api/product/page/detail/terms-and-conditions"
+          "/api/product/page/detail/partner-with-us"
         );
 
         if (!response.ok) {
@@ -76,7 +76,7 @@ const Terms = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       {data.featuredImage && (
-        <div className="flex flex-col gap-6 w-full overflow-hidden ">
+        <div className="flex flex-col gap-6 w-full mb-4 overflow-hidden ">
           <div className="w-full h-full h-64 md:h-80">
             <Image
               src={data.featuredImage}
@@ -98,8 +98,8 @@ const Terms = () => {
       )}
 
       {/* Content Section */}
-      <div className="max-w-4xl mx-auto px-4 py-10 md:pb-12">
-        <article className="bg-white rounded-lg shadow-sm p-8 md:p-12">
+      <div className="max-w-4xl mx-auto px-4 pb-12 md:pb-10">
+        <article className="bg-white rounded-lg shadow-sm p-8 md:p-4">
           {/* Content 1 */}
           <div
             className="prose prose-sm md:prose-base max-w-none mb-8"
@@ -123,4 +123,4 @@ const Terms = () => {
   );
 };
 
-export default Terms;
+export default Privacy;

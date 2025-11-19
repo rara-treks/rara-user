@@ -57,6 +57,7 @@ export const footerData: FooterData = {
       items: [
         // { label: "Newsletter", href: "/#newsletter" },
         { label: "Reviews", href: "/#reviews" },
+        { label: "Pratner With Us", href: "/partner-with-us" },
       ],
     },
   ],

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface PrivacyData {
@@ -73,24 +74,29 @@ const Privacy = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       {data.featuredImage && (
-        <div className="relative h-64 md:h-80 w-full overflow-hidden">
-          <img
-            src={data.featuredImage}
-            alt={data.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <div className="text-center text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                {data.header}
-              </h1>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Content Section */}
-      <div className="max-w-4xl mx-auto px-4 py-12 md:py-16">
+              <div className="flex flex-col gap-6 w-full mb-4 overflow-hidden ">
+                <div className="w-full h-full h-64 md:h-80">
+                  <Image
+                    src={data.featuredImage}
+                    alt={data.title}
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+      
+                <div className="flex items-center justify-center">
+                  <div className="text-center text-black">
+                    <h1 className="text-3xl md:text-4xl font-bold mb-2">
+                      {data.header}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            )}
+      
+            {/* Content Section */}
+            <div className="max-w-4xl mx-auto px-4 pb-12 md:pb-10">
         <article className="bg-white rounded-lg shadow-sm p-8 md:p-12">
           {/* Content 1 */}
           <div
