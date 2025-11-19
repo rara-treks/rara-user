@@ -168,7 +168,7 @@ const RentalForm = () => {
           ) : (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-gray-900">
+                <DialogTitle className="text-xl md:text-4xl font-bold text-gray-900">
                   Book Your Ride
                 </DialogTitle>
                 <DialogDescription className="text-gray-600">
@@ -199,7 +199,7 @@ const RentalForm = () => {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#71B344] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
-                      placeholder="John Doe"
+                      placeholder="Full Name"
                     />
                   </div>
 
@@ -218,7 +218,7 @@ const RentalForm = () => {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#71B344] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
-                      placeholder="john@example.com"
+                      placeholder="email@example.com"
                     />
                   </div>
                 </div>

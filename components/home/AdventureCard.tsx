@@ -34,7 +34,7 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
 
   return (
     <div className="flex w-full ">
-      <div className="w-full hidden md:flex gap-3 items-center justify-center h-full p-2 rounded-2xl border border-[#dde4d7] bg-white">
+      <div className="w-full hidden md:flex gap-4 items-center justify-center h-full py-2 px-3 rounded-2xl border border-[#dde4d7] bg-white">
         <div className="flex items-center justify-center gap-4">
           <Image
             src={featuredImage.url}
@@ -52,7 +52,7 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
               </div>
               <Link
                 href={`/${type}/${slug}`}
-                className="text-2xl leading-[150%] font-semibold text-[#1e2f22] hover:text-[#71b344] transition-colors cursor-pointer"
+                className="text-2xl leading-[150%] line-clamp-2 font-semibold text-[#1e2f22] hover:text-[#71b344] transition-colors cursor-pointer"
               >
                 {name}
               </Link>

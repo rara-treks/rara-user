@@ -37,7 +37,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCarType((prev) => (prev + 1) % carData.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -137,43 +137,34 @@ const HeroSection = () => {
                 <div className="absolute bottom-20 left-10 w-24 h-24 bg-gradient-to-tr from-green-400/20 to-teal-500/20 rounded-full blur-lg"></div>
               </div>
 
-              {/* Car images with dynamic transition */}
+              {/* Car images with smooth cross-fade transition */}
               <div className="relative space-y-8">
-                {/* Front car with fade and slide transition */}
-                <div className="relative transform hover:scale-105 transition-all duration-500">
-                  <Image
-                    key={currentCarType}
-                    src={carData[currentCarType].image}
-                    alt={carData[currentCarType].alt}
-                    width={600}
-                    height={400}
-                    className="relative w-full h-full object-cover rounded-2xl animate-fadeInSlide"
-                  />
-                  <style>{`
-                    @keyframes fadeInSlide {
-                      from {
-                        opacity: 0;
-                        transform: translateY(10px);
-                      }
-                      to {
-                        opacity: 1;
-                        transform: translateY(0);
-                      }
-                    }
-                    .animate-fadeInSlide {
-                      animation: fadeInSlide 0.5s ease-out;
-                    }
-                  `}</style>
+                <div className="relative transform transition-transform duration-700 hover:scale-105">
+                  <div className="relative overflow-hidden rounded-2xl h-96 bg-gray-100">
+                    {/* Smooth cross-fade container */}
+                    {carData.map((car, index) => (
+                      <Image
+                        key={index}
+                        src={car.image}
+                        alt={car.alt}
+                        width={600}
+                        height={400}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                          index === currentCarType ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Floating stats */}
-              <div className="absolute -bottom-10 -left-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20">
+              <div className="absolute -bottom-10 -left-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 transition-all duration-500">
                 <div className="text-2xl font-bold text-teal-600">10+</div>
                 <div className="text-sm text-gray-600">Premium Cars</div>
               </div>
 
-              <div className="absolute -top-6 -right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20">
+              <div className="absolute -top-6 -right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 transition-all duration-500">
                 <div className="text-2xl font-bold text-green-600">24/7</div>
                 <div className="text-sm text-gray-600">Support</div>
               </div>
