@@ -1,9 +1,9 @@
 import React from "react";
-import { GoogleLogo } from "./GoogleLogo";
 import { Stars } from "./Stars";
 import { GoogleRatingProps } from "@/types/google.types";
 import { getRatingText } from "@/lib/utils/googleApi";
 import Link from "next/link";
+import GoogleLogo from "./GoogleLogo";
 
 export const GoogleRating: React.FC<GoogleRatingProps> = ({
   initialRating = 0,
@@ -56,7 +56,7 @@ export const GoogleRating: React.FC<GoogleRatingProps> = ({
     >
       <Link href="https://share.google/xfq0p8VZPM1neTFUr" target="_blank">
         <div className="flex items-center gap-2">
-          <GoogleLogo size={config.logo} />
+          <GoogleLogo />
           <div className="flex flex-col gap-1">
             <Stars rating={initialRating} size={config.star} />
             <div className="flex items-center gap-2">

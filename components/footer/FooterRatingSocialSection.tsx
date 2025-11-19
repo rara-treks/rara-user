@@ -13,11 +13,11 @@ function FooterRatingSocialSection({
   socialLinks,
 }: FooterRatingSocialSectionProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center md:justify-between">
-      <GoogleRating
+    <div className="flex flex-col md:flex-row gap-4 items-end md:items-end md:justify-end">
+      {/* <GoogleRating
         initialRating={rating.value}
         initialTotalReviews={rating.totalReviews}
-      />
+      /> */}
       <FooterSocialLinks socialLinks={socialLinks} />
     </div>
   );

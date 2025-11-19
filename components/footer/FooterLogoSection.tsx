@@ -3,6 +3,7 @@ import Link from "next/link";
 import CHNLogo from "../chn-logo";
 import { CompanyInfo } from "@/types/footer";
 import TripadvisorRating from "../tripadvisor-rating";
+import GoogleLogo from "./GoogleRating/GoogleLogo";
 
 interface FooterLogoSectionProps {
   companyInfo: CompanyInfo;
@@ -39,7 +40,10 @@ function FooterLogoSection({
             style={{ border: 0 }}
           ></iframe>
         </div> */}
-        <TripadvisorRating className="mt-4" />
+        <div className="flex items-center gap-4">
+          <TripadvisorRating className="mt-4" />
+          <GoogleLogo className="mt-4" />
+        </div>
       </div>
     </div>
   );

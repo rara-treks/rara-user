@@ -15,7 +15,7 @@ function TripadvisorRating({ className }: Props) {
       target="_blank"
       className={className}
     >
-      <div className="grid grid-cols-[auto_auto] bg-white p-4 rounded-3xl gap-2 w-fit items-center">
+      <div className="grid grid-cols-[auto_auto] rounded-3xl gap-2 w-fit items-center">
         <div>
           <Image
             src={TripadvisorLogo}
@@ -23,7 +23,7 @@ function TripadvisorRating({ className }: Props) {
             className="size-12"
           />
         </div>
-        <div>
+        {/* <div>
           <h4 className="font-semibold text-sm">Tripadvisor</h4>
           <div className="flex gap-1 *:block *:w-3 *:h-3 mt-0.5 *:rounded-full *:bg-green-400 *:aspect-square">
             <div></div>
@@ -33,7 +33,7 @@ function TripadvisorRating({ className }: Props) {
             <div></div>
           </div>
           <h6 className="text-sm">0 reviews</h6>
-        </div>
+        </div> */}
         {/* <div>
           <h6 className="font-bebas-neue text-3xl">4.9</h6>
         </div> */}
