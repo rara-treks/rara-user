@@ -291,7 +291,9 @@ export default function CustomTripInquiryPopup({
               Plan Your Journey With us
             </DialogTitle>
             <p className="text-center text-gray-600 mt-2">
-              Let us create a personalized travel experience just for you
+              {buttonText.toLowerCase().includes("inquire")
+                ? "Fill out the form below and our team will get back to you shortly with all the information you need"
+                : "Let us create a personalized travel experience just for you"}
             </p>
           </DialogHeader>
 

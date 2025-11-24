@@ -6,6 +6,7 @@ import { Mountains } from "@phosphor-icons/react";
 import MobileAdventureCard from "./MobileAdventureCard";
 import { Adventure } from "./Adventure";
 import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
+import CustomTripBookingPopup from "../ProductDetail/Details/Departure/Booking";
 
 interface AdventureCardProps {
   data: Adventure;
@@ -42,7 +43,7 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
             className="rounded-lg w-[255px] h-[230px] object-cover"
           />
         </div>
-        <div className="flex-1 w-full relative flex flex-col items-start justify-start gap-[38px] text-left text-sm text-darkslategray-400 font-sen">
+        <div className="flex-1 w-full h-full relative flex flex-col items-start justify-start gap-[20px] text-left text-sm text-darkslategray-400 font-sen">
           <div className="self-stretch flex flex-col items-start justify-start gap-3">
             <div className="self-stretch flex flex-col items-start justify-start gap-1.5">
               <div className="self-stretch text-[#1E2F2280] relative leading-[150%] font-semibold">
@@ -76,7 +77,7 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
               </div>
             </div>
           </div>
-          <div className="self-stretch flex flex-row items-center justify-between gap-0 text-right text-xl text-[#1E2F22] font-mulish">
+          <div className="self-stretch flex flex-row md:flex-col xl:flex-row items-center justify-between gap-0 text-right text-xl text-[#1E2F22] font-mulish">
             <div className="flex flex-col items-start justify-center font-mulish">
               <div className="relative leading-[150%] font-extrabold">
                 USD {finalPrice.toLocaleString()}
@@ -87,12 +88,17 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
                 </div>
               )}
             </div>
-            <TrekInquiryPopup
+            <CustomTripBookingPopup
+              buttonText="Book a seat now"
+              trekTitle={name}
+              trekId={id}
+            />
+            {/* <TrekInquiryPopup
               trekId={id}
               trekTitle={name}
               buttonText="Book a seat now"
               buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
-            />
+            /> */}
           </div>
         </div>
       </div>

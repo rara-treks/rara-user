@@ -115,15 +115,25 @@ const MainTourComponent = () => {
         </TabsList>
 
         <TabsContent value="treks" className="mt-4">
-          <TourCarousel title="Trek" data={trekData} />
+          <TourCarousel
+            title1="Traveler"
+            title="Favorites"
+            id="trek"
+            data={trekData}
+          />
         </TabsContent>
 
         <TabsContent value="tours" className="mt-6">
-          <TourCarousel title="Tour" data={tourData} />
+          <TourCarousel title1="Top" title="Tours" id="tour" data={tourData} />
         </TabsContent>
 
         <TabsContent value="activities" className="mt-6">
-          <TourCarousel title="Activity" data={activityData} />
+          <TourCarousel
+            title1="Adventure"
+            title="Highlights"
+            id="activity"
+            data={activityData}
+          />
         </TabsContent>
       </Tabs>
     </div>

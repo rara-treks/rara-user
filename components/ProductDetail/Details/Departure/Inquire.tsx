@@ -56,7 +56,7 @@ export default function TrekInquiryPopup({
   departure,
   trekId, 
   trekTitle,
-  buttonText = "Enquire Now",
+  buttonText = "inquire Now",
   buttonClassName,
 }: TrekInquiryPopupProps) {
   const [open, setOpen] = useState<boolean>(false);
@@ -216,7 +216,7 @@ export default function TrekInquiryPopup({
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center text-gray-800 flex items-center justify-center gap-2">
             <MapPin className="w-6 h-6 text-orange-600" />
-            Trek & Tour Inquiry
+            Plan your Journey with Us
           </DialogTitle>
         </DialogHeader>
 

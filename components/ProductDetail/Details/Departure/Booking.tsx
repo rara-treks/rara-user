@@ -283,11 +283,11 @@ export default function CustomTripBookingPopup({
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center text-gray-800 flex items-center justify-center gap-2">
               <MapPin className="w-6 h-6 text-orange-600" />
-              Custom Trip Planning Booking
+              Book Your Journey with Us
             </DialogTitle>
-            <p className="text-center text-gray-600 mt-2">
+            {/* <p className="text-center text-gray-600 mt-2">
               Let us create a personalized travel experience just for you
-            </p>
+            </p> */}
           </DialogHeader>
 
           <div className="space-y-4 mt-6">

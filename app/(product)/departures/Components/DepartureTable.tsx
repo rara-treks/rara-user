@@ -201,7 +201,7 @@ const DepartureTable = ({
                       departure={transformDepartureData(departure)}
                       trekId={departure.productId}
                       trekTitle={departure.productName}
-                      buttonText="Enquire Now"
+                      buttonText="inquire Now"
                     />
                     <CustomTripBookingPopup
                       departure={transformDepartureData(departure)}
@@ -268,7 +268,7 @@ const DepartureTable = ({
                   departure={transformDepartureData(departure)}
                   trekId={departure.productId}
                   trekTitle={departure.productName}
-                  buttonText="Enquire Now"
+                  buttonText="inquire Now"
                 />
 
                 <CustomTripBookingPopup

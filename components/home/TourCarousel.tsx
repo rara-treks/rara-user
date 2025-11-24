@@ -13,7 +13,12 @@ import TrekCard from "./TrekCard/TrekCard";
 import { TourCarouselProps } from "@/types/prod";
 import { useRouter } from "next/navigation";
 
-const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
+const TourCarousel = ({
+  title1 = "",
+  title = "",
+  id = "",
+  data,
+}: TourCarouselProps) => {
   const router = useRouter();
 
   const getDisplayTitle = () => {
@@ -30,13 +35,13 @@ const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
   };
 
   const getSubtitle = () => {
-    switch (title.toLowerCase()) {
+    switch (id.toLowerCase()) {
       case "trek":
         return "Adventure awaits";
       case "tour":
         return "Discover Nepal";
       case "activity":
-        return "Thrilling experiences";
+        return "A Thrilling experiences";
       default:
         return "Popular destination";
     }
@@ -71,8 +76,8 @@ const TourCarousel = ({ title = "", data }: TourCarouselProps) => {
       <div className="flex items-end justify-between mb-8">
         <div className="flex flex-col gap-1">
           <p className="text-xl lg:text-2xl font-satisfy">{getSubtitle()}</p>
-          <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-            Trending <p className="text-[#71B344]">{getDisplayTitle()}</p>
+          <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
+            {title1} <p className="text-[#71B344]">{getDisplayTitle()}</p>
           </h1>
         </div>
 

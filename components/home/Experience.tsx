@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const experienceData = {
@@ -59,31 +59,21 @@ const Experience = ({ data = experienceData }) => {
   }, []);
 
   return (
-    <div className="w-full lg:min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-transparent">
-      <div className="relative w-full h-[130vh] md:h-screen lg:h-full mx-auto">
-        <Image
-          src={backgroundImage.src}
-          alt={backgroundImage.alt}
-          width={backgroundImage.width}
-          height={backgroundImage.height}
-          quality={85}
-          loading={"lazy"}
-          sizes="100vw"
-          className="hidden md:flex w-full h-full object-cover rounded-lg min-h-[500px] md:min-h-[600px] lg:min-h-[700px]"
-        />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">
+    <div className="w-full py-12 md:py-16 lg:py-20 flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-transparent">
+      <div className="w-full  mx-auto max-w-7xl px-4">
+      
+        <div className="flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">
           {/* Dynamic Title */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl flex flex-wrap items-center justify-center gap-2 text-center font-bold text-white mb-4 md:mb-6 lg:mb-8">
             {title.main}{" "}
-            <span className="text-[#71B344]">{title.highlight}</span>
+            <span className="text-[#71B344]">{title.highlight}</span>{" "}
             {title.suffix}
           </h2>
 
           {/* Responsive Layout Container */}
-          <div className="flex flex-col lg:flex-row items-start justify-between w-full max-w-7xl gap-6 md:gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-start justify-between w-full gap-6 md:gap-8 lg:gap-12">
             {/* Images Section - Dynamic Gallery */}
-            <div className="grid grid-cols-1 gap-4 flex-1 max-w-md w-full">
+            <div className="grid grid-cols-1 gap-4 flex-1 max-w-md w-full lg:max-w-xs xl:max-w-md">
               {/* First image - height based on content */}
               <div
                 className="w-full"
@@ -96,7 +86,7 @@ const Experience = ({ data = experienceData }) => {
                   height={500}
                   quality={85}
                   loading={"lazy"}
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>

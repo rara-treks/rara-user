@@ -60,7 +60,7 @@ const DepartureTable = ({
                       departure={departure}
                       trekId={trekId}
                       trekTitle={trekTitle}
-                      buttonText="Enquire Now"
+                      buttonText="inquire Now"
                     />
 
                     <CustomTripBookingPopup
@@ -116,7 +116,7 @@ const DepartureTable = ({
                   departure={departure}
                   trekId={trekId}
                   trekTitle={trekTitle}
-                  buttonText="Enquire"
+                  buttonText="inquire Now"
                 />
               </div>
               <div className="flex-1">
@@ -124,7 +124,7 @@ const DepartureTable = ({
                   departure={departure}
                   trekId={trekId}
                   trekTitle={trekTitle}
-                  buttonText="Book"
+                  buttonText="Book Now"
                 />
               </div>
             </div>

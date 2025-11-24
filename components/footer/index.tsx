@@ -4,10 +4,10 @@ import FooterBottomMenuAndImage from "./footer-bottom-menu-and-image";
 
 function Footer() {
   return (
-    <footer>
+    <div>
      
       <FooterBottomMenuAndImage />
-    </footer>
+    </div>
   );
 }
 

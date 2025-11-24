@@ -32,7 +32,7 @@ function ActionButtons({
   return (
     <div className=" gap-4 flex">
       <CustomTripInquiryPopup
-        buttonText="Enquire Now"
+        buttonText="inquire Now"
         trekTitle={title}
         trekId={id}
       />

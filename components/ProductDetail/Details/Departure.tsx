@@ -158,7 +158,7 @@ const Departure = ({ data }: DepartureProps) => {
             {title} - Departure Dates
           </DialogTitle>
           <DialogDescription className="text-gray-400">
-            Select your preferred departure date and enquire about availability
+            Select your preferred departure date and inquire about availability
           </DialogDescription>
         </DialogHeader>
 

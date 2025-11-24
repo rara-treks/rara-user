@@ -48,6 +48,8 @@ export interface ApiResponse {
 
 export 
 interface TourCarouselProps {
+  title1?: string;
   title?: string;
+  id?: string;
   data: Product[];
 }

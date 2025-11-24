@@ -24,7 +24,7 @@ const Newsletter = () => {
             Tour and Travel delivered right to your inbox.
           </p>
 
-          <div className="w-[400px] flex items-center justify-start bg-white rounded-full  px-6">
+          <div className="w-full md:w-[400px] flex items-center justify-start bg-white rounded-full  px-6">
             <Input
               placeholder="Enter your email address"
               className="bg-transparent p-0 border-none focus:outline-none focus:ring-0 focus:border-0 shadow-none"
