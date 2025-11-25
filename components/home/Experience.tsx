@@ -59,7 +59,7 @@ const Experience = ({ data = experienceData }) => {
   }, []);
 
   return (
-    <div className="w-full py-12 md:py-16 lg:py-20 flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-transparent">
+    <div className="w-full py-12 md:py-16 lg:py-20 flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-image lg:bg-image-lg bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${backgroundImage.src})` }}>
       <div className="w-full  mx-auto max-w-7xl px-4">
       
         <div className="flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">

@@ -106,16 +106,14 @@ export default function Testimonial({
     <div
       className={`w-full flex items-start h-full overflow-hidden justify-start ${className}`}
     >
-      <div className="w-full hidden lg:flex flex-col items-start justify-start relative gap-12">
-        {/* Background Image */}
-
+      <div className="w-full h-full hidden lg:flex flex-col items-start justify-start relative gap-12">
         {/* Content Overlay */}
-        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start ">
+        <div className="w-full h-full container z-2 pt-12 flex flex-col items-start justify-start ">
           {/* Header Section */}
           <TestimonialHeader />
 
           {/* Testimonial Grid with Scrolling Columns */}
-          <TestimonialGrid testimonials={testimonials} />
+          <TestimonialGrid testimonials={testimonials} className="w-full h-full"/>
         </div>
       </div>
 

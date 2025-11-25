@@ -12,8 +12,8 @@ export default function TestimonialGrid({
   className = "",
 }: TestimonialGridProps) {
   return (
-    <div className={`w-full ${className}`}>
-      <TestimonialCarousel testimonials={testimonials} />
+    <div className={`w-full h-full ${className}`}>
+      <TestimonialCarousel testimonials={testimonials} className={className}/>
     </div>
   );
 }

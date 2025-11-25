@@ -52,6 +52,7 @@ const MobileCarousel = ({ testimonials }: MobileCarouselProps) => {
                 trek={testimonial.product_name}
                 rating={testimonial.overall_rating}
                 review={testimonial.public_review}
+                className="w-full h-full"
               />
             </CarouselItem>
           ))}

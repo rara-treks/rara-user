@@ -52,7 +52,7 @@ const NavItem = ({
       /> */}
       <span className="flex items-center gap-1">
         <p
-          className={`text-sm transition-colors duration-200 ${
+          className={`text-md transition-colors duration-200 ${
             isActive
               ? "text-green-600 font-semibold"
               : "text-gray-600 font-medium group-hover:text-gray-800"
@@ -77,7 +77,7 @@ const NavItem = ({
   // Only wrap in Link if there's no dropdown and a slug is provided
   if (!hasDropdown && slug) {
     return (
-      <Link href={slug} className="no-underline">
+      <Link href={slug} className="no-underline text-md">
         {content}
       </Link>
     );

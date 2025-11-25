@@ -125,7 +125,7 @@ const CustomDropdown = ({
                         : "hover:bg-gray-100 text-gray-700"
                     }`}
                   >
-                    <span className="font-medium text-sm">{category.name}</span>
+                    <span className="font-medium text-md">{category.name}</span>
                     <ChevronRight
                       size={16}
                       className={`transition-colors ${

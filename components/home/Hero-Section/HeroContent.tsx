@@ -20,16 +20,16 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
       />
 
       <div className="relative h-full flex flex-col items-center justify-center px-2 md:px-5 gap-8 z-10">
-        <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center leading-[150%] font-extrabold text-white drop-shadow-lg">
+        <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center leading-[150%] font-extrabold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           {hero.title}
         </h1>
-        <p className="text-sm md:text-2xl font-bold text-white text-center">
+        <p className="text-sm md:text-2xl font-bold text-center bg-white bg-clip-text text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           From Everest Base Camp to hidden trails - guided treks, local support,
-          <br className="hidden md:block"/>
+          <br className="hidden md:block" />
           and careful acclimatization for confident travelers.
         </p>
 
-        <div className="flex absolute bottom-4 left-1 md:left-16 items-start md:items-center justify-center gap-4 sm:gap-6">
+        <div className="flex absolute bottom-4 md:left-16 items-start md:items-center justify-center gap-4 sm:gap-6">
           <div className="relative group flex items-center justify-center">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#71B344] via-[#8fd05f] to-[#71B344] rounded-full blur-md opacity-60 group-hover:opacity-90 animate-pulse-slow transition-opacity duration-300"></div>
 

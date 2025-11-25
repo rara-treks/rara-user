@@ -118,13 +118,13 @@ const TourCarousel = ({
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-4 sm:-ml-2 md:-ml-4 pb-6">
+        <CarouselContent className="-ml-4 sm:-ml-2 md:-ml-4 pb-6 items-stretch">
           {data.map((product) => (
             <CarouselItem
               key={product.id}
-              className="pl-4 sm:pl-2 md:pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 snap-start"
+              className="pl-4 sm:pl-2 md:pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 snap-start flex"
             >
-              <TrekCard {...product} />
+              <TrekCard {...product} className="h-full w-full" />
             </CarouselItem>
           ))}
         </CarouselContent>

@@ -9,9 +9,10 @@ import Link from "next/link";
 interface AdventureGridProps {
   title?: string;
   data: Adventure[];
+  className?: string;
 }
 
-const AdventureGrid = ({ title = "", data = [] }: AdventureGridProps) => {
+const AdventureGrid = ({ title = "", className="", data = [] }: AdventureGridProps) => {
   if (!data || data.length === 0) {
     return (
       <div className="w-full mx-auto px-4 py-8">
@@ -43,9 +44,9 @@ const AdventureGrid = ({ title = "", data = [] }: AdventureGridProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         {data.map((adventure) => (
-          <AdventureCard key={adventure.id} data={adventure} />
+          <AdventureCard key={adventure.id} data={adventure} className={className} />
         ))}
       </div>
     </div>

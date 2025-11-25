@@ -59,6 +59,7 @@ const DesktopSearch = () => {
             className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
           >
             <IconX size={20} />
+            
           </button>
         )}
 

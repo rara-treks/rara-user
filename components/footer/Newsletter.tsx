@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 const Newsletter = () => {
   return (
     <div className="flex items-center w-full justify-between bg-[#1E2F22] pt-14">
-      <div className="w-full flex flex-col-reverse md:flex-row gap-8 items-start justify-start px-3 md:px-6">
+      <div className="w-full flex flex-col-reverse lg:flex-row gap-8 items-start justify-start px-3 md:px-6">
         <Image
           src="/assets/footermountain.png"
           alt="subscrie image"
@@ -15,7 +15,7 @@ const Newsletter = () => {
           className="w-full md:w-[670px] h-full object-cover"
         />
 
-        <div className="flex flex-col items-start justify-start gap-4 lg:pr-24">
+        <div className="flex flex-col items-start justify-start gap-4 ">
           <h1 className="text-3xl text-white font-bold">
             Subscribe to Our Newsletter
           </h1>

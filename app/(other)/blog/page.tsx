@@ -89,7 +89,7 @@ const BlogPage = () => {
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
-              className={`${index === 1 || index === 3 ? "mt-8" : ""}`}
+              
             >
               <div className="bg-gray-200 animate-pulse rounded-lg h-64 w-full"></div>
             </div>
@@ -163,7 +163,7 @@ const BlogPage = () => {
         {displayedNews.map((newsItem, index) => (
           <div
             key={newsItem.id}
-            className={`${index === 0 || index === 2 ? "mt-8" : ""}`}
+              
           >
             <NewsCard news={newsItem} onReadMore={handleNewsClick} />
           </div>

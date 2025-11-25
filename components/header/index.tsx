@@ -67,6 +67,7 @@ function Header() {
             {/* Search */}
             <div className="flex justify-center items-center">
               <Search />
+              
             </div>
 
             {/* Right Section */}

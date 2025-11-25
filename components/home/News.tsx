@@ -187,7 +187,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
         {displayedNews.map((newsItem, index) => (
           <div
             key={newsItem.id}
-            className={`${index === 0 || index === 2 ? "mt-8" : ""}`}
+            
           >
             <NewsCard news={newsItem} onReadMore={handleNewsClick} />
           </div>

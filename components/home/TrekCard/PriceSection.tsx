@@ -9,7 +9,7 @@ interface PriceSectionProps {
 const PriceSection = ({
   currentPrice,
   originalPrice,
-  currency = "USD",
+  currency = "$",
 }: PriceSectionProps) => {
   const hasDiscount = originalPrice && originalPrice !== currentPrice;
 
@@ -20,15 +20,15 @@ const PriceSection = ({
           {hasDiscount ? (
             <>
               <span className="text-lg font-bold text-green-600">
-                {currency} {currentPrice}
+                {currency}{currentPrice}
               </span>
               <div className="text-gray-400 line-through text-sm">
-                {currency} {originalPrice}
+                {currency}{originalPrice}
               </div>
             </>
           ) : (
-            <span className="text-xl font-bold text-black">
-              {currency} {currentPrice}
+            <span className="text-xl font-bold text-green-600">
+              {currency}{currentPrice}
             </span>
           )}
         </div>

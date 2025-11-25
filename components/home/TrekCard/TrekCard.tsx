@@ -8,8 +8,13 @@ import PriceSection from "./PriceSection";
 import TrekDetails from "./TrekDetails";
 import { useRouter } from "next/navigation";
 import { Product } from "@/types/prod";
+import { cn } from "@/lib/utils";
 
-const   TrekCard = (product: Product) => {
+interface TrekCardProps extends Product {
+  className?: string;
+}
+
+const TrekCard = ({ className, ...product }: TrekCardProps) => {
   const router = useRouter();
 
   const images = [
@@ -62,15 +67,15 @@ const   TrekCard = (product: Product) => {
   };
 
   return (
-    <div className="mx-auto">
-      <Card className="p-2 overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative">
+    <div className={cn("mx-auto h-full", className)}>
+      <Card className="p-2 h-full overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative flex flex-col">
         {/* Gradient border wrapper */}
         <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
           <div className="w-full h-full bg-white rounded-lg"></div>
         </div>
 
         {/* Content wrapper */}
-        <div className="relative z-10">
+        <div className="relative z-10 h-full flex flex-col">
           <ImageCarousel
             images={images}
             alt={product.name}
@@ -79,15 +84,15 @@ const   TrekCard = (product: Product) => {
           />
 
           <CardContent
-            className="p-2 space-y-2 w-full cursor-pointer"
+            className="p-2 space-y-2 w-full cursor-pointer flex-1 flex flex-col"
             onClick={handleCardClick}
           >
-            <div className="flex flex-col items-start justify-start w-full">
+            <div className="flex flex-col items-start justify-start w-full flex-1">
               <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-2">
                 {product.name}
               </h2>
 
-              <div className="flex items-center justify-between w-full">
+              <div className="flex items-center justify-between w-full ">
                 <TrekDetails
                   duration={`${product.overview.duration} days`}
                   minPeople={`${product.overview.group_size}`}
@@ -96,7 +101,7 @@ const   TrekCard = (product: Product) => {
                 <PriceSection
                   currentPrice={discountedPrice || lowestPrice.toString()}
                   originalPrice={hasDiscount ? lowestPrice.toString() : ""}
-                  currency="USD"
+                  currency="$"
                 />
               </div>
             </div>

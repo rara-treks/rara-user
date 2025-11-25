@@ -1,18 +1,18 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Clock, Users } from "lucide-react";
+import {  Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import MobileAdventureCard from "./MobileAdventureCard";
 import { Adventure } from "./Adventure";
-import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
 import CustomTripBookingPopup from "../ProductDetail/Details/Departure/Booking";
 
 interface AdventureCardProps {
   data: Adventure;
+  className?: string;
 }
 
-const AdventureCard = ({ data }: AdventureCardProps) => {
+const AdventureCard = ({ data, className="" }: AdventureCardProps) => {
   const { name, featuredImage, overview, prices, departures, id, type, slug } =
     data;
 
@@ -33,7 +33,7 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
 
   return (
     <div className="flex w-full ">
-      <div className="w-full hidden md:flex gap-4 items-center justify-center h-full py-2 px-3 rounded-2xl border border-[#dde4d7] bg-white">
+      <div className="w-full hidden lg:flex gap-4 items-center justify-center h-full py-2 px-3 rounded-2xl border border-[#dde4d7] bg-white">
         <div className="flex items-center justify-center gap-4">
           <Image
             src={featuredImage.url}
@@ -80,11 +80,11 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
           <div className="self-stretch flex flex-row md:flex-col xl:flex-row items-center justify-between gap-0 text-right text-xl text-[#1E2F22] font-mulish">
             <div className="flex flex-col items-start justify-center font-mulish">
               <div className="relative leading-[150%] font-extrabold">
-                USD {finalPrice.toLocaleString()}
+                $ {finalPrice.toLocaleString()}
               </div>
               {discountedPrice > 0 && originalPrice !== discountedPrice && (
                 <div className="relative text-sm [text-decoration:line-through] leading-[150%] font-extrabold text-[#1E2F2280]">
-                  USD {originalPrice.toLocaleString()}
+                  $ {originalPrice.toLocaleString()}
                 </div>
               )}
             </div>
@@ -92,18 +92,12 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
               buttonText="Book a seat now"
               trekTitle={name}
               trekId={id}
-            />
-            {/* <TrekInquiryPopup
-              trekId={id}
-              trekTitle={name}
-              buttonText="Book a seat now"
-              buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
-            /> */}
+            />            
           </div>
         </div>
       </div>
-      <div className="block lg:hidden">
-        <MobileAdventureCard data={data} />
+      <div className="w-full block lg:hidden">
+        <MobileAdventureCard data={data} className="w-full"/>
       </div>
     </div>
   );

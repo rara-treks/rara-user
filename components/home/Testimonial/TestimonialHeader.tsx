@@ -14,10 +14,10 @@ export default function TestimonialHeader({
     <div className="flex w-full items-end justify-between mb-8">
       <div className="flex flex-col gap-1">
         <p className="text-xl lg:text-2xl font-satisfy">
-          What our client have to say about us
+          Stories of unforgettable adventutres
         </p>
         <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-          Client <span className="text-[#71B344]">Testimonial</span>
+          Happy <span className="text-[#71B344]">Explorers</span>
         </h1>
       </div>
       {/* <div className="hidden lg:flex items-center justify-center">

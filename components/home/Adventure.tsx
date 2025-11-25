@@ -53,6 +53,7 @@ export interface Adventure {
   display_homepage: boolean;
   display_order: string;
   wishlist: number;
+  rating: string;
   earliest_departure: string;
   featuredImage: FeaturedImage;
   featuredImages: FeaturedImage[];
@@ -121,7 +122,7 @@ const MainTourComponent = () => {
 
   return (
     <div className="w-full md:container px-2 md:px-4">
-      <AdventureGrid title="Adventures" data={adventures} />
+      <AdventureGrid title="Adventures" data={adventures} className="w-full" />
     </div>
   );
 };

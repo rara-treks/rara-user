@@ -27,8 +27,8 @@ async function Home() {
       <Experience />
 
       <Adventure />
-      <div className="flex flex-col">
-        <div id="reviews">
+      <div className="flex flex-col h-full">
+        <div id="reviews" className="h-full">
           <Testimonial />
         </div>
         <News />

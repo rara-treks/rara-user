@@ -62,7 +62,7 @@ export default function TestimonialCarousel({
   }, [api]);
 
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full h-full ${className}`}>
       <Carousel
         setApi={setApi}
         opts={{
@@ -70,24 +70,25 @@ export default function TestimonialCarousel({
           loop: true,
           slidesToScroll: 1,
         }}
-        className="w-full"
+        className="w-full h-full"
       >
         <CarouselContent className={isMobile ? "-ml-2" : "-ml-4"}>
           {testimonials.map((testimonial) => (
             <CarouselItem
               key={testimonial.id}
               className={
-                isMobile ? "pl-2 basis-full" : "pl-4 basis-full lg:basis-1/3"
+                isMobile
+                  ? "pl-2 basis-full"
+                  : "pl-4 basis-full lg:basis-1/3 flex"
               }
             >
-              <div className="flex justify-center">
-                <TestimonialCard
-                  name={testimonial.user_name}
-                  trek={testimonial.product_name}
-                  rating={testimonial.overall_rating}
-                  review={testimonial.public_review}
-                />
-              </div>
+              <TestimonialCard
+                name={testimonial.user_name}
+                trek={testimonial.product_name}
+                rating={testimonial.overall_rating}
+                review={testimonial.public_review}
+                className="w-full"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
