@@ -27,7 +27,7 @@ function CostSummary({
     selectedTier.original_price_usd > selectedTier.discounted_price_usd;
 
   return (
-    <div className="mb-6">
+    <div>
       <div className="mb-4">
         <label className="text-gray-700 font-medium block mb-2">
           Select Number of People:

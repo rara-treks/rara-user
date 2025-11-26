@@ -30,7 +30,7 @@ const NewsCard = ({ news, onReadMore }: NewsCardProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-start justify-start cursor-pointer group">
+    <div className="flex flex-col gap-2 items-start justify-start cursor-pointer group rounded-[32px]">
       {/* Make the entire card clickable */}
       <div className="w-full flex" onClick={handleReadMore}>
         <Image
@@ -38,7 +38,7 @@ const NewsCard = ({ news, onReadMore }: NewsCardProps) => {
           width={500}
           height={300}
           alt={news.title}
-          className="w-full h-[250px] rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-[250px] rounded-[32px] object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 

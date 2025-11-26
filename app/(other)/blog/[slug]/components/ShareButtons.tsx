@@ -1,3 +1,4 @@
+import { FacebookLogoIcon, WhatsappLogoIcon } from "@phosphor-icons/react";
 import { Share } from "lucide-react";
 import React from "react";
 
@@ -45,10 +46,16 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title }) => {
     <button
       onClick={handleShare}
       type="button"
-      className="flex items-center gap-2 w-full text-left p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      className="flex items-center justify-between w-full text-left p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
     >
-      <Share className="w-5 h-5 flex-shrink-0" />
-      <span className="text-sm font-medium">Share this post</span>
+      <div className="flex items-center gap-2">
+        <Share className="w-5 h-5 flex-shrink-0" />
+        <span className="text-sm font-medium">Share this post</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <FacebookLogoIcon size="24" className="text-blue-600" />
+        <WhatsappLogoIcon size="24" className="text-green-600" />
+      </div>
     </button>
   );
 };

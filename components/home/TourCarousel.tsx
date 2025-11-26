@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import TrekCard from "./TrekCard/TrekCard";
 import { TourCarouselProps } from "@/types/prod";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const TourCarousel = ({
   title1 = "",
@@ -134,12 +135,11 @@ const TourCarousel = ({
       </Carousel>
 
       <div className="w-full flex items-center justify-center">
-        <Button
-          onClick={() => router.push(getPath())}
-          className="flex items-center gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
-        >
-          View All {getDisplayTitle()} <ArrowRight className="w-4 h-4" />
-        </Button>
+        <Link href={`/${id}`}>
+          <Button className="flex items-center capitalize gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
+            View All {id} <ArrowRight className="w-4 h-4" />
+          </Button>
+        </Link>
       </div>
     </div>
   );

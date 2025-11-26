@@ -10,8 +10,11 @@ interface BlogPostHeaderProps {
     | "author"
     | "publish_date"
     | "read_time"
+    | "featured_image"
   >;
 }
+
+
 
 const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ blog }) => {
   return (
@@ -24,9 +27,9 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ blog }) => {
       </h1>
       <div
         className="mt-4 text-xl text-gray-600"
-          dangerouslySetInnerHTML={{ __html: blog.short_description }}
+        dangerouslySetInnerHTML={{ __html: blog.short_description }}
       />
-      <div className="mt-6 flex items-center gap-4 text-sm text-gray-500">
+      <div className="mt-6 flex items-center gap-4 text-sm text-gray-500 mb-4">
         <div>
           {/* <span className="font-semibold text-gray-800">
             {blog.author.name}
@@ -44,6 +47,13 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ blog }) => {
           </div>
         </div>
       </div>
+      {blog.featured_image && (
+        <img
+          src={blog.featured_image}
+          alt={blog.title}
+          className="w-full aspect-video object-cover rounded-xl mb-8 shadow-lg"
+        />
+      )}
     </header>
   );
 };

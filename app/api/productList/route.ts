@@ -3,32 +3,46 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.BASE_URL;
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
+    const searchParams = request.nextUrl.searchParams;
+    const type = searchParams.get("type");
+    const page = searchParams.get("page") || "1";
+    const per_page = searchParams.get("per_page") || "15";
 
+    if (!type) {
+      return NextResponse.json(
+        { error: "Type parameter is required" },
+        { status: 400 }
+      );
+    }
+
+    // Build URL with page query parameter
+    const apiUrl = `${API_BASE_URL}/product/list?page=${page}&per_page=${per_page}`;
+
+    // Send type in body
     const apiPayload = {
       filters: {
-        type: body.type,
-        page: body.page || 1,
-        per_page: body.per_page || 15,
+        type: type,
       },
     };
 
-    const response = await axios.post(
-      `${API_BASE_URL}/product/list`,
-      apiPayload,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    console.log("API Request URL:", apiUrl);
+    console.log("API Request Body:", apiPayload);
+
+    const response = await axios.post(apiUrl, apiPayload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("API Response:", response.data);
 
     return NextResponse.json(response.data);
   } catch (error: any) {
+    console.error("API Error:", error.response?.data || error.message);
     return NextResponse.json(
-      { error: "Failed to fetch products" },
+      { error: "Failed to fetch products", details: error.response?.data },
       { status: error.response?.status || 500 }
     );
   }

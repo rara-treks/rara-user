@@ -131,7 +131,7 @@ const MainTourComponent = () => {
           <TourCarousel
             title1="Adventure"
             title="Highlights"
-            id="activity"
+            id="activities"
             data={activityData}
           />
         </TabsContent>

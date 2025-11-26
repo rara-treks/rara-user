@@ -6,12 +6,14 @@ import TableOfContents from "./components/TableOfContents";
 import BlogSkeleton from "./components/BlogSkeleton";
 import BlogPostHeader from "./components/BlogPostHeader";
 import BlogPostBody from "./components/BlogPostBody";
+import NewsLetter from "./components/NewsLetter";
+import News from "@/components/home/News";
 
 interface BlogPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const BlogPage: React.FC<BlogPageProps> = ({ params }) => {
+const BlogPage = ({ params }: BlogPageProps) => {
   const [blog, setBlog] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [tableOfContents, setTableOfContents] = useState<TableOfContentItem[]>(
@@ -169,18 +171,42 @@ const BlogPage: React.FC<BlogPageProps> = ({ params }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="lg:flex lg:flex-row-reverse lg:gap-6">
-        <div className="flex-1 min-w-0">
+      <div className="flex flex-col">
+        <div className=" min-w-0">
           <BlogPostHeader blog={blog} />
-          <BlogPostBody blog={blog} contentRef={contentRef} />
+          <div className="flex lg:hidden">
+            <TableOfContents
+              tocItems={tableOfContents}
+              activeSectionId={activeSectionId}
+              onItemClick={handleTocClick}
+              blogUrl={
+                typeof window !== "undefined" ? window.location.href : ""
+              }
+              blogTitle={blog.title}
+            />
+          </div>
         </div>
-        <TableOfContents
-          tocItems={tableOfContents}
-          activeSectionId={activeSectionId}
-          onItemClick={handleTocClick}
-          blogUrl={typeof window !== "undefined" ? window.location.href : ""}
-          blogTitle={blog.title}
-        />
+        <div className="lg:flex lg:flex-row lg:gap-6">
+          <div className="hidden lg:flex">
+            <TableOfContents
+              tocItems={tableOfContents}
+              activeSectionId={activeSectionId}
+              onItemClick={handleTocClick}
+              blogUrl={
+                typeof window !== "undefined" ? window.location.href : ""
+              }
+              blogTitle={blog.title}
+            />
+          </div>
+          <BlogPostBody blog={blog} contentRef={contentRef} />
+          <div className="flex lg:hidden mt-6">
+            <NewsLetter />
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <News />
+        </div>
       </div>
     </div>
   );

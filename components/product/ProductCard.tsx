@@ -151,8 +151,8 @@ const ProductCard: React.FC<Product> = (product) => {
   return (
     <Card className="group overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white border-0 relative">
       {/* Gradient border */}
-      <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
-        <div className="w-full h-full bg-white rounded-lg"></div>
+      <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
+        <div className="w-full h-full bg-white rounded-[32px]"></div>
       </div>
 
       {/* Content */}
@@ -182,7 +182,7 @@ const ProductCard: React.FC<Product> = (product) => {
               <PriceSection
                 currentPrice={discountedPrice || lowestPrice.toString()}
                 originalPrice={hasDiscount ? lowestPrice.toString() : ""}
-                currency="USD"
+                currency="$"
               />
             </div>
           </div>

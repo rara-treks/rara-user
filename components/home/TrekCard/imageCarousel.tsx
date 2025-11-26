@@ -48,7 +48,7 @@ const ImageCarousel = ({
   }, [api]);
 
   return (
-    <div className="relative w-full h-64 overflow-hidden rounded-t-lg">
+    <div className="relative w-full h-64 overflow-hidden rounded-t-[34px]">
       <Carousel setApi={setApi} className="w-full h-full group">
         <CarouselContent>
           {images.map((image, index) => (
@@ -77,7 +77,7 @@ const ImageCarousel = ({
       </Carousel>
 
       {rating && (
-        <Badge className="absolute top-3 left-1 bg-black/70 text-white hover:bg-black/70">
+        <Badge className="absolute top-3 left-3 bg-black/70 text-white hover:bg-black/70">
           <Star className="w-3 h-3 fill-yellow-400 text-yellow-400 mr-1" />
           {rating}
         </Badge>

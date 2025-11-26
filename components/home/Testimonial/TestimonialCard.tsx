@@ -35,7 +35,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 
   return (
     <div className={cn("mx-auto h-full", className)}>
-      <div className="bg-[#1E2F22] flex flex-col gap-4 items-start justify-start p-8 rounded-xl w-full h-full flex-shrink-0">
+      <div className="bg-[#1E2F22] flex flex-col gap-4 items-start justify-start p-8 rounded-[32px] w-full h-full flex-shrink-0">
         <div className="flex items-start gap-3 justify-start w-full">
           <div className="w-12 h-12 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
             <span className="text-[#1E2F22] font-bold text-xl">

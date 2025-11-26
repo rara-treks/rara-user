@@ -18,7 +18,7 @@ interface CardData {
 }
 
 const Card = ({ icon, title, description }: CardData) => (
-  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 h-full flex flex-col items-center text-center">
+  <div className="bg-white/10 backdrop-blur-sm rounded-[32px] p-6 h-full flex flex-col items-center text-center">
     <div className="w-16 h-16 mb-4 flex items-center justify-center">
       <div className="w-12 h-12 rounded-full">
         <Image src={icon} alt={title} width={12} height={12} className="w-full h-full text-white"/>

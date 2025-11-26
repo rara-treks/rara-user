@@ -3,6 +3,7 @@
 import ProductCard from "@/components/product/ProductCard";
 import ProductSkeleton from "@/components/productSkeleton";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Product {
   id: number;
@@ -89,6 +90,8 @@ interface ProductListProps {
 }
 
 const ProductList = ({ type, title }: ProductListProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -114,16 +117,15 @@ const ProductList = ({ type, title }: ProductListProps) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("/api/productList", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          type: type,
-          page: page,
-        }),
-      });
+      const response = await fetch(
+        `/api/productList?type=${type}&page=${page}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -148,17 +150,20 @@ const ProductList = ({ type, title }: ProductListProps) => {
   };
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage, type]);
+    const pageFromUrl = searchParams.get("page");
+    const page = pageFromUrl ? parseInt(pageFromUrl, 10) : 1;
+    setCurrentPage(page);
+    fetchData(page);
+  }, [searchParams, type]);
 
   const handlePageChange = (page: number) => {
     if (page !== currentPage && page >= 1 && page <= totalPages && !loading) {
-      setCurrentPage(page);
+      router.push(`?page=${page}`, { scroll: false });
     }
   };
 
   const handleRetry = () => {
-    setCurrentPage(1);
+    router.push(`?page=1`, { scroll: false });
     setError(null);
   };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { TableOfContentItem } from "./types";
 import ShareButtons from "./ShareButtons";
+import NewsLetter from "./NewsLetter";
 
 interface TableOfContentsProps {
   tocItems: TableOfContentItem[];
@@ -17,53 +18,53 @@ const TableOfContents = ({
   blogUrl,
   blogTitle,
 }: TableOfContentsProps) => {
-  const getIndentClass = (level: number) => {
-    if (level === 1) return "pl-2";
-    if (level === 2) return "pl-6";
-    if (level >= 3) return "pl-10";
-    return "";
-  };
+  const h1Items = tocItems.filter((item) => item.level === 2);
 
   return (
-    <div className="hidden lg:block w-80 flex-shrink-0">
-      <div className="sticky top-24 border bg-white rounded-xl shadow-sm p-6">
+    <div className="block w-full mb-4 lg:mb-0 lg:w-80 flex-shrink-0">
+      <div className="sticky top-8 border bg-transparent lg:bg-white rounded-xl shadow-sm p-6">
         <h3 className="font-bold text-lg mb-4 text-gray-900 border-b pb-3">
           Table of Contents
         </h3>
-        {tocItems.length > 0 ? (
+        {h1Items.length > 0 ? (
           <nav className="space-y-1 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
-            {tocItems.map(({ id, text, level }) => (
+            {h1Items.map(({ id, text }) => (
               <button
                 key={id}
                 onClick={() => onItemClick(id)}
-                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative ${getIndentClass(
-                  level
-                )} ${
+                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative pl-2 ${
                   activeSectionId === id
                     ? "text-indigo-600 font-semibold bg-indigo-50"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                <span
-                  className={`absolute left-2 top-0 bottom-0 w-1 rounded-r-full transition-transform duration-200 ease-in-out ${
-                    activeSectionId === id
-                      ? "bg-indigo-600 scale-y-100"
-                      : "bg-transparent scale-y-0"
-                  }`}
-                ></span>
                 {text}
               </button>
             ))}
           </nav>
         ) : (
           <p className="text-sm text-gray-500 italic mb-4">
-            No headings found in this article
+            No H1 headings found in this article
           </p>
         )}
-        <div className={`${tocItems.length > 0 ? "mt-6 border-t pt-4" : ""}`}>
+        <div
+          className={`${
+            h1Items.length > 0 ? "mt-6 border-t pt-4" : "mt-6 border-t pt-4"
+          }`}
+        >
           <ShareButtons url={blogUrl} title={blogTitle} />
         </div>
-      </div>
+
+        <div
+          className={`${
+            h1Items.length > 0
+              ? "hidden lg:block mt-6 border-t pt-4"
+              : "hidden lg:block mt-6 border-t pt-4"
+          }`}
+        >
+          <NewsLetter />
+        </div>
+      </div>z
     </div>
   );
 };

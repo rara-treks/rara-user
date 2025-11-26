@@ -9,13 +9,13 @@ interface BlogPostBodyProps {
 const BlogPostBody: React.FC<BlogPostBodyProps> = ({ blog, contentRef }) => {
   return (
     <>
-      {blog.featured_image && (
+      {/* {blog.featured_image && (
         <img
           src={blog.featured_image}
           alt={blog.title}
           className="w-full aspect-video object-cover rounded-xl mb-8 shadow-lg"
         />
-      )}
+      )} */}
 
       <article
         ref={contentRef}

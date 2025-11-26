@@ -6,6 +6,13 @@ import { GuestCounts } from "./Inquiry_form/GuestSelector";
 import PriceHeader from "./Inquiry_form/PriceHeader";
 import { InquiryData } from "@/components/ProductDetail/type";
 import CustomTripInquiryPopup from "./Departure/CustomInquiry";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Info } from "lucide-react";
 
 interface PricingTier {
   discounted_price_usd: number;
@@ -36,7 +43,6 @@ function Inquiry({ data }: InquiryProps) {
     if (!data.prices || data.prices.length === 0) {
       return { originalPrice: 0, currentPrice: 0 };
     }
-
 
     const matchingPrice =
       data.prices.find((price) => price.number_of_people === guests.adult) ||
@@ -88,6 +94,31 @@ function Inquiry({ data }: InquiryProps) {
           pricingTiers={data.prices}
           onNumberOfPeopleChange={(num) => setGuests({ ...guests, adult: num })}
         />
+
+        {/* Impact Notice Accordion */}
+        {data.impact && (
+          <div className="mb-4">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="impact" className="border-none">
+                <AccordionTrigger className="flex items-center gap-2 py-3 px-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors hover:no-underline">
+                  <div className="flex items-center gap-2 flex-1">
+                    <Info className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-blue-900">
+                      Notice
+                    </span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pt-3 pb-2 px-4">
+                  <div
+                    className="text-sm text-gray-700 leading-relaxed prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: data.impact }}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        )}
+
         <ActionButtons
           disabled={!isFormComplete}
           id={data.id}
