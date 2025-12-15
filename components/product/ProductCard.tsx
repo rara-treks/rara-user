@@ -7,6 +7,7 @@ import AvailabilityBanner from "../home/TrekCard/AvailabilityBanner ";
 import ImageCarousel from "../home/TrekCard/imageCarousel";
 import PriceSection from "../home/TrekCard/PriceSection";
 import TrekDetails from "../home/TrekCard/TrekDetails";
+import { Calendar, Mountain, Sun, Snowflake, Leaf, Flower2 } from "lucide-react";
 
 interface Product {
   id: number;
@@ -22,15 +23,15 @@ interface Product {
   total_rating: number | null;
   wishlist: number;
   featuredImage:
-    | string
-    | {
-        url: string;
-      };
+  | string
+  | {
+    url: string;
+  };
   featuredImages: Array<
     | string
     | {
-        url: string;
-      }
+      url: string;
+    }
   >;
   tags: Array<{
     id: number;
@@ -62,6 +63,79 @@ interface Product {
     starts: string;
   };
 }
+
+// Best For Badges Component
+const BestForBadges = ({
+  bestTime,
+  tripGrade
+}: {
+  bestTime?: string;
+  tripGrade?: string;
+}) => {
+  // Get season icon and color based on best time
+  const getSeasonInfo = (time: string) => {
+    const lowerTime = time.toLowerCase();
+
+    if (lowerTime.includes('mar') || lowerTime.includes('apr') || lowerTime.includes('may') || lowerTime.includes('spring')) {
+      return { icon: Flower2, color: 'bg-pink-50 text-pink-600 border-pink-200', label: 'Spring' };
+    }
+    if (lowerTime.includes('jun') || lowerTime.includes('jul') || lowerTime.includes('aug') || lowerTime.includes('summer')) {
+      return { icon: Sun, color: 'bg-amber-50 text-amber-600 border-amber-200', label: 'Summer' };
+    }
+    if (lowerTime.includes('sep') || lowerTime.includes('oct') || lowerTime.includes('nov') || lowerTime.includes('autumn') || lowerTime.includes('fall')) {
+      return { icon: Leaf, color: 'bg-orange-50 text-orange-600 border-orange-200', label: 'Autumn' };
+    }
+    if (lowerTime.includes('dec') || lowerTime.includes('jan') || lowerTime.includes('feb') || lowerTime.includes('winter')) {
+      return { icon: Snowflake, color: 'bg-blue-50 text-blue-600 border-blue-200', label: 'Winter' };
+    }
+    if (lowerTime.includes('year') || lowerTime.includes('all')) {
+      return { icon: Calendar, color: 'bg-green-50 text-green-600 border-green-200', label: 'Year Round' };
+    }
+    return { icon: Calendar, color: 'bg-gray-50 text-gray-600 border-gray-200', label: time };
+  };
+
+  // Get difficulty info
+  const getDifficultyInfo = (grade: string) => {
+    const lowerGrade = grade.toLowerCase();
+
+    if (lowerGrade.includes('easy') || lowerGrade.includes('beginner')) {
+      return { color: 'bg-emerald-50 text-emerald-600 border-emerald-200', label: 'Easy' };
+    }
+    if (lowerGrade.includes('moderate') || lowerGrade.includes('medium')) {
+      return { color: 'bg-yellow-50 text-yellow-600 border-yellow-200', label: 'Moderate' };
+    }
+    if (lowerGrade.includes('challenging') || lowerGrade.includes('difficult') || lowerGrade.includes('hard')) {
+      return { color: 'bg-orange-50 text-orange-600 border-orange-200', label: 'Challenging' };
+    }
+    if (lowerGrade.includes('strenuous') || lowerGrade.includes('extreme') || lowerGrade.includes('expert')) {
+      return { color: 'bg-red-50 text-red-600 border-red-200', label: 'Strenuous' };
+    }
+    return { color: 'bg-gray-50 text-gray-600 border-gray-200', label: grade };
+  };
+
+  const seasonInfo = bestTime ? getSeasonInfo(bestTime) : null;
+  const difficultyInfo = tripGrade ? getDifficultyInfo(tripGrade) : null;
+  const SeasonIcon = seasonInfo?.icon;
+
+  if (!seasonInfo && !difficultyInfo) return null;
+
+  return (
+    <div className="flex flex-wrap gap-1.5 mb-2">
+      {seasonInfo && SeasonIcon && (
+        <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full border ${seasonInfo.color}`}>
+          <SeasonIcon size={12} />
+          {seasonInfo.label}
+        </span>
+      )}
+      {difficultyInfo && (
+        <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full border ${difficultyInfo.color}`}>
+          <Mountain size={12} />
+          {difficultyInfo.label}
+        </span>
+      )}
+    </div>
+  );
+};
 
 const ProductCard: React.FC<Product> = (product) => {
   const router = useRouter();
@@ -98,15 +172,15 @@ const ProductCard: React.FC<Product> = (product) => {
 
     const discountedPrice = hasDiscount
       ? product.prices.find(
-          (price) => parseFloat(price.discounted_price_usd || "0") > 0
-        )?.discounted_price_usd
+        (price) => parseFloat(price.discounted_price_usd || "0") > 0
+      )?.discounted_price_usd
       : null;
 
     const discountPercentage =
       hasDiscount && discountedPrice && lowestPrice > 0
         ? Math.round(
-            ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
-          )
+          ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
+        )
         : 0;
 
     return { lowestPrice, hasDiscount, discountedPrice, discountPercentage };
@@ -168,10 +242,16 @@ const ProductCard: React.FC<Product> = (product) => {
           className="p-4 space-y-3 cursor-pointer"
           onClick={handleCardClick}
         >
-          <div className="space-y-3">
+          <div className="space-y-2">
             <h2 className="text-lg font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-[#71B344] transition-colors">
               {safeData.name}
             </h2>
+
+            {/* Best For Badges */}
+            <BestForBadges
+              bestTime={product.overview?.best_time}
+              tripGrade={product.overview?.trip_grade}
+            />
 
             <div className="flex items-center justify-between">
               <TrekDetails
@@ -198,3 +278,4 @@ const ProductCard: React.FC<Product> = (product) => {
 };
 
 export default ProductCard;
+
