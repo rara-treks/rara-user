@@ -171,42 +171,49 @@ const BlogPage = ({ params }: BlogPageProps) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col">
-        <div className=" min-w-0">
-          <BlogPostHeader blog={blog} />
-          <div className="flex lg:hidden">
+      {/* Header Section */}
+      <BlogPostHeader blog={blog} />
+
+      {/* Mobile TOC */}
+      <div className="lg:hidden mb-6">
+        <TableOfContents
+          tocItems={tableOfContents}
+          activeSectionId={activeSectionId}
+          onItemClick={handleTocClick}
+          blogUrl={typeof window !== "undefined" ? window.location.href : ""}
+          blogTitle={blog.title}
+        />
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-16">
+        {/* Sticky Sidebar - Desktop Only */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-24">
             <TableOfContents
               tocItems={tableOfContents}
               activeSectionId={activeSectionId}
               onItemClick={handleTocClick}
-              blogUrl={
-                typeof window !== "undefined" ? window.location.href : ""
-              }
+              blogUrl={typeof window !== "undefined" ? window.location.href : ""}
               blogTitle={blog.title}
             />
           </div>
-        </div>
-        <div className="lg:flex lg:flex-row lg:gap-6">
-          <div className="hidden lg:flex">
-            <TableOfContents
-              tocItems={tableOfContents}
-              activeSectionId={activeSectionId}
-              onItemClick={handleTocClick}
-              blogUrl={
-                typeof window !== "undefined" ? window.location.href : ""
-              }
-              blogTitle={blog.title}
-            />
+        </aside>
+
+        {/* Blog Content */}
+        <main className="min-w-0">
+          <div className="overflow-x-hidden">
+            <BlogPostBody blog={blog} contentRef={contentRef} />
           </div>
-          <BlogPostBody blog={blog} contentRef={contentRef} />
-          <div className="flex lg:hidden mt-6">
+          <div className="lg:hidden mt-6">
             <NewsLetter />
           </div>
-        </div>
+        </main>
+      </div>
 
-        <div className="mt-6">
-          <News />
-        </div>
+      {/* News Section */}
+      <div className="mt-12">
+        <News />
       </div>
     </div>
   );
