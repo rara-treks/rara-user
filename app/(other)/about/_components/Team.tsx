@@ -85,9 +85,11 @@ const Team = () => {
             Meet Our Team
           </h1>
           <div className="w-24 h-1 bg-black mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-            Talented individuals working together to create exceptional
-            experiences
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+            Behind every successful trip is a dedicated team working together.
+            Our team includes experienced leaders, operational staff, travel
+            planners, and support members who work closely to ensure every
+            journey runs smoothly.
           </p>
         </div>
 
@@ -107,27 +109,24 @@ const Team = () => {
                   <img
                     src={member.whyUsImage}
                     alt={member.name}
-                    className={`w-full h-full object-cover transition-all duration-700 ${
-                      hoveredId === index
+                    className={`w-full h-full object-cover transition-all duration-700 ${hoveredId === index
                         ? "scale-110 rotate-2"
                         : "scale-100 rotate-0"
-                    }`}
+                      }`}
                   />
 
                   {/* Overlay on hover */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent transition-all duration-500 ${
-                      hoveredId === index ? "opacity-100" : "opacity-0"
-                    }`}
+                    className={`absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent transition-all duration-500 ${hoveredId === index ? "opacity-100" : "opacity-0"
+                      }`}
                   />
 
                   {/* Description on hover */}
                   <div
-                    className={`absolute inset-0 flex items-end p-8 transition-all duration-500 ${
-                      hoveredId === index
+                    className={`absolute inset-0 flex items-end p-8 transition-all duration-500 ${hoveredId === index
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-8"
-                    }`}
+                      }`}
                   >
                     <p className="text-white text-sm leading-relaxed font-light">
                       {member.bio}
@@ -159,11 +158,10 @@ const Team = () => {
 
               {/* Decorative element */}
               <div
-                className={`absolute -bottom-2 -right-2 w-24 h-24 bg-gray-100 rounded-full -z-10 transition-all duration-500 ${
-                  hoveredId === index
+                className={`absolute -bottom-2 -right-2 w-24 h-24 bg-gray-100 rounded-full -z-10 transition-all duration-500 ${hoveredId === index
                     ? "scale-150 opacity-50"
                     : "scale-100 opacity-100"
-                }`}
+                  }`}
               ></div>
             </div>
           ))}

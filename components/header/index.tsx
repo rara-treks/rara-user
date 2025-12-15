@@ -29,15 +29,32 @@ type AboutNavItem = {
 
 const aboutNavItems: AboutNavItem[] = [
   { label: "About Us", href: "/about" },
-  { label: "Who we are", href: "/about#who_we_are" },
-  { label: "What we do", href: "/about#what_we_do" },
-  { label: "Mission", href: "/about#mission" },
+  { label: "Our Story", href: "/about#our-story" },
+  { label: "Journey", href: "/about#journey" },
   { label: "Our Team", href: "/about#our-team" },
+  { label: "Why Travel With Us", href: "/about#why-travel" },
+  { label: "Safety", href: "/about#safety" },
 ];
 
 function Header() {
   const { isTransparent } = useHeader();
   const [isOpen, setIsOpen] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsOpen(false);
+    }, 200);
+    setHoverTimeout(timeout);
+  };
 
   return (
     <Fragment>
@@ -67,44 +84,45 @@ function Header() {
             {/* Search */}
             <div className="flex justify-center items-center">
               <Search />
-              
+
             </div>
 
             {/* Right Section */}
             <div className="flex gap-8 justify-center items-center">
               {/* About Dropdown using shadcn */}
-              <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all"
-                    onMouseEnter={() => setIsOpen(true)}
-                    onMouseLeave={() => setIsOpen(false)}
+              <div
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all"
+                    >
+                      <EarthIcon size={16} className="text-gray-400" />
+                      About Us
+                      <ChevronDown size={14} className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-52"
                   >
-                    <EarthIcon size={16} className="text-gray-400" />
-                    About Us
-                    <ChevronDown size={14} className="text-gray-400" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-48"
-                  onMouseEnter={() => setIsOpen(true)}
-                  onMouseLeave={() => setIsOpen(false)}
-                >
-                  <DropdownMenuLabel>About Us</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {aboutNavItems.map((item) => (
-                    <DropdownMenuItem key={item.href} asChild>
-                      <Link
-                        href={item.href}
-                        className="w-full text-sm text-gray-700 hover:text-gray-900"
-                      >
-                        {item.label}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    <DropdownMenuLabel>About Us</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {aboutNavItems.map((item) => (
+                      <DropdownMenuItem key={item.href} asChild>
+                        <Link
+                          href={item.href}
+                          className="w-full text-sm text-gray-700 hover:text-gray-900"
+                        >
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
               {/* Contact */}
               <Link href="/contact">

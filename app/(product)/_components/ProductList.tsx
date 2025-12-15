@@ -2,8 +2,10 @@
 
 import ProductCard from "@/components/product/ProductCard";
 import ProductSkeleton from "@/components/productSkeleton";
+import DepartureTable from "@/app/(product)/departures/Components/DepartureTable";
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import type { SimplifiedProduct, DepartureResponse } from "@/types/departure";
 
 interface Product {
   id: number;
@@ -19,15 +21,15 @@ interface Product {
   total_rating: number | null;
   wishlist: number;
   featuredImage:
-    | string
-    | {
-        url: string;
-      };
+  | string
+  | {
+    url: string;
+  };
   featuredImages: Array<
     | string
     | {
-        url: string;
-      }
+      url: string;
+    }
   >;
   tags: Array<{
     id: number;
@@ -100,6 +102,10 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
   const [totalPages, setTotalPages] = useState(1);
   const [hasInitialized, setHasInitialized] = useState(false);
 
+  // Departure state
+  const [departures, setDepartures] = useState<SimplifiedProduct[]>([]);
+  const [departuresLoading, setDeparturesLoading] = useState(true);
+
   const getHeader = () => {
     const headerMap: Record<string, string> = {
       tour: "Tour Adventures",
@@ -110,6 +116,30 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
       title ||
       headerMap[type] ||
       `${type.charAt(0).toUpperCase() + type.slice(1)} Adventures`
+    );
+  };
+
+  // Get departure title and message based on type
+  const getDepartureConfig = () => {
+    const configMap: Record<string, { title: string; message: string }> = {
+      trek: {
+        title: "Trek Departure Dates",
+        message: "Choose your preferred departure month and trek",
+      },
+      tour: {
+        title: "Tour Departure Dates",
+        message: "Choose your preferred departure month and tour",
+      },
+      activities: {
+        title: "Activities Departure Dates",
+        message: "Choose your preferred departure month and activity",
+      },
+    };
+    return (
+      configMap[type] || {
+        title: `${type.charAt(0).toUpperCase() + type.slice(1)} Departure Dates`,
+        message: `Choose your preferred departure month`,
+      }
     );
   };
 
@@ -150,12 +180,48 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
     }
   };
 
+  // Fetch departures based on product type
+  const fetchDepartures = async () => {
+    try {
+      setDeparturesLoading(true);
+      const response = await fetch("/api/product/product/departure/lists");
+
+      if (!response.ok) {
+        console.error("Failed to fetch departures");
+        return;
+      }
+
+      const data: DepartureResponse = await response.json();
+
+      // Get departures based on the current product type
+      const typeKey = type as keyof typeof data.data;
+      const departureData = data.data[typeKey] || [];
+
+      setDepartures(
+        departureData.map((product: any) => ({
+          id: product.id,
+          name: product.name,
+          departures: product.departures,
+        }))
+      );
+    } catch (err) {
+      console.error("Error fetching departures:", err);
+    } finally {
+      setDeparturesLoading(false);
+    }
+  };
+
   useEffect(() => {
     const pageFromUrl = searchParams.get("page");
     const page = pageFromUrl ? parseInt(pageFromUrl, 10) : 1;
     setCurrentPage(page);
     fetchData(page);
   }, [searchParams, type]);
+
+  // Fetch departures when type changes
+  useEffect(() => {
+    fetchDepartures();
+  }, [type]);
 
   const handlePageChange = (page: number) => {
     if (page !== currentPage && page >= 1 && page <= totalPages && !loading) {
@@ -271,11 +337,10 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                         key={pageNum}
                         onClick={() => handlePageChange(pageNum)}
                         disabled={loading}
-                        className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                          currentPage === pageNum
-                            ? "bg-[#71B344] text-white shadow-md"
-                            : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                        }`}
+                        className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${currentPage === pageNum
+                          ? "bg-[#71B344] text-white shadow-md"
+                          : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                          }`}
                       >
                         {pageNum}
                       </button>
@@ -294,6 +359,17 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
             </div>
           )}
         </>
+      )}
+
+      {/* Departure Section */}
+      {!departuresLoading && departures.length > 0 && (
+        <div className="mt-12 bg-[#F5F5F5]">
+          <DepartureTable
+            title={getDepartureConfig().title}
+            message={getDepartureConfig().message}
+            products={departures}
+          />
+        </div>
       )}
     </div>
   );

@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import HeroSection from "./_components/HeroSection";
 import Team from "./_components/Team";
+import WhyTravelWithUs from "./_components/WhyTravelWithUs";
+import SafetyResponsibility from "./_components/SafetyResponsibility";
+import FooterCTA from "./_components/FooterCTA";
 import News from "@/components/home/News";
-import Why from "@/components/home/Why";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import {
   WhoWeAreSkeleton,
   WhatWeDoSkeleton,
@@ -48,7 +52,6 @@ const About = () => {
 
         if (result.code === 0 && result.data) {
           setPageData(result.data);
-          // Update meta tags
           document.title = result.data.meta.metaTitle;
           const metaDescription = document.querySelector(
             'meta[name="description"]'
@@ -72,7 +75,6 @@ const About = () => {
     fetchPageData();
   }, []);
 
-  // Handle scroll to section
   useEffect(() => {
     if (!loading && pageData) {
       const hash = window.location.hash?.slice(1);
@@ -110,7 +112,7 @@ const About = () => {
     return (
       <div className="w-full bg-white">
         <HeroSection />
-        <div className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-slate-50">
+        <div className="w-full py-6 md:py-12 bg-gradient-to-b from-white to-slate-50">
           <div className="container mx-auto px-4 md:px-6">
             <WhoWeAreSkeleton />
             <WhatWeDoSkeleton />
@@ -125,19 +127,28 @@ const About = () => {
 
   return (
     <div className="w-full bg-white">
-      <HeroSection />
+      {/* Hero Section with Featured Image */}
+      <HeroSection featuredImage={pageData?.featuredImage} />
 
-      {/* Main Content */}
-      <div className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-slate-50">
+      {/* Our Story Section */}
+      <div id="our-story" className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-slate-50 scroll-mt-20">
         <div className="container mx-auto px-4 md:px-6">
           {/* Who We Are Section */}
-          <div id="who_we_are" className="mb-20 scroll-mt-20">
+          <div className="mb-20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <div
                   className="prose prose-lg max-w-none text-slate-700"
                   dangerouslySetInnerHTML={{ __html: pageData?.content1 || "" }}
                 />
+                {/* Soft CTA */}
+                <Link
+                  href="#why-travel"
+                  className="inline-flex items-center gap-2 mt-6 text-emerald-600 hover:text-emerald-700 font-medium group"
+                >
+                  Why travel with us
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
               {pageData?.featuredImage && (
                 <div className="hidden md:block">
@@ -151,9 +162,9 @@ const About = () => {
             </div>
           </div>
 
-          {/* What We Do Section */}
+          {/* Journey Section */}
           <div
-            id="what_we_do"
+            id="journey"
             className="mb-20 py-16 bg-white rounded-2xl shadow-lg p-8 md:p-12 scroll-mt-20"
           >
             <div
@@ -163,28 +174,40 @@ const About = () => {
           </div>
 
           {/* Mission & Values Section */}
-          <div id="mission" className="mb-20 scroll-mt-20">
+          <div className="mb-20 scroll-mt-20">
             <div
               className="prose prose-lg max-w-none text-slate-700"
               dangerouslySetInnerHTML={{ __html: pageData?.content3 || "" }}
             />
           </div>
-
-          {/* Team Section */}
-          <div
-            id="our-team"
-            className="mt-20 pt-20 border-t border-slate-200 scroll-mt-20"
-          >
-            <Team />
-          </div>
         </div>
       </div>
 
-      {/* Why and News Sections */}
-      <div className="mb-20 flex flex-col gap-10">
-        <Why />
+      {/* Why Travel With Us Section */}
+      <WhyTravelWithUs />
+
+      {/* Safety & Responsibility Section */}
+      <SafetyResponsibility />
+
+      {/* Team Section */}
+      <div
+        id="our-team"
+        className="bg-slate-50 scroll-mt-20"
+      >
+        <Team />
+      </div>
+
+      {/* News Section */}
+      <div className="py-16">
         <News />
       </div>
+
+      {/* Footer CTA */}
+      <FooterCTA
+        title="Start Planning Your Trip"
+        buttonText="Send an Inquiry"
+        buttonLink="/contact"
+      />
     </div>
   );
 };
