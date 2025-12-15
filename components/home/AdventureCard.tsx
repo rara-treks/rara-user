@@ -79,7 +79,7 @@ const AdventureCard = ({ data, className="" }: AdventureCardProps) => {
           </div>
           <div className="self-stretch flex flex-row md:flex-col xl:flex-row items-center justify-between gap-0 text-right text-xl text-[#1E2F22] font-mulish">
             <div className="flex flex-col items-start justify-center font-mulish">
-              <div className="relative leading-[150%] font-extrabold">
+              <div className="relative leading-[150%] font-bold text-green-600">
                 $ {finalPrice.toLocaleString()}
               </div>
               {discountedPrice > 0 && originalPrice !== discountedPrice && (

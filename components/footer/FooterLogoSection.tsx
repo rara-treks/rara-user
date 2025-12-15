@@ -20,7 +20,7 @@ function FooterLogoSection({
       <div className="w-full mb-4 sm:mb-6">
         <Link href="/">
           <CHNLogo
-            variant={isTransparent ? "white" : "default"}
+            variant= "white"
             className="w-full h-auto text-white object-contain max-w-[200px] sm:max-w-[250px] md:max-w-[300px]"
           />
         </Link>
