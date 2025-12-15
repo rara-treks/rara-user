@@ -28,12 +28,11 @@ type AboutNavItem = {
 };
 
 const aboutNavItems: AboutNavItem[] = [
-  { label: "About Us", href: "/about" },
+  { label: "Who We Are", href: "/about" },
   { label: "Our Story", href: "/about#our-story" },
-  { label: "Journey", href: "/about#journey" },
   { label: "Our Team", href: "/about#our-team" },
   { label: "Why Travel With Us", href: "/about#why-travel" },
-  { label: "Safety", href: "/about#safety" },
+  { label: "Safety & Responsibility", href: "/about#safety" },
 ];
 
 function Header() {

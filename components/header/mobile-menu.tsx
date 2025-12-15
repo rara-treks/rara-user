@@ -62,11 +62,11 @@ interface AboutNavItem {
 }
 
 const aboutNavItems: AboutNavItem[] = [
-  { label: "About Us", href: "/about" },
-  { label: "Who we are", href: "/about#who_we_are" },
-  { label: "What we do", href: "/about#what_we_do" },
-  { label: "Mission", href: "/about#mission" },
+  { label: "Who We Are", href: "/about" },
+  { label: "Our Story", href: "/about#our-story" },
   { label: "Our Team", href: "/about#our-team" },
+  { label: "Why Travel With Us", href: "/about#why-travel" },
+  { label: "Safety & Responsibility", href: "/about#safety" },
 ];
 
 // Static navigation structure

@@ -130,7 +130,7 @@ const NavigationMenu = () => {
     // Set a small delay before closing to allow moving between items smoothly
     const timeout = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200);
+    }, 300);
     setHoverTimeout(timeout);
   };
 
@@ -182,6 +182,8 @@ const NavigationMenu = () => {
               onDirectClick={() =>
                 navItem.slug && handleDirectNavigation(navItem.slug)
               }
+              onMouseEnterContent={() => handleMouseEnter(navItem.id)}
+              onMouseLeaveContent={handleMouseLeave}
             />
           </div>
         );

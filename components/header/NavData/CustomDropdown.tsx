@@ -36,6 +36,8 @@ interface CustomDropdownProps {
   slug?: string;
   onDirectClick?: () => void;
   productType?: string; // 'trek', 'tour', or 'activities'
+  onMouseEnterContent?: () => void;
+  onMouseLeaveContent?: () => void;
 }
 
 const CustomDropdown = ({
@@ -48,6 +50,8 @@ const CustomDropdown = ({
   slug,
   onDirectClick,
   productType = "trek",
+  onMouseEnterContent,
+  onMouseLeaveContent,
 }: CustomDropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -59,22 +63,6 @@ const CustomDropdown = ({
       setSelectedCategory(items[0]);
     }
   }, [isOpen, items]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        if (isOpen) {
-          onToggle();
-        }
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
 
   const handleCategoryHover = (category: Category) => {
     setSelectedCategory(category);
@@ -93,12 +81,29 @@ const CustomDropdown = ({
 
   const selectedProducts = selectedCategory?.products || [];
 
+  // Custom scrollbar styles
+  const scrollbarStyles = `
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #d1d5db;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #9ca3af;
+    }
+  `;
+
   return (
     <div className="relative" ref={dropdownRef}>
-      <DropdownMenu open={isOpen} onOpenChange={onToggle}>
+      <style dangerouslySetInnerHTML={{ __html: scrollbarStyles }} />
+      <DropdownMenu open={isOpen} onOpenChange={() => { }} modal={false}>
         <DropdownMenuTrigger asChild>
           <div
-            onClick={onToggle}
             className="cursor-pointer transition-colors duration-200"
           >
             {trigger}
@@ -106,33 +111,36 @@ const CustomDropdown = ({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          className="p-0 min-w-[700px] max-w-[900px]"
+          className="p-0 min-w-[700px] max-w-[900px] animate-in fade-in-0 zoom-in-95 duration-200"
           align="start"
           side="bottom"
           sideOffset={8}
+          onMouseEnter={onMouseEnterContent}
+          onMouseLeave={onMouseLeaveContent}
+          onCloseAutoFocus={(e) => e.preventDefault()}
+          onInteractOutside={(e) => e.preventDefault()}
+          onPointerDownOutside={(e) => e.preventDefault()}
         >
           <div className="bg-white rounded-lg shadow-xl border border-gray-100 flex">
             {/* Sidebar - Categories */}
             <div className="w-64 bg-gray-50 rounded-l-lg">
-              <div className="max-h-[400px] overflow-y-auto">
+              <div className="max-h-[400px] overflow-y-auto scroll-smooth custom-scrollbar">
                 {items.map((category) => (
                   <div
                     key={category.id}
                     onMouseEnter={() => handleCategoryHover(category)}
-                    className={`px-4 py-3 cursor-pointer transition-colors duration-150 flex items-center justify-between group ${
-                      selectedCategory?.id === category.id
-                        ? "bg-green-50 text-green-700 border-r-2 border-green-500"
-                        : "hover:bg-gray-100 text-gray-700"
-                    }`}
+                    className={`px-4 py-3 cursor-pointer transition-all duration-200 ease-out flex items-center justify-between group ${selectedCategory?.id === category.id
+                      ? "bg-green-50 text-green-700 border-r-2 border-green-500"
+                      : "hover:bg-gray-100 text-gray-700"
+                      }`}
                   >
                     <span className="font-medium text-md">{category.name}</span>
                     <ChevronRight
                       size={16}
-                      className={`transition-colors ${
-                        selectedCategory?.id === category.id
-                          ? "text-green-500"
-                          : "text-gray-400 group-hover:text-gray-600"
-                      }`}
+                      className={`transition-all duration-200 ${selectedCategory?.id === category.id
+                        ? "text-green-500 translate-x-0.5"
+                        : "text-gray-400 group-hover:text-gray-600 group-hover:translate-x-0.5"
+                        }`}
                     />
                   </div>
                 ))}
@@ -141,7 +149,7 @@ const CustomDropdown = ({
                 <Link href={slug}>
                   <Button
                     variant="outline"
-                    className="bg-transparent border-none shadow-none hover:bg-green-100 rounded-none w-full rounded-bl-lg text-sm text-gray-600 flex items-center justify-start py-3 mt-2"
+                    className="bg-transparent border-none shadow-none hover:bg-green-100 rounded-none w-full rounded-bl-lg text-sm text-gray-600 flex items-center justify-start py-3 mt-2 transition-all duration-200"
                     onClick={() => onToggle()}
                   >
                     View All
@@ -155,20 +163,20 @@ const CustomDropdown = ({
             <div className="flex-1 p-6">
               {selectedProducts.length > 0 ? (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4 transition-opacity duration-200">
                     {selectedCategory?.name}
                   </h3>
-                  <div className="flex flex-col gap-3 max-h-[350px] overflow-y-auto pr-2">
+                  <div className="flex flex-col gap-3 max-h-[350px] overflow-y-auto scroll-smooth custom-scrollbar pr-2">
                     {selectedProducts.map((product) => (
                       <Link
                         key={product.id}
                         href={`/${productType}/${product.slug}`}
                         onClick={() => onItemClick(product)}
-                        className="group"
+                        className="group block"
                       >
-                        <div className="flex items-center gap-4 p-3 border border-gray-200 rounded-lg hover:shadow-md hover:border-green-300 transition-all duration-200">
+                        <div className="flex items-center gap-4 p-3 border border-gray-200 rounded-lg hover:shadow-md hover:border-green-300 transition-all duration-200 ease-out hover:-translate-y-0.5">
                           <div className="flex-1">
-                            <h4 className="font-medium text-sm text-gray-900 group-hover:text-green-600 transition-colors">
+                            <h4 className="font-medium text-sm text-gray-900 group-hover:text-green-600 transition-colors duration-200">
                               {product.name}
                             </h4>
                           </div>
@@ -177,13 +185,13 @@ const CustomDropdown = ({
                               <img
                                 src={product.featured_image.url}
                                 alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
                               />
                             </div>
                           )}
                           <ChevronRight
                             size={18}
-                            className="text-gray-400 group-hover:text-green-600 transition-colors flex-shrink-0"
+                            className="text-gray-400 group-hover:text-green-600 group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0"
                           />
                         </div>
                       </Link>
@@ -204,3 +212,4 @@ const CustomDropdown = ({
 };
 
 export default CustomDropdown;
+
