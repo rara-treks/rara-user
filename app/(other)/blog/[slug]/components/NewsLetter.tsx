@@ -19,19 +19,49 @@ const NewsLetter = () => {
     }
 
     setStatus("loading");
+    setMessage("");
 
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setMessage("Thank you for subscribing!");
-      setEmail("");
+    try {
+      const response = await fetch("/api/subscribers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      // Reset after 3 seconds
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage("Thank you for subscribing!");
+        setEmail("");
+
+        // Reset after 3 seconds
+        setTimeout(() => {
+          setStatus("idle");
+          setMessage("");
+        }, 3000);
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Failed to subscribe. Please try again.");
+
+        // Reset error after 3 seconds
+        setTimeout(() => {
+          setStatus("idle");
+          setMessage("");
+        }, 3000);
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again later.");
+
+      // Reset error after 3 seconds
       setTimeout(() => {
         setStatus("idle");
         setMessage("");
       }, 3000);
-    }, 1000);
+    }
   };
 
   return (
@@ -39,7 +69,7 @@ const NewsLetter = () => {
       <div className="text-center mb-4">
         <h2 className="text-xl font-bold text-gray-900 mb-2">
           Subscribe to Our Newsletter
-        </h2>        
+        </h2>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

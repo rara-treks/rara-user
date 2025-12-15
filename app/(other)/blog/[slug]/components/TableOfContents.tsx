@@ -21,8 +21,8 @@ const TableOfContents = ({
   const h1Items = tocItems.filter((item) => item.level === 2);
 
   return (
-    <div className="block w-full mb-4 lg:mb-0 lg:w-80 flex-shrink-0">
-      <div className="sticky top-8 border bg-transparent lg:bg-white rounded-xl shadow-sm p-6">
+    <div className="w-full lg:w-80">
+      <div className="border bg-white rounded-xl shadow-sm p-6">
         <h3 className="font-bold text-lg mb-4 text-gray-900 border-b pb-3">
           Table of Contents
         </h3>
@@ -32,11 +32,10 @@ const TableOfContents = ({
               <button
                 key={id}
                 onClick={() => onItemClick(id)}
-                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative pl-2 ${
-                  activeSectionId === id
+                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative pl-2 ${activeSectionId === id
                     ? "text-indigo-600 font-semibold bg-indigo-50"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 {text}
               </button>
@@ -47,24 +46,14 @@ const TableOfContents = ({
             No H1 headings found in this article
           </p>
         )}
-        <div
-          className={`${
-            h1Items.length > 0 ? "mt-6 border-t pt-4" : "mt-6 border-t pt-4"
-          }`}
-        >
+        <div className="mt-6 border-t pt-4">
           <ShareButtons url={blogUrl} title={blogTitle} />
         </div>
 
-        <div
-          className={`${
-            h1Items.length > 0
-              ? "hidden lg:block mt-6 border-t pt-4"
-              : "hidden lg:block mt-6 border-t pt-4"
-          }`}
-        >
+        <div className="hidden lg:block mt-6 border-t pt-4">
           <NewsLetter />
         </div>
-      </div>z
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: "flagcdn.com" },
+      { hostname: "rara.api.quarkinfotech.com" },
       { hostname: "api.raratreks.com" },
     ],
   },

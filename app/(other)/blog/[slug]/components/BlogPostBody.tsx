@@ -17,10 +17,10 @@ const BlogPostBody: React.FC<BlogPostBodyProps> = ({ blog, contentRef }) => {
         />
       )} */}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 overflow-hidden w-full">
         <article
           ref={contentRef}
-          className="prose prose-lg max-w-none prose-indigo prose-headings:font-bold prose-headings:scroll-mt-24"
+          className="prose prose-lg max-w-none prose-indigo prose-headings:font-bold prose-headings:scroll-mt-24 overflow-x-hidden break-words [&_pre]:overflow-x-auto [&_pre]:max-w-full [&_img]:max-w-full [&_table]:overflow-x-auto [&_table]:block"
           dangerouslySetInnerHTML={{ __html: blog.description }}
         />
 

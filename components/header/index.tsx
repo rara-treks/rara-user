@@ -70,7 +70,7 @@ function Header() {
             <div>
               <Link href="/">
                 <CHNLogo
-                  variant={isTransparent ? "white" : "default"}
+                  variant= "default"
                   className="w-full h-14 text-white object-cover"
                 />
               </Link>
