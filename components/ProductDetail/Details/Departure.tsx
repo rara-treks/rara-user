@@ -147,7 +147,7 @@ const Departure = ({ data }: DepartureProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-green-600 hover:bg-green-700 text-white">
+        <Button className="bg-[#FEBD18] hover:bg-[#FEBD18] text-white">
           <Calendar className="w-4 h-4 mr-2" />
           Check Availability
         </Button>

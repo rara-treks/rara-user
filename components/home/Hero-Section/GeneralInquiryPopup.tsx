@@ -54,11 +54,39 @@ interface GeneralInquiryFormData {
 
 interface GeneralInquiryPopupProps {
   buttonText: string;
+  buttonBgColor?: string;
 }
 
 export default function GeneralInquiryPopup({
   buttonText,
+  buttonBgColor,
 }: GeneralInquiryPopupProps) {
+  // Default colors - text is black when custom bg color is passed, white otherwise
+  const bgColor = buttonBgColor || "#71B344";
+  const textColor = buttonBgColor ? "#000000" : "#FFFFFF";
+  // Generate a darker hover color by reducing brightness
+  const hoverBgColor = buttonBgColor
+    ? adjustColorBrightness(buttonBgColor, -20)
+    : "#5A8F37";
+
+  // Helper function to darken a hex color
+  function adjustColorBrightness(hex: string, percent: number): string {
+    // Remove # if present
+    const cleanHex = hex.replace("#", "");
+
+    // Parse RGB values
+    const r = parseInt(cleanHex.substring(0, 2), 16);
+    const g = parseInt(cleanHex.substring(2, 4), 16);
+    const b = parseInt(cleanHex.substring(4, 6), 16);
+
+    // Adjust brightness
+    const adjustedR = Math.max(0, Math.min(255, r + (r * percent) / 100));
+    const adjustedG = Math.max(0, Math.min(255, g + (g * percent) / 100));
+    const adjustedB = Math.max(0, Math.min(255, b + (b * percent) / 100));
+
+    // Convert back to hex
+    return `#${Math.round(adjustedR).toString(16).padStart(2, "0")}${Math.round(adjustedG).toString(16).padStart(2, "0")}${Math.round(adjustedB).toString(16).padStart(2, "0")}`;
+  }
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -226,7 +254,15 @@ export default function GeneralInquiryPopup({
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white font-bold rounded-full px-6 py-2 transition-colors duration-200">
+          <Button
+            className="font-bold rounded-full px-6 py-2 transition-colors duration-200"
+            style={{
+              backgroundColor: bgColor,
+              color: textColor,
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverBgColor)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = bgColor)}
+          >
             {buttonText}
           </Button>
         </DialogTrigger>

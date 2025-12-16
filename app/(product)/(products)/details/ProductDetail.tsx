@@ -62,7 +62,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     { id: "Itinerary", label: "Itinerary" },
     { id: "Cost_Detail", label: "Cost Detail" },
     { id: "Tour_Location", label: "Location" },
-    { id: "Departure_Date", label: "Departure" },
+    // { id: "Departure_Date", label: "Departure" },
     { id: "FAQs", label: "FAQs" },
     { id: "Review", label: "Reviews" },
   ];

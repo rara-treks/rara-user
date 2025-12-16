@@ -62,11 +62,10 @@ interface AboutNavItem {
 }
 
 const aboutNavItems: AboutNavItem[] = [
-  { label: "Who We Are", href: "/about" },
-  { label: "Our Story", href: "/about#our-story" },
-  { label: "Our Team", href: "/about#our-team" },
-  { label: "Why Travel With Us", href: "/about#why-travel" },
-  { label: "Safety & Responsibility", href: "/about#safety" },
+  { label: "About Us", href: "/about" },
+  { label: "Why Travel With Us", href: "/about/why-travel-with-us" },
+  { label: "Safety & Responsibility", href: "/about/safety-responsibility" },
+  { label: "Meet Our Team", href: "/about/team" },
 ];
 
 // Static navigation structure
@@ -206,9 +205,8 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
                       <span>{item.label}</span>
                       <ChevronDown
                         size={16}
-                        className={`transition-transform duration-200 ${
-                          activeDropdown === item.id ? "rotate-180" : ""
-                        }`}
+                        className={`transition-transform duration-200 ${activeDropdown === item.id ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
 
@@ -246,11 +244,10 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
                                   </span>
                                   <ChevronRight
                                     size={14}
-                                    className={`transition-transform duration-200 ${
-                                      expandedCategory === category.id
+                                    className={`transition-transform duration-200 ${expandedCategory === category.id
                                         ? "rotate-90"
                                         : ""
-                                    }`}
+                                      }`}
                                   />
                                 </button>
 
@@ -259,9 +256,8 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
                                     {category.products.map((product) => (
                                       <Link
                                         key={product.id}
-                                        href={`/${getProductType(item.id)}/${
-                                          product.slug
-                                        }`}
+                                        href={`/${getProductType(item.id)}/${product.slug
+                                          }`}
                                         onClick={handleLinkClick}
                                       >
                                         <div className="px-8 py-2 text-sm text-gray-700 hover:bg-gray-200 transition-colors">

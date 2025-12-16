@@ -212,10 +212,10 @@ const BrowseTreks = () => {
     <div>
       <Button
         onClick={handleOpenDialog}
-        className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter transition-colors duration-200 cursor-pointer shadow-lg"
+        className="rounded-[22px] bg-[#FEBD18] flex flex-row items-center justify-center py-2 px-4 gap-2 text-black font-inter transition-colors duration-200 cursor-pointer shadow-lg"
       >
         <CalendarDays
-          className="text-white font-bold"
+          className="text-black font-bold"
           size={16}
           aria-hidden="true"
         />

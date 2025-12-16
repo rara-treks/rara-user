@@ -28,11 +28,10 @@ type AboutNavItem = {
 };
 
 const aboutNavItems: AboutNavItem[] = [
-  { label: "Who We Are", href: "/about" },
-  { label: "Our Story", href: "/about#our-story" },
-  { label: "Our Team", href: "/about#our-team" },
-  { label: "Why Travel With Us", href: "/about#why-travel" },
-  { label: "Safety & Responsibility", href: "/about#safety" },
+  { label: "About Us", href: "/about" },
+  { label: "Why Travel With Us", href: "/about/why-travel-with-us" },
+  { label: "Safety & Responsibility", href: "/about/safety-responsibility" },
+  { label: "Meet Our Team", href: "/about/team" },
 ];
 
 function Header() {
@@ -69,7 +68,7 @@ function Header() {
             <div>
               <Link href="/">
                 <CHNLogo
-                  variant= "default"
+                  variant="default"
                   className="w-full h-14 text-white object-cover"
                 />
               </Link>

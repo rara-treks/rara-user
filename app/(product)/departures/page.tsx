@@ -71,8 +71,67 @@ const Departures = () => {
         <div className="w-full flex flex-col container mx-auto">
           <Breadcrumbs data={{ type: "Departures", title: "Departures" }} />
         </div>
-        <div className="container mx-auto py-12 text-center">
-          <div className="animate-pulse">Loading departures...</div>
+
+        {/* Hero Skeleton */}
+        <div className="w-full bg-slate-100 animate-pulse h-48 md:h-64" />
+
+        {/* Content Skeleton */}
+        <div className="w-full flex flex-col gap-12 md:container mx-auto px-4 py-8">
+          {/* Section 1 */}
+          <div className="space-y-6">
+            {/* Title skeleton */}
+            <div className="space-y-2">
+              <div className="h-8 bg-gray-200 rounded-lg w-64 animate-pulse" />
+              <div className="h-4 bg-gray-200 rounded w-80 animate-pulse" />
+            </div>
+
+            {/* Table skeleton */}
+            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+              {/* Table header */}
+              <div className="bg-slate-50 p-4 flex gap-4">
+                <div className="h-4 bg-gray-200 rounded w-32 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-28 animate-pulse" />
+              </div>
+
+              {/* Table rows */}
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="p-4 border-t border-gray-100 flex gap-4 items-center">
+                  <div className="h-4 bg-gray-200 rounded w-40 animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded w-16 animate-pulse" />
+                  <div className="h-8 bg-gray-200 rounded-full w-24 animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 2 */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="h-8 bg-gray-200 rounded-lg w-56 animate-pulse" />
+              <div className="h-4 bg-gray-200 rounded w-72 animate-pulse" />
+            </div>
+
+            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+              <div className="bg-slate-50 p-4 flex gap-4">
+                <div className="h-4 bg-gray-200 rounded w-32 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
+                <div className="h-4 bg-gray-200 rounded w-28 animate-pulse" />
+              </div>
+
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="p-4 border-t border-gray-100 flex gap-4 items-center">
+                  <div className="h-4 bg-gray-200 rounded w-40 animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded w-16 animate-pulse" />
+                  <div className="h-8 bg-gray-200 rounded-full w-24 animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );

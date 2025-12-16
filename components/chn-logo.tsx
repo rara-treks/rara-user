@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "@/assets/images/logos/nav.png";
+import Logo from "@/assets/images/logos/rara.png";
 import LogoWhite from "@/assets/images/logos/footer_white.png";
 import Image, { StaticImageData } from "next/image";
 
