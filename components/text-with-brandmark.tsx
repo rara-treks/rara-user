@@ -14,7 +14,7 @@ function TextWithBrandmark({ children, size = 50, className, type = "h6" }: Prop
   const Text = type;
   return (
     <div className={cn("flex items-center", className)}>
-      <Image width={size} src={CHNBrandmarkImg} alt={"chn brandmark"} />
+      <Image width={size} src={CHNBrandmarkImg} alt={"rara brandmark"} />
       <Text
         className="*:font-bebas-neue font-bebas-neue"
         style={{

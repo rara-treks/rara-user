@@ -32,19 +32,20 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
-  title: "RARA Treks, Tours and Travel",
+  title: "Rara Treks Tours & Travels | Nepal Trekking & Tour Operator",
   description:
-    "Explore authentic RARA Tours and Treks in Nepal. Discover local experiences, community homestays, and nature-filled adventures that make a positive impact.",
+    "Explore Nepal with Rara Treks Tours & Travels, offering luxury, family, solo, and budget trekking and tours across Everest, Annapurna, Rara, and other Himalayan destinations.",
   keywords: [
-    "RARA Tours and Trek Nepal",
-    "RARA Trek",
-    "Nepal homestay",
-    "community tourism",
-    "CHN Nepal",
-    "RARA community network",
-    "homestay network Nepal",
-    "trekking in Nepal",
-    "RARA Lake tour",
+    "Nepal trekking",
+    "Nepal tour operator",
+    "Himalayan adventure Nepal",
+    "Everest trek",
+    "Annapurna trek",
+    "Rara Lake trek",
+    "luxury trekking Nepal",
+    "family tours Nepal",
+    "budget trekking Nepal",
+    "eco-conscious trekking",
   ],
 };
 

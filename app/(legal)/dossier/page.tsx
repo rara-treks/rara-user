@@ -18,7 +18,7 @@
 //         <div className="prose max-w-none">
 //           <h2 className="font-bold text-xl mb-4">Dossier Information</h2>
 //           <p className="mb-4">
-//             Every booking with Community Homestay Network includes detailed
+//             Every booking with Rara Treks includes detailed
 //             dossier information. You can view and download the complete dossier
 //             below.
 //           </p>

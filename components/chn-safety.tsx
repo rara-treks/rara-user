@@ -14,7 +14,7 @@ function CHNSafety() {
   return (
     <section className="bg-slate-200 py-10 md:py-20">
       <div className="container">
-        <h2 className="text-2xl font-semibold mb-9">Safety at Community Homestay Network</h2>
+        <h2 className="text-2xl font-semibold mb-9">Safety at Rara Treks</h2>
         <div className="grid md:grid-cols-3 gap-4">
           {safetyData.map((item) => (
             <SafetyCard key={item.title} title={item.title} description={item.description} content={item.content} />

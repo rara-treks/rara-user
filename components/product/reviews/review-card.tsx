@@ -47,7 +47,7 @@ function ReplyCard({ reply }: { reply: string }) {
         </div>
         <div className="mt-3">
           <h5 className="font-semibold">
-            CHN Team <span className="font-normal">replied</span>
+            RARA Team <span className="font-normal">replied</span>
           </h5>
           <p>{reply}</p>
         </div>

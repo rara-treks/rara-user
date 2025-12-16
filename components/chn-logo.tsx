@@ -26,7 +26,7 @@ function CHNLogo({
   return (
     <Image
       src={logoSrc}
-      alt="CHN Logo"
+      alt="RARA Logo"
       width={width}
       height={height}
       priority={priority}

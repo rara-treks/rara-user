@@ -7,7 +7,7 @@ import GoogleMapEmbed from "@/components/contact/google-map-embed";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Contact us at Community Homestay Network",
+  description: "Contact us at Rara Treks",
 };
 
 function Contact() {
