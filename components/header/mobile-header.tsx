@@ -28,7 +28,7 @@ function MobileHeader() {
               <div>
                 <Link href="/">
                   <CHNLogo
-                    variant={isTransparent ? "white" : "default"}
+                    variant="default"
                     className="w-full h-14 object-contain"
                   />
                 </Link>
