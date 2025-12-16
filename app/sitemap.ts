@@ -73,9 +73,11 @@ async function fetchBlogs(): Promise<Blog[]> {
 
         if (!response.ok) return [];
 
-        const data: BlogApiResponse = await response.json();
+        const data = await response.json();
         if (data.code === 0 && data.data) {
-            return data.data;
+            // Handle both nested (data.data.data) and direct (data.data) array structures
+            const blogs = Array.isArray(data.data) ? data.data : data.data?.data;
+            return Array.isArray(blogs) ? blogs : [];
         }
         return [];
     } catch (error) {
@@ -184,36 +186,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     // Trek pages
-    const trekPages: MetadataRoute.Sitemap = treks.map((trek) => ({
-        url: `${baseUrl}/trek/${trek.slug}`,
-        lastModified: trek.updated_at ? new Date(trek.updated_at) : new Date(),
-        changeFrequency: "weekly",
-        priority: 0.8,
-    }));
+    const trekPages: MetadataRoute.Sitemap = Array.isArray(treks)
+        ? treks.map((trek) => ({
+            url: `${baseUrl}/trek/${trek.slug}`,
+            lastModified: trek.updated_at ? new Date(trek.updated_at) : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        }))
+        : [];
 
     // Tour pages
-    const tourPages: MetadataRoute.Sitemap = tours.map((tour) => ({
-        url: `${baseUrl}/tour/${tour.slug}`,
-        lastModified: tour.updated_at ? new Date(tour.updated_at) : new Date(),
-        changeFrequency: "weekly",
-        priority: 0.8,
-    }));
+    const tourPages: MetadataRoute.Sitemap = Array.isArray(tours)
+        ? tours.map((tour) => ({
+            url: `${baseUrl}/tour/${tour.slug}`,
+            lastModified: tour.updated_at ? new Date(tour.updated_at) : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        }))
+        : [];
 
     // Activity pages
-    const activityPages: MetadataRoute.Sitemap = activities.map((activity) => ({
-        url: `${baseUrl}/activities/${activity.slug}`,
-        lastModified: activity.updated_at ? new Date(activity.updated_at) : new Date(),
-        changeFrequency: "weekly",
-        priority: 0.8,
-    }));
+    const activityPages: MetadataRoute.Sitemap = Array.isArray(activities)
+        ? activities.map((activity) => ({
+            url: `${baseUrl}/activities/${activity.slug}`,
+            lastModified: activity.updated_at ? new Date(activity.updated_at) : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        }))
+        : [];
 
     // Blog pages
-    const blogPages: MetadataRoute.Sitemap = blogs.map((blog) => ({
-        url: `${baseUrl}/blog/${blog.slug}`,
-        lastModified: blog.updated_at ? new Date(blog.updated_at) : new Date(),
-        changeFrequency: "weekly",
-        priority: 0.6,
-    }));
+    const blogPages: MetadataRoute.Sitemap = Array.isArray(blogs)
+        ? blogs.map((blog) => ({
+            url: `${baseUrl}/blog/${blog.slug}`,
+            lastModified: blog.updated_at ? new Date(blog.updated_at) : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.6,
+        }))
+        : [];
 
     return [...staticPages, ...trekPages, ...tourPages, ...activityPages, ...blogPages];
 }
