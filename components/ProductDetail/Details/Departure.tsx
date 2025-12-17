@@ -95,8 +95,7 @@ const Departure = ({ data }: DepartureProps) => {
   const handleEnquire = useCallback(
     (departure: TransformedDepartureItem): void => {
       alert(
-        `Enquiry for: ${departure.dateRange}\nPrice: ${
-          departure.price
+        `Enquiry for: ${departure.dateRange}\nPrice: ${departure.price
         } per person\nTrek: ${title || "Unknown Trek"}`
       );
     },
@@ -147,7 +146,7 @@ const Departure = ({ data }: DepartureProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#FEBD18] hover:bg-[#FEBD18] text-white">
+        <Button className="bg-[#f2a135] hover:bg-[#f2a135] text-white">
           <Calendar className="w-4 h-4 mr-2" />
           Check Availability
         </Button>

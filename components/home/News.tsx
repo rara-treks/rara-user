@@ -77,7 +77,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
   }, [newsItems]);
 
   const handleViewAll = () => {
-     router.push("/blog");
+    router.push("/blog");
   };
 
   const handleNewsClick = (newsItem: NewsItem) => {
@@ -97,17 +97,24 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((index) => (
-            <div
-              key={index}
-              className={`${index === 1 || index === 3 ? "mt-8" : ""}`}
-            >
-              <div className="bg-gray-200 animate-pulse rounded-lg h-64 w-full"></div>
+            <div key={index} className="flex flex-col gap-3 items-start justify-start rounded-[32px]">
+              {/* Image Skeleton */}
+              <div className="w-full h-[250px] bg-gray-200 rounded-[32px] animate-pulse"></div>
+              {/* Date Skeleton */}
+              <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+              {/* Title Skeleton */}
+              <div className="flex flex-col gap-2 w-full">
+                <div className="h-6 w-full bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-6 w-3/4 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+              {/* Button Skeleton */}
+              <div className="h-5 w-24 bg-gray-200 rounded animate-pulse"></div>
             </div>
           ))}
         </div>
@@ -125,7 +132,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
@@ -149,7 +156,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
@@ -170,8 +177,8 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
             Here is our insight on the latest trend
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-            Stories & <span className="text-[#71B344]">News</span>
-          </h1>          
+            Stories & <span className="text-[#086032]">News</span>
+          </h1>
         </div>
         {/* Custom navigation buttons */}
         {news.length > 3 && (
@@ -187,7 +194,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
         {displayedNews.map((newsItem, index) => (
           <div
             key={newsItem.id}
-            
+
           >
             <NewsCard news={newsItem} onReadMore={handleNewsClick} />
           </div>

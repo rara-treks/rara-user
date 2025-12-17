@@ -66,7 +66,7 @@ export default function TeamPage() {
                             The People Behind Your Adventures
                         </p>
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            Our <span className="text-[#71B344]">Team</span>
+                            Our <span className="text-[#086032]">Team</span>
                         </h2>
                         <p className="text-gray-600 text-sm">
                             Our team includes experienced leaders, operational staff, travel
@@ -95,7 +95,7 @@ export default function TeamPage() {
                             <p className="text-red-600 mb-4">{error}</p>
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-4 py-2 bg-[#71B344] text-white rounded-full hover:bg-[#5a8c35] transition-colors text-sm"
+                                className="px-4 py-2 bg-[#086032] text-white rounded-full hover:bg-[#5a8c35] transition-colors text-sm"
                             >
                                 Retry
                             </button>
@@ -144,7 +144,7 @@ export default function TeamPage() {
                                                     href={member.linkedin_link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className={`absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 text-gray-700 hover:bg-[#71B344] hover:text-white transition-all duration-300 flex items-center justify-center ${hoveredId === index ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                                                    className={`absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 text-gray-700 hover:bg-[#086032] hover:text-white transition-all duration-300 flex items-center justify-center ${hoveredId === index ? "opacity-100 scale-100" : "opacity-0 scale-75"
                                                         }`}
                                                     onClick={(e) => e.stopPropagation()}
                                                 >
@@ -155,7 +155,7 @@ export default function TeamPage() {
 
                                         {/* Info - Compact */}
                                         <div className="p-2 text-center">
-                                            <h3 className="text-xs font-semibold text-gray-900 group-hover:text-[#71B344] transition-colors truncate">
+                                            <h3 className="text-xs font-semibold text-gray-900 group-hover:text-[#086032] transition-colors truncate">
                                                 {member.name}
                                             </h3>
                                             <p className="text-[10px] text-gray-500 truncate">

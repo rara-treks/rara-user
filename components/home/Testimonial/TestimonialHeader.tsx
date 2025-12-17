@@ -17,13 +17,13 @@ export default function TestimonialHeader({
           Stories of unforgettable adventutres
         </p>
         <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-          Happy <span className="text-[#71B344]">Explorers</span>
+          Happy <span className="text-[#086032]">Explorers</span>
         </h1>
       </div>
       {/* <div className="hidden lg:flex items-center justify-center">
         <Button
           onClick={onReadAllClick}
-          className="flex items-center gap-1 bg-[#71B344] hover:bg-[#5a8c35] text-white px-6 py-2 rounded-full"
+          className="flex items-center gap-1 bg-[#086032] hover:bg-[#5a8c35] text-white px-6 py-2 rounded-full"
         >
           Read all Reviews <ArrowRight className="w-4 h-4" />
         </Button>

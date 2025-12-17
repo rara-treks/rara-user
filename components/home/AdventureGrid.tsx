@@ -12,7 +12,7 @@ interface AdventureGridProps {
   className?: string;
 }
 
-const AdventureGrid = ({ title = "", className="", data = [] }: AdventureGridProps) => {
+const AdventureGrid = ({ title = "", className = "", data = [] }: AdventureGridProps) => {
   if (!data || data.length === 0) {
     return (
       <div className="w-full mx-auto px-4 py-8">
@@ -31,13 +31,13 @@ const AdventureGrid = ({ title = "", className="", data = [] }: AdventureGridPro
             Popular destination
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-            Upcoming <p className="text-[#71B344]">{title}</p>
+            Upcoming <p className="text-[#086032]">{title}</p>
           </h1>
         </div>
         {/* Custom navigation buttons */}
         <div className="hidden lg:flex items-center justify-center">
           <Link href="/trek">
-            <Button className="flex items-center gap-1">
+            <Button className="bg-transparent hover:bg-[#f2a135] text-black border hover:text-white border border-[#f2a135] rounded-full px-6 py-2 transition-all duration-200 flex items-center gap-1">
               View All Adventures <ArrowRight />
             </Button>
           </Link>

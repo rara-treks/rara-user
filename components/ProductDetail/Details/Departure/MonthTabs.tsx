@@ -14,11 +14,10 @@ const MonthTabs = ({
         <Button
           key={month}
           onClick={() => onTabChange(month)}
-          className={`${
-            activeTab === month
-              ? "bg-[#71B344] text-white"
-              : "bg-transparent hover:bg-[#71B344] text-white"
-          } rounded-full px-6 py-2 transition-all duration-200`}
+          className={`${activeTab === month
+              ? "bg-[#086032] text-white"
+              : "bg-transparent hover:bg-[#086032] text-white"
+            } rounded-full px-6 py-2 transition-all duration-200`}
         >
           {month}
         </Button>

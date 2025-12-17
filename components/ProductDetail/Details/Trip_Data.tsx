@@ -91,10 +91,10 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
           alt={label.toLowerCase()}
           width={24}
           height={24}
-          className="w-5 h-5 text-[#71B344]"
+          className="w-5 h-5 text-[#086032]"
         />
       ) : (
-        <IconComponent className="w-5 h-5 text-[#71B344]" />
+        <IconComponent className="w-5 h-5 text-[#086032]" />
       )}
       <div className="flex flex-col items-start justify-start">
         <p className="text-sm text-gray-500 font-medium">{label}</p>

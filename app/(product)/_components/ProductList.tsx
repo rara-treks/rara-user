@@ -400,8 +400,8 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
               <button
                 onClick={() => handleCategorySelect(null)}
                 className={`w-full text-left px-4 py-3 text-sm transition-colors ${!selectedCategory
-                    ? "bg-[#71B344]/10 text-[#71B344] font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
+                  ? "bg-[#086032]/10 text-[#086032] font-medium"
+                  : "text-gray-700 hover:bg-gray-50"
                   }`}
               >
                 All Categories
@@ -411,8 +411,8 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                   key={category.id}
                   onClick={() => handleCategorySelect(category)}
                   className={`w-full text-left px-4 py-3 text-sm transition-colors border-t border-gray-100 ${selectedCategory?.id === category.id
-                      ? "bg-[#71B344]/10 text-[#71B344] font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
+                    ? "bg-[#086032]/10 text-[#086032] font-medium"
+                    : "text-gray-700 hover:bg-gray-50"
                     }`}
                 >
                   {category.name}
@@ -441,8 +441,8 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                 <button
                   onClick={() => handleCategorySelect(null)}
                   className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all ${!selectedCategory
-                      ? "bg-[#71B344] text-white font-medium"
-                      : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-[#086032] text-white font-medium"
+                    : "text-gray-700 hover:bg-gray-100"
                     }`}
                 >
                   All Categories
@@ -454,14 +454,14 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                     key={category.id}
                     onClick={() => handleCategorySelect(category)}
                     className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all flex items-center justify-between ${selectedCategory?.id === category.id
-                        ? "bg-[#71B344] text-white font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-[#086032] text-white font-medium"
+                      : "text-gray-700 hover:bg-gray-100"
                       }`}
                   >
                     <span className="truncate">{category.name}</span>
                     <span className={`text-xs ml-2 ${selectedCategory?.id === category.id
-                        ? "text-white/80"
-                        : "text-gray-400"
+                      ? "text-white/80"
+                      : "text-gray-400"
                       }`}>
                       {category.products.length}
                     </span>
@@ -525,7 +525,7 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                 {selectedCategory && (
                   <button
                     onClick={() => handleCategorySelect(null)}
-                    className="px-4 py-2 bg-[#71B344] text-white rounded-lg hover:bg-[#5a9636] transition-colors"
+                    className="px-4 py-2 bg-[#086032] text-white rounded-lg hover:bg-[#5a9636] transition-colors"
                   >
                     View All Products
                   </button>
@@ -575,7 +575,7 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
                             onClick={() => handlePageChange(pageNum)}
                             disabled={loading}
                             className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${currentPage === pageNum
-                              ? "bg-[#71B344] text-white shadow-md"
+                              ? "bg-[#086032] text-white shadow-md"
                               : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700"
                               }`}
                           >

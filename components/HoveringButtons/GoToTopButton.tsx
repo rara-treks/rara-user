@@ -31,7 +31,7 @@ export default function GoToTopButton() {
   return (
     <button
       onClick={scrollToTop}
-      className={` z-99 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-800 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out hover:scale-110 flex items-center justify-center ${
+      className={` z-99 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#f2a135] text-white shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out hover:scale-110 flex items-center justify-center ${
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-10 pointer-events-none"

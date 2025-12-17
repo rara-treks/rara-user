@@ -14,7 +14,7 @@ function FooterCopyright({ copyright }: FooterCopyrightProps) {
         <Link href="/privacy-policy" passHref>
           <Button
             variant="link"
-            className="p-0 underline hover:text-[#71B344] transition-colors"
+            className="p-0 underline hover:text-[#086032] transition-colors"
           >
             Privacy Policy
           </Button>
@@ -22,7 +22,7 @@ function FooterCopyright({ copyright }: FooterCopyrightProps) {
         <Link href="/terms-and-conditions" passHref>
           <Button
             variant="link"
-            className="ml-4 p-0 underline hover:text-[#71B344] transition-colors"
+            className="ml-4 p-0 underline hover:text-[#086032] transition-colors"
           >
             Terms & Conditions
           </Button>
@@ -36,7 +36,7 @@ function FooterCopyright({ copyright }: FooterCopyrightProps) {
         <Link
           href="https://quarkinfotech.com/"
           target="_blank"
-          className="underline hover:text-[#71B344] transition-colors"
+          className="underline hover:text-[#086032] transition-colors"
         >
           {copyright.developer}
         </Link>

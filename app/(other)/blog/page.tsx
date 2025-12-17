@@ -81,7 +81,7 @@ const BlogPage = () => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
@@ -89,7 +89,7 @@ const BlogPage = () => {
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
-              
+
             >
               <div className="bg-gray-200 animate-pulse rounded-lg h-64 w-full"></div>
             </div>
@@ -109,7 +109,7 @@ const BlogPage = () => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
@@ -133,7 +133,7 @@ const BlogPage = () => {
               Here is our insight on the latest trend
             </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-              Stories & <span className="text-[#71B344]">News</span>
+              Stories & <span className="text-[#086032]">News</span>
             </h1>
           </div>
         </div>
@@ -154,7 +154,7 @@ const BlogPage = () => {
             Here is our insight on the latest trend
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
-            Stories & <span className="text-[#71B344]">News</span>
+            Stories & <span className="text-[#086032]">News</span>
           </h1>
         </div>
       </div>
@@ -163,7 +163,7 @@ const BlogPage = () => {
         {displayedNews.map((newsItem, index) => (
           <div
             key={newsItem.id}
-              
+
           >
             <NewsCard news={newsItem} onReadMore={handleNewsClick} />
           </div>

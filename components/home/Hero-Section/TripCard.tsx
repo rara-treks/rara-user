@@ -23,7 +23,7 @@ export const TripCard = ({ trip, className = "" }: TripCardProps) => {
               className="object-cover hover:scale-110 transition-transform duration-300 ease-out"
               sizes="(max-width: 768px) 100vw, 231px"
             />
-            <div className="absolute bottom-0 py-1 bg-[#71B344] left-0 right-0 flex flex-row items-center justify-center py-[1px] px-0 bg-opacity-90">
+            <div className="absolute bottom-0 py-1 bg-[#086032] left-0 right-0 flex flex-row items-center justify-center py-[1px] px-0 bg-opacity-90">
               <div className="w-[231px] relative leading-[150%] text-white inline-block shrink-0 text-sm">
                 <span>{`Starting at `}</span>
                 <b>

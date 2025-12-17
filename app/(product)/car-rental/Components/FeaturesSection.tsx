@@ -58,7 +58,7 @@ const FeaturesSection = () => {
                 className="group relative bg-white rounded-2xl p-6 border border-gray-100 hover:border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Icon */}
-                <div className="w-12 h-12 bg-[#71B344] rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-12 h-12 bg-[#086032] rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
                   <IconComponent className="w-6 h-6 text-white" />
                 </div>
 

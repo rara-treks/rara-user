@@ -54,7 +54,7 @@ interface TrekInquiryPopupProps {
 
 export default function TrekInquiryPopup({
   departure,
-  trekId, 
+  trekId,
   trekTitle,
   buttonText = "inquire Now",
   buttonClassName,
@@ -202,7 +202,7 @@ export default function TrekInquiryPopup({
   const hasPrefilledDate: boolean = Boolean(departure?.dateRange);
 
   const defaultButtonClassName =
-    "bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200";
+    "bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -308,9 +308,8 @@ export default function TrekInquiryPopup({
               value={formData.tourPackage}
               onChange={(e) => handleInputChange("tourPackage", e.target.value)}
               placeholder="Enter tour package name"
-              className={`w-full ${
-                trekTitle ? "bg-gray-100 cursor-not-allowed" : ""
-              }`}
+              className={`w-full ${trekTitle ? "bg-gray-100 cursor-not-allowed" : ""
+                }`}
               readOnly={!!trekTitle}
               required
             />
@@ -360,9 +359,8 @@ export default function TrekInquiryPopup({
                     : undefined
                 }
                 readOnly={!!hasPrefilledDate}
-                className={`w-full ${
-                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
-                }`}
+                className={`w-full ${hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                  }`}
                 placeholder={
                   hasPrefilledDate
                     ? "Date will be auto-filled"
@@ -385,9 +383,8 @@ export default function TrekInquiryPopup({
                     : undefined
                 }
                 readOnly={!!hasPrefilledDate}
-                className={`w-full ${
-                  hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
-                }`}
+                className={`w-full ${hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
+                  }`}
                 placeholder={
                   hasPrefilledDate
                     ? "Duration will be auto-filled"
@@ -418,7 +415,7 @@ export default function TrekInquiryPopup({
                 <SelectItem value="10000+">$10,000+</SelectItem>
               </SelectContent>
             </Select>
-          </div>          
+          </div>
 
           <div className="space-y-2">
             <Label
@@ -463,7 +460,7 @@ export default function TrekInquiryPopup({
             </Button>
             <Button
               onClick={handleSubmit}
-              className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
+              className="bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
             >
               Submit Inquiry
             </Button>

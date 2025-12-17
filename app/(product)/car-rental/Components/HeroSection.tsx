@@ -56,7 +56,7 @@ const HeroSection = () => {
           {/* Left Side - Text Content */}
           <div className="space-y-8 lg:pr-8">
             {/* Brand Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md border border-[#71B344]">
+            <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md border border-[#086032]">
               <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
               <span className="text-sm font-semibold text-green-700">
                 RARA-CAR
@@ -67,7 +67,7 @@ const HeroSection = () => {
               <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
                 Luxury Car
                 <br />
-                <span className="text-[#71B344] bg-clip-text">
+                <span className="text-[#086032] bg-clip-text">
                   Rental Nepal
                 </span>
               </h1>
@@ -107,11 +107,10 @@ const HeroSection = () => {
                 {carData.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentCarType
-                        ? "bg-[#71B344] w-8"
+                    className={`h-2 rounded-full transition-all duration-300 ${index === currentCarType
+                        ? "bg-[#086032] w-8"
                         : "bg-gray-300 w-2"
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -120,7 +119,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <RentalForm />
               <Link href="#learn-more">
-                <Button className="border-2 border-[#71B344] text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 hover:text-white transition-all duration-300 backdrop-blur-sm bg-white/50">
+                <Button className="border-2 border-[#086032] text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 hover:text-white transition-all duration-300 backdrop-blur-sm bg-white/50">
                   Learn More
                 </Button>
               </Link>
@@ -149,9 +148,8 @@ const HeroSection = () => {
                         alt={car.alt}
                         width={600}
                         height={400}
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                          index === currentCarType ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentCarType ? "opacity-100" : "opacity-0"
+                          }`}
                       />
                     ))}
                   </div>

@@ -62,15 +62,15 @@ const MobileAdventureCard = ({
           <div className="flex gap-3 w-full">
             <div className="flex flex-col gap-3 text-sm text-darkslategray-300 font-mulish">
               <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4 text-[#71b344]" />
+                <Clock className="w-4 h-4 text-[#086032]" />
                 <span>{overview.duration} Days</span>
               </div>
               <div className="flex items-center gap-1">
-                <Users className="w-4 h-4 text-[#71b344]" />
+                <Users className="w-4 h-4 text-[#086032]" />
                 <span>{overview.group_size}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Mountains className="w-4 h-4 text-[#71b344]" />
+                <Mountains className="w-4 h-4 text-[#086032]" />
                 <span>{overview.trip_grade}</span>
               </div>
             </div>
@@ -101,7 +101,7 @@ const MobileAdventureCard = ({
         trekId={id}
         trekTitle={name}
         buttonText="Book a seat now"
-        buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
+        buttonClassName="rounded-[22px] bg-[#086032] border-[#086032] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
       /> */}
       </div>
     </div>

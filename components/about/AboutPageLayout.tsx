@@ -51,7 +51,7 @@ const AboutPageLayout = ({
                         <div className="max-w-2xl space-y-4">
                             {/* Badge */}
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/20">
-                                <Mountain className="w-4 h-4 text-[#71B344]" />
+                                <Mountain className="w-4 h-4 text-[#086032]" />
                                 <span className="text-white/90 text-sm">
                                     Nepal&apos;s Trusted Trekking Company
                                 </span>
@@ -61,7 +61,7 @@ const AboutPageLayout = ({
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                                 {heroTitle}{" "}
                                 {heroHighlight && (
-                                    <span className="text-[#71B344]">{heroHighlight}</span>
+                                    <span className="text-[#086032]">{heroHighlight}</span>
                                 )}
                             </h1>
 
@@ -83,7 +83,7 @@ const AboutPageLayout = ({
                         <div className="flex flex-wrap justify-center gap-12 md:gap-20">
                             {stats.map((stat, index) => (
                                 <div key={index} className="text-center">
-                                    <p className="text-3xl font-bold text-[#71B344]">
+                                    <p className="text-3xl font-bold text-[#086032]">
                                         {stat.value}
                                     </p>
                                     <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
@@ -124,10 +124,10 @@ const QuickNavLink = ({ href, label }: QuickNavLinkProps) => {
             href={href}
             className={cn(
                 "whitespace-nowrap text-sm font-medium text-gray-600",
-                "hover:text-[#71B344] transition-colors duration-200",
+                "hover:text-[#086032] transition-colors duration-200",
                 "relative py-2",
                 "after:absolute after:bottom-0 after:left-0 after:right-0",
-                "after:h-0.5 after:bg-[#71B344] after:scale-x-0",
+                "after:h-0.5 after:bg-[#086032] after:scale-x-0",
                 "hover:after:scale-x-100 after:transition-transform after:duration-200"
             )}
         >

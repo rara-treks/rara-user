@@ -54,11 +54,10 @@ const StarRating = ({ rating, onRatingChange, label }: StarRatingProps) => {
           >
             <Star
               size={24}
-              className={`${
-                star <= (hoveredStar || rating)
+              className={`${star <= (hoveredStar || rating)
                   ? "fill-yellow-400 text-yellow-400"
                   : "text-gray-300"
-              } hover:text-yellow-400`}
+                } hover:text-yellow-400`}
             />
           </button>
         ))}
@@ -225,7 +224,7 @@ const TrekReviewDialog = ({
             <DialogFooter>
               <Button
                 onClick={handleCloseDialog}
-                className="w-full bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
+                className="w-full bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
               >
                 Close
               </Button>
@@ -333,11 +332,10 @@ const TrekReviewDialog = ({
                       <Star
                         key={star}
                         size={24}
-                        className={`${
-                          star <= Math.round(reviewData.rating)
+                        className={`${star <= Math.round(reviewData.rating)
                             ? "fill-yellow-400 text-yellow-400"
                             : "text-gray-300"
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>
@@ -379,11 +377,10 @@ const TrekReviewDialog = ({
               <Button
                 onClick={handleSubmit}
                 disabled={!isFormValid || isSubmitting}
-                className={`px-6 py-2 rounded-md transition-colors ${
-                  isFormValid && !isSubmitting
-                    ? "bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#71B344] hover:border-[#5A8F37]"
+                className={`px-6 py-2 rounded-md transition-colors ${isFormValid && !isSubmitting
+                    ? "bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#086032] hover:border-[#5A8F37]"
                     : "bg-gray-300 text-gray-500 rounded-full cursor-not-allowed"
-                }`}
+                  }`}
               >
                 {isSubmitting ? "Submitting..." : "Submit Review"}
               </Button>

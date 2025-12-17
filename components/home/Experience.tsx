@@ -66,7 +66,7 @@ const Experience = ({ data = experienceData }) => {
           {/* Dynamic Title */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl flex flex-wrap items-center justify-center gap-2 text-center font-bold text-white mb-4 md:mb-6 lg:mb-8">
             {title.main}{" "}
-            <span className="text-[#71B344]">{title.highlight}</span>{" "}
+            <span className="text-[#f2a135]">{title.highlight}</span>{" "}
             {title.suffix}
           </h2>
 
@@ -114,7 +114,7 @@ const Experience = ({ data = experienceData }) => {
               ))}
 
               <Link href="/contact" className="mt-4 items-center gap-4 flex">
-                <Button className="flex items-center gap-3 px-6 font-bold text-white bg-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
+                <Button className="flex items-center gap-3 px-6 font-bold text-white bg-[#f2a135] hover:bg-[#f2a135] hover:text-white transition-all duration-300">
                   {content.callToAction.text}
                   <ArrowRight className="w-4 h-4" />
                 </Button>

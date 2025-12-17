@@ -244,9 +244,9 @@ export default function CustomTripInquiryPopup({
         duration:
           departure?.departure_from && departure?.departure_to
             ? calculateDuration(
-                departure.departure_from,
-                departure.departure_to
-              )
+              departure.departure_from,
+              departure.departure_to
+            )
             : "",
         budget: "",
         accommodation: "",
@@ -278,7 +278,7 @@ export default function CustomTripInquiryPopup({
               </span>
             </button>
           ) : (
-            <Button className=" w-full bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
+            <Button className=" w-full bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
               {buttonText}
             </Button>
           )}
@@ -637,7 +637,7 @@ export default function CustomTripInquiryPopup({
               <Button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2"
+                className="bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2"
               >
                 {isSubmitting ? "Submitting..." : "Submit Trip Request"}
               </Button>
@@ -664,7 +664,7 @@ export default function CustomTripInquiryPopup({
           <div className="flex justify-center pt-4">
             <Button
               onClick={() => setSuccessOpen(false)}
-              className="bg-[#71B344] hover:bg-[#5A8F37] text-white"
+              className="bg-[#086032] hover:bg-[#5A8F37] text-white"
             >
               Close
             </Button>

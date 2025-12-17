@@ -180,7 +180,7 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-80 p-0">
         <SheetHeader className="px-4 py-4 border-b">
-          <SheetTitle className="text-3xl text-[#71B344]">Menu</SheetTitle>
+          <SheetTitle className="text-3xl text-[#086032]">Menu</SheetTitle>
         </SheetHeader>
 
         <div className="overflow-y-auto h-full pb-20">
@@ -245,8 +245,8 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
                                   <ChevronRight
                                     size={14}
                                     className={`transition-transform duration-200 ${expandedCategory === category.id
-                                        ? "rotate-90"
-                                        : ""
+                                      ? "rotate-90"
+                                      : ""
                                       }`}
                                   />
                                 </button>

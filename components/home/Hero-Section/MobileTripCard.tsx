@@ -19,7 +19,7 @@ export const MobileTripCard = ({
           className="object-cover"
           sizes="280px"
         />
-        <div className="absolute bottom-0 py-2 bg-[#71B344] left-0 right-0 flex flex-row items-center justify-center bg-opacity-90">
+        <div className="absolute bottom-0 py-2 bg-[#086032] left-0 right-0 flex flex-row items-center justify-center bg-opacity-90">
           <div className="relative leading-[150%] text-white text-sm">
             <span>{`Starting at `}</span>
             <b>

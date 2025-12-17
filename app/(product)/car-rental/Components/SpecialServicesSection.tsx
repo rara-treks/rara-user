@@ -21,7 +21,7 @@ const SpecialServicesSection: React.FC = () => {
               key={index}
               className="bg-white backdrop-blur-sm rounded-2xl p-8 transition-all border border-slate-700/50"
             >
-              <h3 className="text-2xl font-bold text-[#71B344] mb-4">
+              <h3 className="text-2xl font-bold text-[#086032] mb-4">
                 {service.title}
               </h3>
               <p className="text-slate-800 mb-6">{service.description}</p>

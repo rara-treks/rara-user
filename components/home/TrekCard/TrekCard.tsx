@@ -33,14 +33,14 @@ const TrekCard = ({ className, ...product }: TrekCardProps) => {
 
   const discountedPrice = hasDiscount
     ? product.prices.find((price) => parseFloat(price.discounted_price_usd) > 0)
-        ?.discounted_price_usd
+      ?.discounted_price_usd
     : null;
 
   const discountPercentage =
     hasDiscount && discountedPrice
       ? Math.round(
-          ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
-        )
+        ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
+      )
       : 0;
 
   const handleCardClick = () => {
@@ -70,7 +70,7 @@ const TrekCard = ({ className, ...product }: TrekCardProps) => {
     <div className={cn("mx-auto h-full", className)}>
       <Card className="p-3 h-full overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative flex flex-col">
         {/* Gradient border wrapper */}
-        <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
+        <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#086032] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
           <div className="w-full h-full bg-white rounded-[32px]"></div>
         </div>
 

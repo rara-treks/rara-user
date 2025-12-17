@@ -76,10 +76,10 @@ interface ActivityDetailProps {
 
 const WhatToBringItem = ({ item }: { item: WhatToBringItem }) => {
   return (
-    <div className="flex gap-2 p-2 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#71B344] hover:bg-green-50 transition-all items-start">
+    <div className="flex gap-2 p-2 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#086032] hover:bg-green-50 transition-all items-start">
       <div className="flex-shrink-0">
         {React.createElement(WHAT_TO_BRING_ICONS[item.icon] || IconBackpack, {
-          className: "w-6 h-6 text-[#71B344]",
+          className: "w-6 h-6 text-[#086032]",
         })}
       </div>
       <div className="flex-1 flex flex-col gap-1">

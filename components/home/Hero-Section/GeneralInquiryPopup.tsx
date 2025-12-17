@@ -62,7 +62,7 @@ export default function GeneralInquiryPopup({
   buttonBgColor,
 }: GeneralInquiryPopupProps) {
   // Default colors - text is black when custom bg color is passed, white otherwise
-  const bgColor = buttonBgColor || "#71B344";
+  const bgColor = buttonBgColor || "#086032";
   const textColor = buttonBgColor ? "#000000" : "#FFFFFF";
   // Generate a darker hover color by reducing brightness
   const hoverBgColor = buttonBgColor
@@ -609,7 +609,7 @@ export default function GeneralInquiryPopup({
               <Button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2"
+                className="bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2"
               >
                 {isSubmitting ? "Submitting..." : "Submit Trip Request"}
               </Button>
@@ -636,7 +636,7 @@ export default function GeneralInquiryPopup({
           <div className="flex justify-center pt-4">
             <Button
               onClick={() => setSuccessOpen(false)}
-              className="bg-[#71B344] hover:bg-[#5A8F37] text-white"
+              className="bg-[#086032] hover:bg-[#5A8F37] text-white"
             >
               Close
             </Button>

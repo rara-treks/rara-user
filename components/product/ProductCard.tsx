@@ -225,7 +225,7 @@ const ProductCard: React.FC<Product> = (product) => {
   return (
     <Card className="group overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white border-0 relative">
       {/* Gradient border */}
-      <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
+      <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#086032] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
         <div className="w-full h-full bg-white rounded-[32px]"></div>
       </div>
 
@@ -243,7 +243,7 @@ const ProductCard: React.FC<Product> = (product) => {
           onClick={handleCardClick}
         >
           <div className="space-y-2">
-            <h2 className="text-lg font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-[#71B344] transition-colors">
+            <h2 className="text-lg font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-[#086032] transition-colors">
               {safeData.name}
             </h2>
 

@@ -68,9 +68,9 @@ const Altitude_chart = ({
   const avgAltitude =
     processedChartData.length > 0
       ? Math.round(
-          processedChartData.reduce((sum, d) => sum + d.altitude, 0) /
-            processedChartData.length
-        )
+        processedChartData.reduce((sum, d) => sum + d.altitude, 0) /
+        processedChartData.length
+      )
       : 0;
 
   const totalDays = processedChartData.length;
@@ -87,7 +87,7 @@ const Altitude_chart = ({
           {dayInfo?.title && (
             <p className="text-sm text-gray-600 mt-1">{dayInfo.title}</p>
           )}
-          <p className="text-lg font-bold text-[#71B344] mt-2">
+          <p className="text-lg font-bold text-[#086032] mt-2">
             {data.altitude.toLocaleString()}m
           </p>
         </div>
@@ -118,10 +118,10 @@ const Altitude_chart = ({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor="#71B344" stopOpacity={0.8} />
+                      <stop offset="5%" stopColor="#086032" stopOpacity={0.8} />
                       <stop
                         offset="95%"
-                        stopColor="#71B344"
+                        stopColor="#086032"
                         stopOpacity={0.1}
                       />
                     </linearGradient>
@@ -148,7 +148,7 @@ const Altitude_chart = ({
                   <Area
                     type="monotone"
                     dataKey="altitude"
-                    stroke="#71B344"
+                    stroke="#086032"
                     strokeWidth={3}
                     fill="url(#altitudeGradient)"
                   />

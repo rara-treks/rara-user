@@ -109,11 +109,11 @@ const Services = () => {
             We offer diverse services
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
-            Explore <span className="text-[#71B344]">Services</span>
+            Explore <span className="text-[#086032]">Services</span>
           </h1>
         </div>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#71B344]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#086032]"></div>
         </div>
       </div>
     );
@@ -127,7 +127,7 @@ const Services = () => {
             We offer diverse services
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
-            Explore <span className="text-[#71B344]">Services</span>
+            Explore <span className="text-[#086032]">Services</span>
           </h1>
         </div>
         <div className="text-red-500 text-center">
@@ -144,7 +144,7 @@ const Services = () => {
           We offer diverse services
         </p>
         <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
-          Explore <span className="text-[#71B344]">Services</span>
+          Explore <span className="text-[#086032]">Services</span>
         </h1>
       </div>
 
@@ -156,11 +156,10 @@ const Services = () => {
               <Link
                 key={service.title}
                 href={service.route}
-                className={`relative rounded-[32px] overflow-hidden group cursor-pointer ${
-                  service.width === "wide"
+                className={`relative rounded-[32px] overflow-hidden group cursor-pointer ${service.width === "wide"
                     ? "w-[434px] flex-shrink-0"
                     : "w-[332px] flex-shrink-0"
-                }`}
+                  }`}
               >
                 {service.image ? (
                   <>

@@ -123,13 +123,13 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       // Featured image
       ...(productData.files?.featuredImage
         ? [
-            {
-              id: productData.files.featuredImage.id.toString(),
-              src: productData.files.featuredImage.url,
-              alt: productData.name,
-              isFeatured: true,
-            },
-          ]
+          {
+            id: productData.files.featuredImage.id.toString(),
+            src: productData.files.featuredImage.url,
+            alt: productData.name,
+            isFeatured: true,
+          },
+        ]
         : []),
       // Featured images array
       ...(productData.files?.featuredImages || []).map((img, index) => ({
@@ -186,9 +186,9 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
   const altitudeChartData: AltitudeChartType | undefined = productData.files
     ?.altitudeChart
     ? {
-        src: productData.files.altitudeChart.url,
-        alt: `${productData.name} - Altitude Chart`,
-      }
+      src: productData.files.altitudeChart.url,
+      alt: `${productData.name} - Altitude Chart`,
+    }
     : undefined;
 
   // Transform itinerary data correctly
@@ -230,15 +230,15 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     longitude: productData.longitude || 0,
     image: productData.files?.locationCover
       ? {
-          id: productData.files.locationCover.id,
-          src: productData.files.locationCover.url,
-          alt: `${productData.name} - Location`,
-        }
+        id: productData.files.locationCover.id,
+        src: productData.files.locationCover.url,
+        alt: `${productData.name} - Location`,
+      }
       : {
-          id: 0,
-          src: "/placeholder.jpg",
-          alt: "No location image available",
-        },
+        id: 0,
+        src: "/placeholder.jpg",
+        alt: "No location image available",
+      },
   };
 
   // Helper function to get month name from date string
@@ -337,12 +337,12 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
 
   const faqImages: FAQImage[] = Array.isArray(productData.files?.faqImages)
     ? productData.files.faqImages.map(
-        (img: { id: any; url: any }, index: number) => ({
-          id: img.id,
-          src: img.url,
-          alt: `FAQ Image ${index + 1}`,
-        })
-      )
+      (img: { id: any; url: any }, index: number) => ({
+        id: img.id,
+        src: img.url,
+        alt: `FAQ Image ${index + 1}`,
+      })
+    )
     : [];
 
   // Reviews data mapping with safe number conversion
@@ -367,10 +367,10 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       tagline: circuit.tagline,
       featuredImage: circuit.featuredImage
         ? {
-            id: circuit.featuredImage.id,
-            url: circuit.featuredImage.url,
-            alt: circuit.name,
-          }
+          id: circuit.featuredImage.id,
+          url: circuit.featuredImage.url,
+          alt: circuit.name,
+        }
         : undefined,
       featuredImages: circuit.featuredImages || [],
       prices: circuit.prices || [],
@@ -417,11 +417,10 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
                   <button
                     key={tab.id}
                     onClick={() => scrollToSection(tab.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                      activeTab === tab.id
-                        ? "bg-[#71B344] text-white shadow-sm rounded-full"
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${activeTab === tab.id
+                        ? "bg-[#086032] text-white shadow-sm rounded-full"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    }`}
+                      }`}
                   >
                     {tab.label}
                   </button>

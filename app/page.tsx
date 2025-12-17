@@ -1,6 +1,5 @@
 import React from "react";
 import HeroSection from "@/components/home/hero-section";
-import Journey from "@/components/home/Journey";
 import MainTourComponent from "@/components/home/TravelContent";
 import Experience from "@/components/home/Experience";
 import Why from "@/components/home/Why";
@@ -27,7 +26,7 @@ async function Home() {
       <Experience />
 
       <Adventure />
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full gap-10">
         <div id="reviews" className="h-full">
           <Testimonial />
         </div>

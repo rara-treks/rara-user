@@ -15,39 +15,39 @@ const RelatedTrekCard = (product: RelatedCircuit) => {
   // Handle images - RelatedCircuit might have a different structure
   const images = product.featuredImage?.url
     ? [
-        product.featuredImage.url,
-        ...(product.featuredImages?.map((img) => img.url) || []),
-      ]
+      product.featuredImage.url,
+      ...(product.featuredImages?.map((img) => img.url) || []),
+    ]
     : product.featuredImages?.map((img) => img.url) || [];
 
   // Handle pricing for RelatedCircuit
   const lowestPrice =
     product.prices && product.prices.length > 0
       ? product.prices.reduce((min, price) => {
-          const currentPrice = parseFloat(price.original_price_usd);
-          return currentPrice < min ? currentPrice : min;
-        }, parseFloat(product.prices[0]?.original_price_usd || "0"))
+        const currentPrice = parseFloat(price.original_price_usd);
+        return currentPrice < min ? currentPrice : min;
+      }, parseFloat(product.prices[0]?.original_price_usd || "0"))
       : 0;
 
   const hasDiscount =
     product.prices && product.prices.length > 0
       ? product.prices.some(
-          (price) => parseFloat(price.discounted_price_usd || "0") > 0
-        )
+        (price) => parseFloat(price.discounted_price_usd || "0") > 0
+      )
       : false;
 
   const discountedPrice =
     hasDiscount && product.prices
       ? product.prices.find(
-          (price) => parseFloat(price.discounted_price_usd || "0") > 0
-        )?.discounted_price_usd
+        (price) => parseFloat(price.discounted_price_usd || "0") > 0
+      )?.discounted_price_usd
       : null;
 
   const discountPercentage =
     hasDiscount && discountedPrice && lowestPrice > 0
       ? Math.round(
-          ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
-        )
+        ((lowestPrice - parseFloat(discountedPrice)) / lowestPrice) * 100
+      )
       : 0;
 
   const handleCardClick = () => {
@@ -77,7 +77,7 @@ const RelatedTrekCard = (product: RelatedCircuit) => {
     <div className="mx-auto">
       <Card className="p-2 overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative">
         {/* Gradient border wrapper */}
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-[#086032] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
           <div className="w-full h-full bg-white rounded-lg"></div>
         </div>
 

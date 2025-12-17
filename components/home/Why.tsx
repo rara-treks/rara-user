@@ -18,10 +18,10 @@ interface CardData {
 }
 
 const Card = ({ icon, title, description }: CardData) => (
-  <div className="bg-white/10 backdrop-blur-sm rounded-[32px] p-6 h-full flex flex-col items-center text-center">
+  <div className="bg-black/30 backdrop-blur-sm rounded-[32px] p-6 h-full flex flex-col items-center text-center">
     <div className="w-16 h-16 mb-4 flex items-center justify-center">
       <div className="w-12 h-12 rounded-full">
-        <Image src={icon} alt={title} width={12} height={12} className="w-full h-full text-white"/>
+        <Image src={icon} alt={title} width={12} height={12} className="w-full h-full text-white" />
       </div>
     </div>
     <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
@@ -84,7 +84,7 @@ const Why = () => {
     <div className="w-full flex items-center justify-center py-8 bg-gradient-to-b from-[#1E2F22] to-[#162319]">
       <div className="w-full flex flex-col items-center justify-center md:container px-4 md:px-0 py-6">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
-          Why choose <span className="text-[#71B344]">Rara Treks</span>
+          Why choose <span className="text-[#f2a135]">Rara Treks</span>
         </h2>
 
         <div className="w-full">
@@ -120,9 +120,8 @@ const Why = () => {
           {Array.from({ length: count }).map((_, index) => (
             <div
               key={index}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === current ? "w-8 bg-[#71B344]" : "w-2 bg-white/30"
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 ${index === current ? "w-8 bg-[#086032]" : "w-2 bg-white/30"
+                }`}
             />
           ))}
         </div>

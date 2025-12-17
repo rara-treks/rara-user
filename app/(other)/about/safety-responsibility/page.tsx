@@ -43,7 +43,7 @@ export default function SafetyResponsibilityPage() {
                             Your Safety Matters
                         </p>
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                            Our <span className="text-[#71B344]">Commitment</span>
+                            Our <span className="text-[#086032]">Commitment</span>
                         </h2>
                     </div>
 
@@ -70,7 +70,7 @@ export default function SafetyResponsibilityPage() {
                         {/* High-Altitude Care */}
                         <div className="bg-green-50 rounded-2xl p-6">
                             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-                                <Mountain className="w-6 h-6 text-[#71B344]" />
+                                <Mountain className="w-6 h-6 text-[#086032]" />
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">
                                 High-Altitude Care
@@ -78,7 +78,7 @@ export default function SafetyResponsibilityPage() {
                             <ul className="space-y-3">
                                 {highAltitudeCare.map((item, index) => (
                                     <li key={index} className="flex items-start gap-2">
-                                        <CheckCircle className="w-4 h-4 text-[#71B344] flex-shrink-0 mt-0.5" />
+                                        <CheckCircle className="w-4 h-4 text-[#086032] flex-shrink-0 mt-0.5" />
                                         <span className="text-gray-700 text-sm">{item}</span>
                                     </li>
                                 ))}

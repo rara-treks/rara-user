@@ -91,7 +91,7 @@ function ActivitiesMultiSelect({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full min-h-[40px] px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#71B344] focus:border-transparent hover:border-gray-400 transition-colors"
+        className="w-full min-h-[40px] px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#086032] focus:border-transparent hover:border-gray-400 transition-colors"
       >
         <div className="flex items-center justify-between">
           <div className="flex-1 flex flex-wrap gap-1.5">
@@ -109,7 +109,7 @@ function ActivitiesMultiSelect({
                 return (
                   <span
                     key={index}
-                    className="inline-flex items-center gap-1 px-2 py-1 bg-[#71B344] text-white text-xs rounded-full"
+                    className="inline-flex items-center gap-1 px-2 py-1 bg-[#086032] text-white text-xs rounded-full"
                   >
                     {name}
                     <X
@@ -124,9 +124,8 @@ function ActivitiesMultiSelect({
             )}
           </div>
           <ChevronDown
-            className={`w-4 h-4 text-gray-400 ml-2 transition-transform ${
-              isOpen ? "transform rotate-180" : ""
-            }`}
+            className={`w-4 h-4 text-gray-400 ml-2 transition-transform ${isOpen ? "transform rotate-180" : ""
+              }`}
           />
         </div>
       </button>
@@ -153,16 +152,15 @@ function ActivitiesMultiSelect({
                         <span className="text-sm font-medium text-gray-700">
                           {activity.name}
                         </span>
-                       
+
                       </div>
-                      
+
                     </div>
                     <div
-                      className={`w-5 h-5 border-2 rounded flex items-center justify-center flex-shrink-0 ${
-                        isSelected
-                          ? "bg-[#71B344] border-[#71B344]"
-                          : "border-gray-300 group-hover:border-[#71B344]"
-                      }`}
+                      className={`w-5 h-5 border-2 rounded flex items-center justify-center flex-shrink-0 ${isSelected
+                          ? "bg-[#086032] border-[#086032]"
+                          : "border-gray-300 group-hover:border-[#086032]"
+                        }`}
                     >
                       {isSelected && <Check className="w-3 h-3 text-white" />}
                     </div>

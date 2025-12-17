@@ -28,8 +28,8 @@ const GoldenCTA = ({
             size={size}
             className={cn(
                 variant === "primary"
-                    ? "bg-[#FEBD18] hover:bg-[#E5A916] text-gray-900"
-                    : "border border-[#71B344] bg-transparent text-[#71B344] hover:bg-[#71B344] hover:text-white",
+                    ? "bg-[#f2a135] hover:bg-[#E5A916] text-gray-900"
+                    : "border border-[#086032] bg-transparent text-[#086032] hover:bg-[#086032] hover:text-white",
                 "gap-2",
                 className
             )}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import {  Clock, Users } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import MobileAdventureCard from "./MobileAdventureCard";
 import { Adventure } from "./Adventure";
@@ -12,7 +12,7 @@ interface AdventureCardProps {
   className?: string;
 }
 
-const AdventureCard = ({ data, className="" }: AdventureCardProps) => {
+const AdventureCard = ({ data, className = "" }: AdventureCardProps) => {
   const { name, featuredImage, overview, prices, departures, id, type, slug } =
     data;
 
@@ -51,26 +51,26 @@ const AdventureCard = ({ data, className="" }: AdventureCardProps) => {
               </div>
               <Link
                 href={`/${type}/${slug}`}
-                className="text-2xl leading-[150%] line-clamp-2 font-semibold text-[#1e2f22] hover:text-[#71b344] transition-colors cursor-pointer"
+                className="text-2xl leading-[150%] line-clamp-2 font-semibold text-[#1e2f22] hover:text-[#086032] transition-colors cursor-pointer"
               >
                 {name}
               </Link>
             </div>
             <div className="flex flex-row items-start justify-start gap-3 text-darkslategray-300 font-mulish">
               <div className="flex flex-row items-center justify-start gap-1">
-                <Clock className="text-sm w-4 h-4 text-[#71b344]" />
+                <Clock className="text-sm w-4 h-4 text-[#086032]" />
                 <div className="relative leading-[150%]">
                   {overview.duration} Days
                 </div>
               </div>
               <div className="flex flex-row items-center justify-start gap-1">
-                <Users className="text-sm w-4 h-4 text-[#71b344]" />
+                <Users className="text-sm w-4 h-4 text-[#086032]" />
                 <div className="relative leading-[150%]">
                   {overview.group_size}
                 </div>
               </div>
               <div className="flex flex-row items-center justify-start gap-1">
-                <Mountains className="text-sm w-4 h-4 text-[#71b344]" />
+                <Mountains className="text-sm w-4 h-4 text-[#086032]" />
                 <div className="relative leading-[150%]">
                   {overview.trip_grade}
                 </div>
@@ -92,12 +92,12 @@ const AdventureCard = ({ data, className="" }: AdventureCardProps) => {
               buttonText="Book a seat now"
               trekTitle={name}
               trekId={id}
-            />            
+            />
           </div>
         </div>
       </div>
       <div className="w-full block lg:hidden">
-        <MobileAdventureCard data={data} className="w-full"/>
+        <MobileAdventureCard data={data} className="w-full" />
       </div>
     </div>
   );

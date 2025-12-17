@@ -12,7 +12,7 @@ interface CarCardProps {
 
 const CarCard = ({ car, onViewDetails, onQuickBook }: CarCardProps) => {
   return (
-    <div className="p-1 bg-gradient-to-t from-[#71B344] via-[#7A7E77] to-[#DDE4D7] p-[1px] rounded-2xl">
+    <div className="p-1 bg-gradient-to-t from-[#086032] via-[#7A7E77] to-[#DDE4D7] p-[1px] rounded-2xl">
       <Card className="bg-white backdrop-blur-sm rounded-2xl shadow-2xl hover:shadow-emerald-500/20 transition-all overflow-hidden border-0">
         <CardContent className="p-1">
           <div className="relative">
@@ -77,7 +77,7 @@ const CarCard = ({ car, onViewDetails, onQuickBook }: CarCardProps) => {
               <Button
                 onClick={() => onQuickBook(car)}
                 disabled={!car.available}
-                className="flex-1 bg-[#71B344] px-4 py-2 rounded-full transition-all disabled:bg-slate-600 disabled:cursor-not-allowed"
+                className="flex-1 bg-[#086032] px-4 py-2 rounded-full transition-all disabled:bg-slate-600 disabled:cursor-not-allowed"
               >
                 {car.available ? "Quick Book" : "Unavailable"}
               </Button>

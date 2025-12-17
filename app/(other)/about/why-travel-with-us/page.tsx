@@ -122,7 +122,7 @@ export default function WhyTravelWithUsPage() {
                             What Sets Us Apart
                         </p>
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                            Why Travelers <span className="text-[#71B344]">Choose Us</span>
+                            Why Travelers <span className="text-[#086032]">Choose Us</span>
                         </h2>
                     </div>
 
@@ -132,10 +132,10 @@ export default function WhyTravelWithUsPage() {
                             return (
                                 <div
                                     key={index}
-                                    className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-[#71B344]/30 hover:shadow-md transition-all duration-300"
+                                    className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-[#086032]/30 hover:shadow-md transition-all duration-300"
                                 >
-                                    <div className="w-12 h-12 bg-[#71B344]/10 rounded-xl flex items-center justify-center mb-4">
-                                        <Icon className="w-6 h-6 text-[#71B344]" />
+                                    <div className="w-12 h-12 bg-[#086032]/10 rounded-xl flex items-center justify-center mb-4">
+                                        <Icon className="w-6 h-6 text-[#086032]" />
                                     </div>
                                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                                         {feature.title}
@@ -159,7 +159,7 @@ export default function WhyTravelWithUsPage() {
                                 Stories of unforgettable adventures
                             </p>
                             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                                Happy <span className="text-[#71B344]">Explorers</span>
+                                Happy <span className="text-[#086032]">Explorers</span>
                             </h2>
                         </div>
                     </div>

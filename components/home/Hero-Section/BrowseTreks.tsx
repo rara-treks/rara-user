@@ -199,7 +199,7 @@ const BrowseTreks = () => {
           },
         }}
         modifiersClassNames={{
-          highlighted: "bg-[#71B344] text-white font-bold hover:bg-[#5fa035]",
+          highlighted: "bg-[#086032] text-white font-bold hover:bg-[#5fa035]",
         }}
         className="rounded-md border"
       />
@@ -212,10 +212,10 @@ const BrowseTreks = () => {
     <div>
       <Button
         onClick={handleOpenDialog}
-        className="rounded-[22px] bg-[#FEBD18] flex flex-row items-center justify-center py-2 px-4 gap-2 text-black font-inter transition-colors duration-200 cursor-pointer shadow-lg"
+        className="rounded-[22px] bg-[#f2a135] flex flex-row items-center justify-center py-2 px-4 gap-2 text-white font-inter transition-colors duration-200 cursor-pointer shadow-lg"
       >
         <CalendarDays
-          className="text-black font-bold"
+          className="text-white font-bold"
           size={16}
           aria-hidden="true"
         />
@@ -299,7 +299,7 @@ const BrowseTreks = () => {
                               </div>
                               <Button
                                 onClick={() => handleSelectDeparture(product)}
-                                className="w-full mt-2 bg-[#71B344] hover:bg-[#5fa035] text-white text-xs"
+                                className="w-full mt-2 bg-[#086032] hover:bg-[#5fa035] text-white text-xs"
                               >
                                 View Details
                               </Button>
@@ -363,7 +363,7 @@ const BrowseTreks = () => {
                               </div>
                               <Button
                                 onClick={() => handleSelectDeparture(product)}
-                                className="w-full mt-2 bg-[#71B344] hover:bg-[#5fa035] text-white text-xs"
+                                className="w-full mt-2 bg-[#086032] hover:bg-[#5fa035] text-white text-xs"
                               >
                                 View Details
                               </Button>
@@ -427,7 +427,7 @@ const BrowseTreks = () => {
                               </div>
                               <Button
                                 onClick={() => handleSelectDeparture(product)}
-                                className="w-full mt-2 bg-[#71B344] hover:bg-[#5fa035] text-white text-xs"
+                                className="w-full mt-2 bg-[#086032] hover:bg-[#5fa035] text-white text-xs"
                               >
                                 View Details
                               </Button>

@@ -78,7 +78,7 @@ const TourCarousel = ({
         <div className="flex flex-col gap-1">
           <p className="text-xl lg:text-2xl font-satisfy">{getSubtitle()}</p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
-            {title1} <p className="text-[#71B344]">{getDisplayTitle()}</p>
+            {title1} <p className="text-[#086032]">{getDisplayTitle()}</p>
           </h1>
         </div>
 
@@ -86,7 +86,7 @@ const TourCarousel = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-16 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
+            className="h-8 w-16 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
             onClick={() => {
               const prevButton = document.querySelector(
                 `[data-carousel="prev-${title}"]`
@@ -99,7 +99,7 @@ const TourCarousel = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-16 rounded-full bg-[#71B344] text-white cursor-pointer border-2 border-gray-300 hover:border-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300"
+            className="h-8 w-16 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
             onClick={() => {
               const nextButton = document.querySelector(
                 `[data-carousel="next-${title}"]`
@@ -136,7 +136,7 @@ const TourCarousel = ({
 
       <div className="w-full flex items-center justify-center">
         <Link href={`/${id}`}>
-          <Button className="flex items-center capitalize gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
+          <Button className="flex items-center capitalize gap-1 border border-[#086032] bg-white text-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300">
             View All {id} <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>

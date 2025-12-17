@@ -15,7 +15,7 @@ const ReviewHeader = ({ onWriteReviewClick }: ReviewHeaderProps) => {
         variant="outline"
         size="sm"
         onClick={onWriteReviewClick}
-        className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#71B344] hover:border-[#5A8F37]"
+        className="bg-[#086032] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200 flex items-center gap-2 border-[#086032] hover:border-[#5A8F37]"
       >
         Write Review
         <ArrowRight className="w-4 h-4" />

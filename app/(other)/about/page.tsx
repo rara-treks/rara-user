@@ -83,7 +83,7 @@ const About = () => {
           <p className="text-red-600 font-semibold">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-[#71B344] text-white rounded-full hover:bg-[#5a8c35] transition text-sm"
+            className="mt-4 px-4 py-2 bg-[#086032] text-white rounded-full hover:bg-[#5a8c35] transition text-sm"
           >
             Retry
           </button>
@@ -98,7 +98,7 @@ const About = () => {
       heroTitle="About Our"
       heroHighlight="Journey"
       heroDescription="Crafting extraordinary adventures in the Himalayas for over a decade."
-      // showStats={true}
+    // showStats={true}
     >
       {/* Quick Navigation Cards */}
       <section className="py-12 bg-white">
@@ -110,19 +110,19 @@ const About = () => {
                 <Link
                   key={index}
                   href={link.href}
-                  className="group bg-slate-50 rounded-xl p-5 hover:bg-[#71B344]/5 border border-transparent hover:border-[#71B344]/20 transition-all duration-300"
+                  className="group bg-slate-50 rounded-xl p-5 hover:bg-[#086032]/5 border border-transparent hover:border-[#086032]/20 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#71B344]/10 rounded-lg flex items-center justify-center group-hover:bg-[#71B344]/20 transition-colors">
-                      <Icon className="w-5 h-5 text-[#71B344]" />
+                    <div className="w-10 h-10 bg-[#086032]/10 rounded-lg flex items-center justify-center group-hover:bg-[#086032]/20 transition-colors">
+                      <Icon className="w-5 h-5 text-[#086032]" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#71B344] transition-colors">
+                      <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#086032] transition-colors">
                         {link.title}
                       </h3>
                       <p className="text-xs text-gray-500">{link.description}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[#71B344] group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[#086032] group-hover:translate-x-1 transition-all" />
                   </div>
                 </Link>
               );
@@ -150,7 +150,7 @@ const About = () => {
                     Our Story
                   </p>
                   <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                    Who We <span className="text-[#71B344]">Are</span>
+                    Who We <span className="text-[#086032]">Are</span>
                   </h2>
                 </div>
                 <div
@@ -191,13 +191,13 @@ const About = () => {
               Learn More
             </p>
             <h2 className="text-3xl font-bold text-gray-900">
-              Explore <span className="text-[#71B344]">More</span>
+              Explore <span className="text-[#086032]">More</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-green-50 rounded-xl p-6 text-center">
-              <Users className="w-10 h-10 text-[#71B344] mx-auto mb-3" />
+              <Users className="w-10 h-10 text-[#086032] mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2 text-sm">
                 Why Choose Us
               </h3>
