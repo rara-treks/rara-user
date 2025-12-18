@@ -86,7 +86,7 @@ const TourCarousel = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-16 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
+            className="h-10 w-20 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
             onClick={() => {
               const prevButton = document.querySelector(
                 `[data-carousel="prev-${title}"]`
@@ -99,7 +99,7 @@ const TourCarousel = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-16 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
+            className="h-10 w-20 rounded-full bg-[#086032] text-white cursor-pointer border-2 border-gray-300 hover:border-[#086032] hover:bg-[#086032] hover:text-white transition-all duration-300"
             onClick={() => {
               const nextButton = document.querySelector(
                 `[data-carousel="next-${title}"]`

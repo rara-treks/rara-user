@@ -31,7 +31,7 @@ const AboutPageLayout = ({
     return (
         <div className="w-full bg-white">
             {/* Hero Section */}
-            <section className="relative w-full h-[50vh] min-h-[400px] overflow-hidden">
+            <section className="relative w-full h-[80vh] min-h-[400px] overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <Image
@@ -51,7 +51,7 @@ const AboutPageLayout = ({
                         <div className="max-w-2xl space-y-4">
                             {/* Badge */}
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/20">
-                                <Mountain className="w-4 h-4 text-[#086032]" />
+                                <Mountain className="w-4 h-4 text-[#f2a135]" />
                                 <span className="text-white/90 text-sm">
                                     Nepal&apos;s Trusted Trekking Company
                                 </span>
@@ -61,7 +61,7 @@ const AboutPageLayout = ({
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                                 {heroTitle}{" "}
                                 {heroHighlight && (
-                                    <span className="text-[#086032]">{heroHighlight}</span>
+                                    <span className="text-[#f2a135]">{heroHighlight}</span>
                                 )}
                             </h1>
 

@@ -37,8 +37,10 @@ function FooterAssociates({ associates }: FooterAssociatesProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:justify-between text-white md:pl-12">
-      <p>Associated with:</p>
+    <div className="flex flex-col md:flex-row items-center justify-end md:items-center gap-3 md:gap-6 text-white md:pl-12">
+      <div className="flex items-center justify-center gap-2">
+        <p>Associated with:</p>
+      </div>
       <div className="flex items-center gap-6 justify-start">
         {associates.map(renderAssociate)}
       </div>

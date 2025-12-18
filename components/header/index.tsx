@@ -75,15 +75,15 @@ function Header() {
             </div>
 
             {/* Navigation */}
-            <div>
+            <div className="flex gap-8">
               <NavigationMenu />
+               <div className="flex justify-center items-center">
+              <Search />
+            </div>
             </div>
 
             {/* Search */}
-            <div className="flex justify-center items-center">
-              <Search />
-
-            </div>
+           
 
             {/* Right Section */}
             <div className="flex gap-8 justify-center items-center">

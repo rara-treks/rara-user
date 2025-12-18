@@ -122,11 +122,11 @@ const Search = () => {
       {/* Search Icon Button */}
       <Button
         onClick={handleDialogOpen}
-        className="p-2 hover:bg-gray-100 active:bg-transparent focus:bg-transparent hover:shadow-none focus-visible:bg-transparent flex items-center gap-2 xl:px-6 bg-transparent rounded-full transition-colors duration-200"
+        className="px-12 border border-[#f2a135] bg-gray-200 active:bg-transparent focus:bg-transparent hover:shadow-none focus-visible:bg-transparent flex items-center gap-2 rounded-full transition-colors duration-200"
         title="Search"
       >
         <IconSearch size={20} className="text-gray-600" />
-        <p className="text-md hidden xl:flex text-black">Search</p>
+        <p className="text-md hidden xl:flex text-black">Search Here</p>
       </Button>
 
       {/* Search Dialog */}

@@ -48,7 +48,7 @@ const ImageCarousel = ({
   }, [api]);
 
   return (
-    <div className="relative w-full h-64 overflow-hidden rounded-t-[34px]">
+    <div className="relative w-full h-64 overflow-hidden rounded-t-[32px]">
       <Carousel setApi={setApi} className="w-full h-full group">
         <CarouselContent>
           {images.map((image, index) => (

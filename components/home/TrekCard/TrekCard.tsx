@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import AvailabilityBanner from "./AvailabilityBanner ";
+import AvailabilityBanner from "./AvailabilityBanner";
 import ImageCarousel from "./imageCarousel";
 import PriceSection from "./PriceSection";
 import TrekDetails from "./TrekDetails";
@@ -67,15 +67,15 @@ const TrekCard = ({ className, ...product }: TrekCardProps) => {
   };
 
   return (
-    <div className={cn("mx-auto h-full", className)}>
-      <Card className="p-3 h-full overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative flex flex-col">
+    <div className={cn("mx-auto", className)}>
+      <Card className="overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white border-0 relative flex flex-col">
         {/* Gradient border wrapper */}
         <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#086032] via-[#7A7E77] to-[#DDE4D7] p-[1px]">
           <div className="w-full h-full bg-white rounded-[32px]"></div>
         </div>
 
         {/* Content wrapper */}
-        <div className="relative z-10 h-full flex flex-col">
+        <div className="relative z-10 flex flex-col">
           <ImageCarousel
             images={images}
             alt={product.name}
@@ -84,11 +84,11 @@ const TrekCard = ({ className, ...product }: TrekCardProps) => {
           />
 
           <CardContent
-            className="p-2 space-y-2 w-full cursor-pointer flex-1 flex flex-col"
+            className="px-2 w-full cursor-pointer flex-1 flex flex-col"
             onClick={handleCardClick}
           >
-            <div className="flex flex-col items-start justify-start w-full flex-1">
-              <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-2">
+            <div className="flex flex-col pt-4 items-start justify-start w-full flex-1">
+              <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-1">
                 {product.name}
               </h2>
 

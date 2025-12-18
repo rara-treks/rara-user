@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import AvailabilityBanner from "../home/TrekCard/AvailabilityBanner ";
+import AvailabilityBanner from "../home/TrekCard/AvailabilityBanner";
 import ImageCarousel from "../home/TrekCard/imageCarousel";
 import PriceSection from "../home/TrekCard/PriceSection";
 import TrekDetails from "../home/TrekCard/TrekDetails";

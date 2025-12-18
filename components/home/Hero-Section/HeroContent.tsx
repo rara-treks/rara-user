@@ -9,7 +9,7 @@ interface HeroContentProps {
 
 export const HeroContent = ({ hero }: HeroContentProps) => {
   return (
-    <div className="self-stretch h-[541px] overflow-hidden shrink-0 relative bg-gray-900">
+    <div className="self-stretch w-full h-[90vh] overflow-hidden shrink-0 relative bg-gray-900">
       <video
         autoPlay
         loop

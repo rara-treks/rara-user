@@ -79,7 +79,7 @@ const MobileAdventureCard = ({
           {/* Price Section */}
           <div className="w-full flex justify-between items-center">
             <div className="flex flex-col">
-              <div className="text-xl font-extrabold text-[#1E2F22]">
+              <div className="text-xl font-extrabold text-green-600">
                 $ {finalPrice.toLocaleString()}
               </div>
               {discountedPrice > 0 && originalPrice !== discountedPrice && (
