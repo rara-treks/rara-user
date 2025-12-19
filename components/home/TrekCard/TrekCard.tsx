@@ -87,7 +87,7 @@ const TrekCard = ({ className, ...product }: TrekCardProps) => {
             className="px-2 w-full cursor-pointer flex-1 flex flex-col"
             onClick={handleCardClick}
           >
-            <div className="flex flex-col pt-4 items-start justify-start w-full flex-1">
+            <div className="flex px-3 flex-col pt-4 items-start justify-start w-full flex-1">
               <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-1">
                 {product.name}
               </h2>

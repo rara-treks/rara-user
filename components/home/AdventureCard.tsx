@@ -43,7 +43,7 @@ const AdventureCard = ({ data, className = "" }: AdventureCardProps) => {
             className="rounded-[28px] w-[255px] h-[230px] object-cover"
           />
         </div>
-        <div className="flex-1 w-full h-full relative flex flex-col items-start justify-start pl-2 pr-4 py-2 gap-[20px] text-left text-sm text-darkslategray-400 font-sen">
+        <div className="flex-1 w-full h-full relative flex flex-col items-start justify-start pl-2 pr-4 pbb-2 pt-4 gap-[20px] text-left text-sm text-darkslategray-400 font-sen">
           <div className="self-stretch flex flex-col items-start justify-start gap-3">
             <div className="self-stretch flex flex-col items-start justify-start gap-1.5">
               <div className="self-stretch text-[#1E2F2280] relative leading-[150%] font-semibold">

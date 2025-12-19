@@ -185,7 +185,11 @@ const MainTourComponent = () => {
 
   return (
     <div className="w-full md:container px-2 md:px-4">
-      <AdventureGrid title="Adventures" data={adventures} className="w-full" />
+      <AdventureGrid
+        title="Adventures"
+        data={adventures.slice(0, 6)}
+        className="w-full"
+      />
     </div>
   );
 };
