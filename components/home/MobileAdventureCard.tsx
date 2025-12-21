@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import { Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import { Adventure } from "./Adventure";
@@ -16,7 +17,7 @@ const MobileAdventureCard = ({
   data,
   className = "",
 }: MobileAdventureCardProps) => {
-  const { name, featuredImage, overview, id, prices, departures } = data;
+  const { name, featuredImage, overview, id, prices, departures, type, slug } = data;
 
   // Get the earliest departure dates
   const earliestDeparture = departures[0];
@@ -53,7 +54,12 @@ const MobileAdventureCard = ({
             <div className="w-full text-[#1E2F2280] text-xs font-semibold">
               {formatDate(startDate)} → {formatDate(endDate)}
             </div>
-            <div className="text-md font-semibold text-[#1e2f22]">{name}</div>
+            <Link
+              href={`/${type}/${slug}`}
+              className="text-md font-semibold text-[#1e2f22] hover:text-[#086032] transition-colors cursor-pointer line-clamp-2"
+            >
+              {name}
+            </Link>
           </div>
         </div>
 
