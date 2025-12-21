@@ -22,7 +22,7 @@ function SocialIcons({ size = 30, className }: Props) {
         className
       )}
     >
-      <Link href="https://www.facebook.com/raratreks" target="_blank">
+      <Link href="https://www.facebook.com/raratours/" target="_blank">
         <li>
           <IconFacebook />
         </li>
