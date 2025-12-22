@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "@/assets/images/logos/rara.png";
+import Logo from "@/assets/images/logos/rara.svg";
 import LogoWhite from "@/assets/images/logos/footer_white.png";
 import Image, { StaticImageData } from "next/image";
 
@@ -33,7 +33,6 @@ function CHNLogo({
       quality={90}
       sizes={sizes}
       className={className}
-      placeholder="blur"
       loading={priority ? "eager" : "lazy"}
       {...props}
     />

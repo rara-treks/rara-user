@@ -27,10 +27,10 @@ const experienceData = {
   content: {
     subtitle: "Tailored Treks & Private Adventures Across the Himalayas",
     paragraphs: [
-      "Rara Treks is a proudly Nepali-run travel company specializing in eco-conscious trekking experiences to the stunning Rara National Park and the iconic Rara Lake. As the largest lake in Nepal (nearly 167km), surrounded by pine-spruce forests, alpine rhododendrons, and towering Himalayan peaks, it offers a perfect blend of solitude, scenic beauty, and cultural immersion.",
-      "Our team is deeply rooted in the local communities and driven by sustainable tourism principles. We ensure every trek not only preserves nature but also supports and uplifts the communities we visit.",
-      "Choose from flexible 8-15 day itineraries (including flights via Nepalgunj-Jumla) with all-inclusive services—teahouses, tent camps, meals, permits, experienced English-speaking guides, and safety-first support systems.",
-      "Ready to tread where few have been and capture the essence of one of Nepal's most tranquil wilderness destinations?",
+      "Rara Treks was founded in the serene beauty of Rara Lake and the lifetime of experiences in the Himalayas. Though we have got our name from one of the remotest and most spectacular spots in Nepal, our treks will take you through some of the most amazing areas of this incredible country.",
+      "Whether it’s the serene shores of Rara Lake or the breathtaking heights of Everest Base Camp, we design trips that combine incredible views, local culture, and real adventure. We want to bring you a destination, not just show you one, so that memories of a trek stay with you long after you leave.",
+      "Treks can vary in duration from 4 to 15 days, depending on air transport options through either Nepalgunj, Jumla (western) or Manthali & Lukla (Everest) routes. The treks can be done in their entirety, complete with English-speaking guides, teahouse/tented camps, full meal plans, and a deep focus on safety and responsible travel.",
+      "Rara Treks is for travelers seeking more than just a bucket list of what to see. Rara Treks is for those seeking a lasting impression from the Himalayas—silenced, inspired, and unforgettable.",
     ],
     callToAction: {
       text: "Plan your trip",
