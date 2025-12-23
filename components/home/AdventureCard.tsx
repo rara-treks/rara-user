@@ -35,13 +35,15 @@ const AdventureCard = ({ data, className = "" }: AdventureCardProps) => {
     <div className="flex w-full ">
       <div className="w-full hidden lg:flex gap-4 items-center justify-center h-full rounded-[32px] border border-[#dde4d7] bg-white">
         <div className="flex items-center justify-center gap-4">
-          <Image
-            src={featuredImage.url}
-            alt={name}
-            width={255}
-            height={200}
-            className="rounded-[28px] w-[255px] h-[230px] object-cover"
-          />
+          {featuredImage && (
+            <Image
+              src={featuredImage.url}
+              alt={name}
+              width={255}
+              height={200}
+              className="rounded-[28px] w-[255px] h-[230px] object-cover"
+            />
+          )}
         </div>
         <div className="flex-1 w-full h-full relative flex flex-col items-start justify-start pl-2 pr-4 pbb-2 pt-4 gap-[20px] text-left text-sm text-darkslategray-400 font-sen">
           <div className="self-stretch flex flex-col items-start justify-start gap-3">

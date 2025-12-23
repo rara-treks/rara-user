@@ -42,13 +42,15 @@ const MobileAdventureCard = ({
         {/* Image with star rating overlay */}
         <div className="flex items-start gap-3 w-full">
           <div className="relative w-[30%] h-[90px]">
-            <Image
-              src={featuredImage.url}
-              alt={name}
-              width={100}
-              height={90}
-              className="rounded-xl object-cover  w-full h-[90px]"
-            />
+            {featuredImage && (
+              <Image
+                src={featuredImage.url}
+                alt={name}
+                width={100}
+                height={90}
+                className="rounded-xl object-cover  w-full h-[90px]"
+              />
+            )}
           </div>
           <div className="flex w-[70%] flex-col gap-1">
             <div className="w-full text-[#1E2F2280] text-xs font-semibold">

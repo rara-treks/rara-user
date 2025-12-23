@@ -55,7 +55,7 @@ export interface Adventure {
   wishlist: number;
   rating: string;
   earliest_departure: string;
-  featuredImage: FeaturedImage;
+  featuredImage: FeaturedImage | null;
   featuredImages: FeaturedImage[];
   tags: Tag[];
   prices: Price[];
