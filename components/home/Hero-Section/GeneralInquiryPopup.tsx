@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -30,8 +30,12 @@ import {
   UserCheck,
   Clock,
   CheckCircle2,
+  Search,
+  Loader2,
+  X
 } from "lucide-react";
 import ActivitiesMultiSelect from "@/components/ProductDetail/Details/Departure/ActivitiesMultiSelect";
+import { useDebounce } from "@/hooks/use-debounce";
 
 interface GeneralInquiryFormData {
   fullName: string;
@@ -52,14 +56,23 @@ interface GeneralInquiryFormData {
   message: string;
 }
 
+interface Product {
+  id: number;
+  name: string;
+}
+
 interface GeneralInquiryPopupProps {
   buttonText: string;
   buttonBgColor?: string;
+  productId?: number;
+  productName?: string;
 }
 
 export default function GeneralInquiryPopup({
   buttonText,
   buttonBgColor,
+  productId,
+  productName,
 }: GeneralInquiryPopupProps) {
   // Default colors - text is black when custom bg color is passed, white otherwise
   const bgColor = buttonBgColor || "#086032";
@@ -87,6 +100,7 @@ export default function GeneralInquiryPopup({
     // Convert back to hex
     return `#${Math.round(adjustedR).toString(16).padStart(2, "0")}${Math.round(adjustedG).toString(16).padStart(2, "0")}${Math.round(adjustedB).toString(16).padStart(2, "0")}`;
   }
+
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -108,6 +122,87 @@ export default function GeneralInquiryPopup({
     specialRequirements: "",
     message: "",
   });
+
+  // Product Search State
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(
+    productId && productName ? { id: productId, name: productName } : null
+  );
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  const debouncedDestination = useDebounce(formData.destination, 500);
+
+  // Initialize selected product if props change
+  useEffect(() => {
+    if (productId && productName) {
+      setSelectedProduct({ id: productId, name: productName });
+    }
+  }, [productId, productName]);
+
+  // Handle outside click to close dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Debounced Search Effect
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (
+        debouncedDestination.trim().length >= 0 && // Allow empty search (length 0) if triggering manually or focusing
+        !selectedProduct &&
+        (formData.destination === debouncedDestination || debouncedDestination === "")
+      ) {
+        setIsSearching(true);
+        try {
+          const response = await fetch(
+            `/api/product/dropdown?search=${encodeURIComponent(
+              debouncedDestination
+            )}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            if (data.code === 0 && Array.isArray(data.data)) {
+              setSearchResults(data.data);
+              setShowDropdown(true);
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch products", error);
+        } finally {
+          setIsSearching(false);
+        }
+      } else if (!debouncedDestination.trim().length) {
+        if (isSearching) {
+          setSearchResults([]);
+          setShowDropdown(false);
+        }
+      }
+    };
+
+    fetchProducts();
+  }, [debouncedDestination, selectedProduct, formData.destination]);
+
+  const handleProductSelect = (product: Product) => {
+    setSelectedProduct(product);
+    setFormData((prev) => ({ ...prev, destination: product.name }));
+    setShowDropdown(false);
+  };
+
+  const handleClearProduct = () => {
+    setSelectedProduct(null);
+    setFormData((prev) => ({ ...prev, destination: "" }));
+  };
 
   // Calculate duration
   const calculateDuration = (
@@ -185,7 +280,7 @@ export default function GeneralInquiryPopup({
 
       // Transform form data to API format
       const payload = {
-        product_id: null,
+        product_id: selectedProduct?.id || productId || null,
         from_date: formData.departure_from || null,
         to_date: formData.departure_to || null,
         adult: parseInt(formData.adults) || 0,
@@ -243,6 +338,10 @@ export default function GeneralInquiryPopup({
         specialRequirements: "",
         message: "",
       });
+      // Reset selected product if it wasn't a fixed prop
+      if (!productId) {
+        setSelectedProduct(null);
+      }
     } catch (error) {
       alert("Failed to submit inquiry. Please try again.");
     } finally {
@@ -279,6 +378,8 @@ export default function GeneralInquiryPopup({
           </DialogHeader>
 
           <div className="space-y-4 mt-6">
+
+
             {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -293,6 +394,7 @@ export default function GeneralInquiryPopup({
                   id="fullName"
                   type="text"
                   placeholder="Enter your full name"
+                  autoComplete="off"
                   value={formData.fullName}
                   onChange={(e) =>
                     handleInputChange("fullName", e.target.value)
@@ -312,6 +414,7 @@ export default function GeneralInquiryPopup({
                   id="email"
                   type="email"
                   placeholder="your.email@example.com"
+                  autoComplete="off"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                 />
@@ -331,6 +434,7 @@ export default function GeneralInquiryPopup({
                   id="phone"
                   type="tel"
                   placeholder="+1 (555) 123-4567"
+                  autoComplete="off"
                   value={formData.phone}
                   onChange={(e) => handleInputChange("phone", e.target.value)}
                 />
@@ -344,6 +448,7 @@ export default function GeneralInquiryPopup({
                   id="country"
                   type="text"
                   placeholder="Enter your country"
+                  autoComplete="off"
                   value={formData.country}
                   onChange={(e) => handleInputChange("country", e.target.value)}
                 />
@@ -351,19 +456,106 @@ export default function GeneralInquiryPopup({
             </div>
 
             {/* Trip Details */}
-            <div className="space-y-2">
+            <div className="space-y-2 relative" ref={searchContainerRef}>
               <Label htmlFor="destination" className="text-sm font-medium">
                 Desired Destination *
               </Label>
-              <Input
-                id="destination"
-                type="text"
-                value={formData.destination}
-                onChange={(e) =>
-                  handleInputChange("destination", e.target.value)
-                }
-                placeholder="Where would you like to go?"
-              />
+              <div className="relative">
+                <Input
+                  id="destination"
+                  type="text"
+                  value={formData.destination}
+                  onChange={(e) => {
+                    handleInputChange("destination", e.target.value);
+                    if (selectedProduct && selectedProduct.name !== e.target.value) {
+                      setSelectedProduct(null); // Clear selection if user edits the text
+                    }
+                  }}
+                  onFocus={() => {
+                    if (searchResults.length > 0) {
+                      setShowDropdown(true);
+                    } else {
+                      // Trigger a search if no results yet (and assuming we want to show defaults)
+                      // By setting query to empty string explicitly or similar? 
+                      // Actually our useDebounce might not trigger if value hasn't changed.
+                      // We can manually trigger fetch here or set a state to force fetch.
+                      // Let's manually call fetch or rely on the hook. 
+                      // The hook depends on debouncedDestination.
+                      if (debouncedDestination === "") {
+                        // Force a fetch for empty string? 
+                        // The useEffect depends on debouncedDestination. If it's "", it might skip based on previous logic.
+                        // We updated the condition to allow >= 0.
+                        // But if it's already "" and didn't run?
+                        // Let's just set showDropdown(true) and if empty, we might need to kick start it.
+                        setFormData(prev => ({ ...prev })); // Dummy update? No.
+                        // Let's just depend on the user typing or if we want "On Focus" load:
+                        // We can use a separate effect or just call the API directly here if empty.
+                        // Simpler: Just set showDropdown(true). If useEffect sees it's empty and valid, it runs?
+                        // Our useEffect runs on debouncedDestination change. If it's already "", it won't re-run.
+                        // We might need a separate trigger.
+
+                        // Let's manually trigger a fetch if empty and no results
+                        setIsSearching(true);
+                        fetch(`/api/product/dropdown?search=`)
+                          .then(res => res.json())
+                          .then(data => {
+                            if (data.code === 0 && Array.isArray(data.data)) {
+                              setSearchResults(data.data);
+                              setShowDropdown(true);
+                            }
+                          })
+                          .catch(e => console.error(e))
+                          .finally(() => setIsSearching(false));
+                      }
+                    }
+                  }}
+                  placeholder="Where would you like to go?"
+                  autoComplete="off"
+                  className="pr-10" // Make room for loader or X
+                />
+
+                {isSearching && (
+                  <div className="absolute right-3 top-2.5">
+                    <Loader2 className="h-4 w-4 animate-spin text-gray-500" />
+                  </div>
+                )}
+
+                {selectedProduct && !isSearching && !productId && (
+                  <div className="absolute right-2 top-1.5">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 w-7 p-0 hover:bg-gray-100 rounded-full"
+                      onClick={handleClearProduct}
+                      type="button"
+                    >
+                      <X className="w-4 h-4 text-gray-500" />
+                    </Button>
+                  </div>
+                )}
+
+                {showDropdown && (
+                  <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
+                    {searchResults.length > 0 ? (
+                      searchResults.map((product) => (
+                        <div
+                          key={product.id}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                          onClick={() => handleProductSelect(product)}
+                        >
+                          {product.name}
+                        </div>
+                      ))
+                    ) : (
+                      !isSearching && (
+                        <div className="px-4 py-2 text-sm text-gray-500 text-center">
+                          No trek found
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Group Size */}
@@ -578,6 +770,7 @@ export default function GeneralInquiryPopup({
                 id="specialRequirements"
                 type="text"
                 placeholder="Dietary restrictions, medical conditions, accessibility needs, etc."
+                autoComplete="off"
                 value={formData.specialRequirements}
                 onChange={(e) =>
                   handleInputChange("specialRequirements", e.target.value)

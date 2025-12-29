@@ -198,7 +198,7 @@ const RentalForm = () => {
                       value={formData.user_name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                       placeholder="Full Name"
                     />
                   </div>
@@ -217,7 +217,7 @@ const RentalForm = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                       placeholder="email@example.com"
                     />
                   </div>
@@ -238,7 +238,7 @@ const RentalForm = () => {
                       value={formData.contact}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                       placeholder="+977 9812345678"
                     />
                   </div>
@@ -261,7 +261,7 @@ const RentalForm = () => {
                         required
                         min="1"
                         max="12"
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                         placeholder="4"
                       />
                     </div>
@@ -283,7 +283,7 @@ const RentalForm = () => {
                       value={formData.car_type}
                       onChange={handleChange}
                       required
-                      className="w-full pl-11 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900 appearance-none cursor-pointer"
+                      className="w-full pl-11 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900 appearance-none cursor-pointer"
                     >
                       <option value="">Select vehicle</option>
                       {carOptions.map((car) => (
@@ -327,7 +327,7 @@ const RentalForm = () => {
                         value={formData.pickup_address}
                         onChange={handleChange}
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                         placeholder="Enter pickup address"
                       />
                     </div>
@@ -349,7 +349,7 @@ const RentalForm = () => {
                         value={formData.destination_address}
                         onChange={handleChange}
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                        className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                         placeholder="Enter destination"
                       />
                     </div>
@@ -372,7 +372,7 @@ const RentalForm = () => {
                       value={formData.pickup_time}
                       onChange={handleChange}
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-gray-900"
+                      className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition text-base md:text-sm text-gray-900"
                     />
                   </div>
                 </div>
@@ -395,7 +395,7 @@ const RentalForm = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={3}
-                      className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition resize-none text-gray-900"
+                      className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#086032] focus:border-transparent focus:bg-white outline-none transition resize-none text-base md:text-sm text-gray-900"
                       placeholder="Any special requests?"
                     />
                   </div>
@@ -405,8 +405,8 @@ const RentalForm = () => {
                   onClick={handleSubmit}
                   disabled={!isFormValid || isSubmitting}
                   className={`w-full font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-lg ${isFormValid && !isSubmitting
-                      ? "bg-[#086032] hover:bg-[#5f9639] text-white hover:shadow-xl"
-                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    ? "bg-[#086032] hover:bg-[#5f9639] text-white hover:shadow-xl"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                 >
                   {isSubmitting ? "Submitting..." : "Confirm Booking"}
