@@ -1,107 +1,117 @@
-"use client";
+import { Metadata } from "next";
+import ActivitiesDetailClient from "./ActivitiesDetailClient";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { RootInterface } from "@/components/ProductDetail/type";
-import Product_Detail from "../../details/ProductDetail";
-import DetailedSkeleton from "@/components/DetailedSkeleton";
-
-interface ProductDetailResponse {
-  code: number;
-  message: string;
-  data: RootInterface["data"] | null;
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
-const ActivitiesDetail = () => {
-  const params = useParams();
-  const slug = params.slug as string;
+// Fetch product data for metadata
+async function getProductData(slug: string) {
+  try {
+    const baseURL = process.env.BASE_URL;
+    if (!baseURL) return null;
 
-  const [productData, setProductData] = useState<RootInterface["data"] | null>(
-    null
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProductDetail = async () => {
-      if (!slug) {
-        setError("No product slug provided");
-        setLoading(false);
-        return;
+    const response = await fetch(
+      `${baseURL}/product/detail/${encodeURIComponent(slug)}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: { revalidate: 3600 }, // Cache for 1 hour
       }
-
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await fetch(`/api/product/${slug}`);
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to fetch product");
-        }
-
-        const data: ProductDetailResponse = await response.json();
-
-        if (data.code === 0 && data.data) {
-          setProductData(data.data);
-        } else {
-          throw new Error(data.message || "Invalid response format");
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductDetail();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen w-full">
-        <DetailedSkeleton />
-      </div>
     );
-  }
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="text-red-500 text-xl mb-4">⚠️</div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Error Loading Product
-          </h2>
-          <p className="text-gray-600">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+    if (!response.ok) return null;
 
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching product data for metadata:", error);
+    return null;
+  }
+}
+
+// Generate metadata for social sharing (Facebook, WhatsApp, Twitter)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const productData = await getProductData(slug);
+
+  const siteOrigin = process.env.SITE_ORIGIN || "https://www.raratreks.com";
+  const siteName = "RARA Treks, Tours and Travel";
+
+  // Default metadata if product not found
   if (!productData) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Product Not Found
-          </h2>
-          <p className="text-gray-600">
-            The requested product could not be found.
-          </p>
-        </div>
-      </div>
-    );
+    return {
+      title: "Activity Details - RARA Treks",
+      description: "Explore amazing activities in Nepal with RARA Treks.",
+    };
   }
 
-  return <Product_Detail productData={productData} />;
-};
+  const title = productData.name
+    ? `${productData.name} - Activity in ${productData.location || "Nepal"}`
+    : "Activity - RARA Treks";
 
-export default ActivitiesDetail;
+  const description =
+    productData.short_description ||
+    productData.description ||
+    `Experience the amazing ${productData.name || "activity"} in ${productData.location || "Nepal"}. ${productData.tagline || "Book your adventure today with RARA Treks."}`;
+
+  const url = `${siteOrigin}/activities/${slug}`;
+
+  // Get the featured image URL
+  const featuredImage =
+    productData.files?.featuredImage?.url ||
+    productData.files?.featuredImages?.[0]?.url ||
+    `${siteOrigin}/og-default.jpg`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      "Nepal activities",
+      productData.name,
+      productData.location,
+      "adventure activities",
+      "Nepal travel",
+      "RARA Treks",
+    ].filter(Boolean),
+    authors: [{ name: siteName }],
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url,
+      siteName,
+      locale: "en_US",
+      images: [
+        {
+          url: featuredImage,
+          width: 1200,
+          height: 630,
+          alt: productData.name || "Activity Image",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      site: "@raratravels",
+      images: [featuredImage],
+    },
+    alternates: {
+      canonical: url,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+// Server component that renders the client component
+export default async function ActivitiesDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+
+  return <ActivitiesDetailClient slug={slug} />;
+}
