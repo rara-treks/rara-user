@@ -11,15 +11,6 @@ interface LazyVideoProps {
     playsInline?: boolean;
 }
 
-/**
- * LazyVideo - A performance-optimized video component
- * 
- * Features:
- * - Shows skeleton until video is loaded
- * - Uses Intersection Observer for lazy loading
- * - Defers video download until visible
- * - Reduces initial page load significantly
- */
 export const LazyVideo = ({
     src,
     className = "",

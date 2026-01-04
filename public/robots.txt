@@ -1,0 +1,10 @@
+# Robots.txt for raratreks.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+
+Sitemap: https://raratreks.com/sitemap.xml
