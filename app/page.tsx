@@ -1,13 +1,36 @@
 import React from "react";
+import dynamicImport from "next/dynamic";
 import HeroSection from "@/components/home/hero-section";
-import MainTourComponent from "@/components/home/TravelContent";
-import Experience from "@/components/home/Experience";
 import Why from "@/components/home/Why";
-import Adventure from "@/components/home/Adventure";
-import Testimonial from "@/components/home/Testimonial/Testimonial";
-import News from "@/components/home/News";
-import HomePopup from "@/components/home-popup";
-import Newsletter from "@/components/footer/Newsletter";
+import MainTourComponent from "@/components/home/TravelContent";
+
+// Dynamic imports for below-fold components - defers JS loading until needed
+const Experience = dynamicImport(() => import("@/components/home/Experience"), {
+  loading: () => <div className="w-full h-96 bg-gray-900 animate-pulse" />,
+});
+
+const Adventure = dynamicImport(() => import("@/components/home/Adventure"), {
+  loading: () => <div className="w-full h-96 bg-gray-100 animate-pulse" />,
+});
+
+const Testimonial = dynamicImport(
+  () => import("@/components/home/Testimonial/Testimonial"),
+  {
+    loading: () => <div className="w-full h-96 bg-gray-100 animate-pulse" />,
+  }
+);
+
+const News = dynamicImport(() => import("@/components/home/News"), {
+  loading: () => <div className="w-full h-64 bg-gray-100 animate-pulse" />,
+});
+
+const HomePopup = dynamicImport(() => import("@/components/home-popup"), {
+  loading: () => null, // Popup doesn't need loading state
+});
+
+const Newsletter = dynamicImport(() => import("@/components/footer/Newsletter"), {
+  loading: () => <div className="w-full h-32 bg-gray-100 animate-pulse" />,
+});
 
 async function Home() {
   return (

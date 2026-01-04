@@ -59,9 +59,22 @@ const Experience = ({ data = experienceData }) => {
   }, []);
 
   return (
-    <div className="w-full py-12 md:py-16 lg:py-20 flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-image lg:bg-image-lg bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${backgroundImage.src})` }}>
+    <div className="w-full py-12 md:py-16 lg:py-20 flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Background Image using Next.js Image for optimization */}
+      <Image
+        src={backgroundImage.src}
+        alt={backgroundImage.alt}
+        fill
+        quality={75}
+        priority={false}
+        sizes="100vw"
+        className="object-cover object-center -z-10"
+      />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1E2F22]/90 to-[#162319]/95 -z-10" />
+
       <div className="w-full  mx-auto max-w-7xl px-4">
-      
+
         <div className="flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">
           {/* Dynamic Title */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl flex flex-wrap items-center justify-center gap-2 text-center font-bold text-white mb-4 md:mb-6 lg:mb-8">
@@ -105,9 +118,8 @@ const Experience = ({ data = experienceData }) => {
               {content.paragraphs.map((paragraph, index) => (
                 <p
                   key={index}
-                  className={`text-xs md:text-sm lg:text-sm leading-relaxed ${
-                    index === content.paragraphs.length - 1 ? "italic" : ""
-                  }`}
+                  className={`text-xs md:text-sm lg:text-sm leading-relaxed ${index === content.paragraphs.length - 1 ? "italic" : ""
+                    }`}
                 >
                   {paragraph}
                 </p>
