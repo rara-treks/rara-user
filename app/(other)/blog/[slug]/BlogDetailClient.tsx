@@ -46,7 +46,7 @@ const BlogDetailClient = ({ params }: BlogDetailClientProps) => {
                 const headings: TableOfContentItem[] = [];
 
                 doc
-                    .querySelectorAll("h1, h2, h3, h4, h5, h6")
+                    .querySelectorAll("h2, h3")
                     .forEach((heading, index) => {
                         const level = parseInt(heading.tagName[1]);
                         const text = heading.textContent || "";

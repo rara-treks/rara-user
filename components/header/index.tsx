@@ -69,6 +69,7 @@ function Header() {
               <Link href="/">
                 <CHNLogo
                   variant="default"
+                  priority={true}
                   className="w-full h-14 text-white object-cover"
                 />
               </Link>
@@ -77,13 +78,13 @@ function Header() {
             {/* Navigation */}
             <div className="flex gap-8">
               <NavigationMenu />
-               <div className="flex justify-center items-center">
-              <Search />
-            </div>
+              <div className="flex justify-center items-center">
+                <Search />
+              </div>
             </div>
 
             {/* Search */}
-           
+
 
             {/* Right Section */}
             <div className="flex gap-8 justify-center items-center">

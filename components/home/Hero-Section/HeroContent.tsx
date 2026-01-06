@@ -21,6 +21,7 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
         loop
         muted
         playsInline
+        priority={true}
       />
 
       <div className="relative h-full flex flex-col items-center justify-center px-2 md:px-5 gap-8 z-10">

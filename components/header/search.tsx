@@ -124,6 +124,7 @@ const Search = () => {
         onClick={handleDialogOpen}
         className="px-12 border border-[#f2a135] bg-gray-200 active:bg-transparent focus:bg-transparent hover:shadow-none focus-visible:bg-transparent flex items-center gap-2 rounded-full transition-colors duration-200"
         title="Search"
+        aria-label="Open search dialog"
       >
         <IconSearch size={20} className="text-gray-600" />
         <p className="text-md hidden xl:flex text-black">Search Here</p>
@@ -158,6 +159,7 @@ const Search = () => {
                   size="icon"
                   onClick={handleClear}
                   className="h-8 w-8 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 hover:bg-transparent"
+                  aria-label="Clear search"
                 >
                   <IconX size={20} />
                 </Button>
@@ -192,7 +194,7 @@ const Search = () => {
                   >
                     <div className="relative w-full h-40 bg-gray-200 overflow-hidden">
                       {result.featured_image &&
-                      result.featured_image.trim() !== "" ? (
+                        result.featured_image.trim() !== "" ? (
                         <img
                           src={result.featured_image}
                           alt={result.name}

@@ -18,7 +18,7 @@ const TableOfContents = ({
   blogUrl,
   blogTitle,
 }: TableOfContentsProps) => {
-  const h1Items = tocItems.filter((item) => item.level === 2);
+  // const h1Items = tocItems.filter((item) => item.level === 2);
 
   return (
     <div className="w-full lg:w-80">
@@ -26,15 +26,15 @@ const TableOfContents = ({
         <h3 className="font-bold text-lg mb-4 text-gray-900 border-b pb-3">
           Table of Contents
         </h3>
-        {h1Items.length > 0 ? (
+        {tocItems.length > 0 ? (
           <nav className="space-y-1 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
-            {h1Items.map(({ id, text }) => (
+            {tocItems.map(({ id, text, level }) => (
               <button
                 key={id}
                 onClick={() => onItemClick(id)}
-                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative pl-2 ${activeSectionId === id
-                    ? "text-indigo-600 font-semibold bg-indigo-50"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                className={`block w-full text-left text-sm rounded-md transition-all duration-200 ease-in-out relative ${level === 3 ? "pl-6 text-xs" : "pl-2"} ${activeSectionId === id
+                  ? "text-indigo-600 font-semibold bg-indigo-50"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
               >
                 {text}
@@ -43,7 +43,7 @@ const TableOfContents = ({
           </nav>
         ) : (
           <p className="text-sm text-gray-500 italic mb-4">
-            No H1 headings found in this article
+            No headings found in this article
           </p>
         )}
         <div className="mt-6 border-t pt-4">

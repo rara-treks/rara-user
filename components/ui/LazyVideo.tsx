@@ -9,6 +9,7 @@ interface LazyVideoProps {
     loop?: boolean;
     muted?: boolean;
     playsInline?: boolean;
+    priority?: boolean;
 }
 
 export const LazyVideo = ({
@@ -18,13 +19,17 @@ export const LazyVideo = ({
     loop = true,
     muted = true,
     playsInline = true,
+    priority = false,
 }: LazyVideoProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isInView, setIsInView] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+    // If priority is true, start as visible/loaded immediately
+    const [isInView, setIsInView] = useState(priority);
+    const [isLoaded, setIsLoaded] = useState(priority);
 
     useEffect(() => {
+        if (priority) return; // Skip observer if priority
+
         const container = containerRef.current;
         if (!container) return;
 
@@ -46,10 +51,12 @@ export const LazyVideo = ({
         observer.observe(container);
 
         return () => observer.disconnect();
-    }, []);
+    }, [priority]);
 
     useEffect(() => {
         const video = videoRef.current;
+        // If priority, we don't wait for 'isInView' from observer (it's already true), 
+        // but we still want to ensure it plays
         if (!video || !isInView) return;
 
         const handleCanPlay = () => {
@@ -59,12 +66,17 @@ export const LazyVideo = ({
             }
         };
 
+        // If it's already ready to play (might happen with priority)
+        if (video.readyState >= 3) {
+            handleCanPlay();
+        }
+
         video.addEventListener("canplay", handleCanPlay);
         return () => video.removeEventListener("canplay", handleCanPlay);
     }, [isInView, autoPlay]);
 
     return (
-        <div ref={containerRef} className={`relative ${className}`}>
+        <div ref={containerRef} className={`relative ${className}`} aria-hidden="true" tabIndex={-1}>
             {/* Skeleton shown while video loads */}
             {!isLoaded && (
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 animate-pulse">
@@ -74,7 +86,7 @@ export const LazyVideo = ({
                 </div>
             )}
 
-            {/* Video element - only rendered when in view */}
+            {/* Video element - only rendered when in view (or priority) */}
             {isInView && (
                 <video
                     ref={videoRef}
@@ -82,7 +94,7 @@ export const LazyVideo = ({
                     loop={loop}
                     muted={muted}
                     playsInline={playsInline}
-                    preload="auto"
+                    preload={priority ? "auto" : "none"}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"
                         }`}
                 >

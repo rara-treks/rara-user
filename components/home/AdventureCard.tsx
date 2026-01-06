@@ -42,6 +42,7 @@ const AdventureCard = ({ data, className = "" }: AdventureCardProps) => {
               width={255}
               height={200}
               className="rounded-[28px] w-[255px] h-[230px] object-cover"
+              sizes="(max-width: 768px) 100vw, 255px"
             />
           )}
         </div>

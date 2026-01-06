@@ -30,9 +30,9 @@ const AdventureGrid = ({ title = "", className = "", data = [] }: AdventureGridP
           <p className="text-xl lg:text-2xl font-satisfy">
             Popular destination
           </p>
-          <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
+          <h2 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
             Upcoming <p className="text-[#086032]">{title}</p>
-          </h1>
+          </h2>
         </div>
         {/* Custom navigation buttons */}
         <div className="hidden lg:flex items-center justify-center">

@@ -49,6 +49,7 @@ const MobileAdventureCard = ({
                 width={100}
                 height={90}
                 className="rounded-xl object-cover  w-full h-[90px]"
+                sizes="100px"
               />
             )}
           </div>
