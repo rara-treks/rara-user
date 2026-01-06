@@ -81,27 +81,20 @@ const HeaderBtm = ({ data, shareData }: HeaderProps) => {
   };
 
   const openEmailDialog = () => {
-    console.log("Download button clicked");
-    console.log("Dossiers:", dossiers);
-    console.log("Has Dossier:", hasDossier);
-
+   
     if (!dossiers || dossiers.length === 0) {
-      console.log("No dossiers available");
       alert("Dossier not available for download");
       return;
     }
 
     const dossier = dossiers[0];
-    console.log("Selected dossier:", dossier);
 
     if (!dossier || !dossier.pdf_file) {
-      console.log("No PDF file in dossier");
       alert("Dossier file not available");
       return;
     }
 
     // Only set the pending dossier and open dialog - NO download yet
-    console.log("Setting dialog open to true");
     setPendingDossier(dossier);
     setEmail("");
     setError("");

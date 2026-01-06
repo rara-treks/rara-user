@@ -126,11 +126,7 @@ function Inquiry({ data }: InquiryProps) {
           selectedDates={selectedDates}
           guests={guests}
           totalCost={totalCost}
-          onInquireAvailability={() =>
-            console.log("Inquire availability clicked")
-          }
-          onCheckAvailability={() => console.log("Check availability clicked")}
-        />
+         />
       </div>
       <div className="w-full p-4 pt-6">
         <CustomTripInquiryPopup

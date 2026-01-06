@@ -27,8 +27,6 @@ export async function POST(request: NextRequest) {
       email: email,
     };
 
-    console.log("API Request URL:", apiUrl);
-    console.log("API Request Body:", apiPayload);
 
     const response = await axios.post(apiUrl, apiPayload, {
       headers: {
@@ -36,7 +34,6 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    console.log("API Response:", response.data);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error: any) {

@@ -251,7 +251,6 @@ const ProductListContent = ({ type, title }: ProductListProps) => {
       }
 
       const data: ApiResponse = await response.json();
-      console.log("fetched data is :::::::::::", data);
 
       if (data.code === 0) {
         setProducts(data.data.data);

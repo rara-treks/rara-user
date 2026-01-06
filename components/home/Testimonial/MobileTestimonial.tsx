@@ -28,7 +28,6 @@ export default function MobileTestimonial({
     if (onReadAllClick) {
       onReadAllClick();
     } else {
-      console.log("Read all reviews clicked");
     }
   };
 

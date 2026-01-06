@@ -116,7 +116,6 @@ const Review = ({ data }: ReviewProps) => {
             timestamp: Date.now(),
           });
         } else {
-          console.log("No review data found in response");
         }
       } catch (err) {
         setError(

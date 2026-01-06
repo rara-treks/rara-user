@@ -27,16 +27,13 @@ export async function GET(request: NextRequest) {
       },
     };
 
-    console.log("API Request URL:", apiUrl);
-    console.log("API Request Body:", apiPayload);
-
+   
     const response = await axios.post(apiUrl, apiPayload, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    console.log("API Response:", response.data);
 
     return NextResponse.json(response.data);
   } catch (error: any) {
