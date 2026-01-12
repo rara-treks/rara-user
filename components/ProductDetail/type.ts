@@ -343,15 +343,18 @@ export interface AltitudeChartProps {
 
 export interface CostDetailProps {
   data: CostDetail;
+  productName?: string;
 }
 
 export interface LocationProps {
   data: trip_location;
+  productName?: string;
 }
 
 export interface FaqProps {
   data: FAQ[];
   images: FAQImage[];
+  productName?: string;
 }
 
 export interface ReviewProps {

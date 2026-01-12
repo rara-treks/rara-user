@@ -13,7 +13,7 @@ const MapComponent = dynamic(() => import("./MapComponent"), {
   loading: () => <p className="text-gray-500">Loading map...</p>,
 }) as React.ComponentType<MapComponentProps>;
 
-const Location = ({ data }: LocationProps) => {
+const Location = ({ data, productName }: LocationProps) => {
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Location = ({ data }: LocationProps) => {
   return (
     <section id="Tour_Location">
       <div className="mx-auto">
-        <h2 className="text-2xl font-bold mb-6">Location</h2>
+        <h2 className="text-2xl font-bold mb-6">{productName ? `${productName} Location` : "Location"}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           {/* Map */}

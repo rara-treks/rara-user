@@ -32,6 +32,7 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.SITE_ORIGIN || "https://www.raratreks.com"),
   title: "Rara Treks Tours & Travels | Nepal Trekking & Tour Operator",
   description:
     "Explore Nepal with Rara Treks Tours & Travels, offering luxury, family, solo, and budget trekking and tours across Everest, Annapurna, Rara, and other Himalayan destinations.",
@@ -47,6 +48,14 @@ export const metadata: Metadata = {
     "budget trekking Nepal",
     "eco-conscious trekking",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "RARA Treks, Tours and Travel",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({

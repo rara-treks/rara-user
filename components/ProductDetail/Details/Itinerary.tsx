@@ -17,10 +17,29 @@ interface ItineraryDay {
 
 interface ItineraryProps {
   data: ItineraryDay[];
+  productName?: string;
+  productType?: string;
 }
 
-const Itinerary = ({ data }: ItineraryProps) => {
+const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
   const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1])); // First day expanded by default
+
+  // Get the type label based on product type
+  const getTypeLabel = () => {
+    switch (productType?.toLowerCase()) {
+      case "trek":
+        return "trek";
+      case "tour":
+        return "tour";
+      case "activity":
+      case "activities":
+        return "activity";
+      default:
+        return "journey";
+    }
+  };
+
+  const typeLabel = getTypeLabel();
 
   const toggleDay = (day: number) => {
     const newExpandedDays = new Set(expandedDays);
@@ -81,32 +100,32 @@ const Itinerary = ({ data }: ItineraryProps) => {
 
   if (!data || data.length === 0) {
     return (
-      <div className="w-full">
+      <section id="itinerary" aria-labelledby="itinerary-heading-empty" className="w-full">
         <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            Trek Itinerary
+          <h2 id="itinerary-heading-empty" className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            {productName ? `${productName} Itinerary` : "Trek Itinerary"}
           </h2>
           <p className="text-gray-600">
             No itinerary information available for this trek.
           </p>
         </div>
-      </div>
+      </section>
     );
   }
 
   const maxAltitude = getMaxAltitude();
 
   return (
-    <div className="w-full">
+    <section id="itinerary" aria-labelledby="itinerary-heading" className="w-full">
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Trek Itinerary
+            <h2 id="itinerary-heading" className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              {productName ? `${productName} Itinerary` : "Trek Itinerary"}
             </h2>
             <p className="text-gray-600">
-              Detailed daily breakdown of your {data.length}-day adventure
+              Explore our comprehensive {data.length}-day {typeLabel} itinerary with daily activities, accommodations, and highlights
             </p>
           </div>
 
@@ -280,16 +299,32 @@ const Itinerary = ({ data }: ItineraryProps) => {
         </div>
       </div>
 
+      {/* SEO-friendly hidden content for search engines */}
+      <div className="sr-only" aria-hidden="false">
+        <h3>Complete {productName || "Trek"} Itinerary Details</h3>
+        {data.map((dayData) => (
+          <article key={`seo-day-${dayData.day}`}>
+            <h4>Day {dayData.day}: {dayData.title}</h4>
+            <p>{stripHtml(dayData.description)}</p>
+            {dayData.altitude !== "N/A" && <p>Altitude: {dayData.altitude}</p>}
+            {dayData.duration !== "N/A" && <p>Duration: {dayData.duration}</p>}
+            {dayData.location !== "N/A" && <p>Location: {dayData.location}</p>}
+            {dayData.accommodation !== "N/A" && <p>Accommodation: {dayData.accommodation}</p>}
+            {dayData.meals !== "N/A" && <p>Meals: {formatMeals(dayData.meals)}</p>}
+          </article>
+        ))}
+      </div>
+
       {/* Footer Note */}
       <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-blue-800">
           <strong>Note:</strong> Itinerary may be subject to change due to
           weather conditions, local circumstances, or safety considerations.
           Your guide will inform you of any necessary adjustments during the
-          trek.
+          {typeLabel}.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

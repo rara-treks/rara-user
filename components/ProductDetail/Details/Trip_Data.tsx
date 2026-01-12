@@ -88,18 +88,19 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
       {typeof IconComponent === "string" ? (
         <Image
           src={IconComponent}
-          alt={label.toLowerCase()}
+          alt=""
           width={24}
           height={24}
           className="w-5 h-5 text-[#086032]"
+          aria-hidden="true"
         />
       ) : (
-        <IconComponent className="w-5 h-5 text-[#086032]" />
+        <IconComponent className="w-5 h-5 text-[#086032]" aria-hidden="true" />
       )}
-      <div className="flex flex-col items-start justify-start">
-        <p className="text-sm text-gray-500 font-medium">{label}</p>
-        <h3 className="font-bold text-sm text-gray-800">{value}</h3>
-      </div>
+      <dl className="flex flex-col items-start justify-start">
+        <dt className="text-sm text-gray-500 font-medium">{label}</dt>
+        <dd className="font-bold text-sm text-gray-800">{value}</dd>
+      </dl>
     </div>
   );
 };
@@ -107,22 +108,22 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
 const Trip_Data = ({ data, departureData }: UpdatedTripOverviewProps) => {
   if (!data) {
     return (
-      <div className="w-full flex flex-col gap-6">
-        <h1 className="text-3xl font-bold">Trip Details</h1>
+      <section id="trip-details" aria-labelledby="trip-details-heading" className="w-full flex flex-col gap-6">
+        <h2 id="trip-details-heading" className="text-3xl font-bold">Trip Details</h2>
         <div className="w-full p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
           <p className="text-gray-600 text-center">
             Trip data is not available.
           </p>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="w-full flex flex-col gap-6 lg:px-3">
-      <div className="rounded-3xl bg-white p-4 flex flex-col w-full gap-6 shadow-sm">
+    <section id="trip-details" aria-labelledby="trip-details-heading" className="w-full flex flex-col gap-6 lg:px-3">
+      <article className="rounded-3xl bg-white p-4 flex flex-col w-full gap-6 shadow-sm">
         <div className="flex flex-col">
-          <h2 className="text-xl font-bold text-gray-800">Trip Details</h2>
+          <h2 id="trip-details-heading" className="text-xl font-bold text-gray-800">Trip Details</h2>
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 ">
             <ActivityDetailItem
               icon="duration"
@@ -170,8 +171,8 @@ const Trip_Data = ({ data, departureData }: UpdatedTripOverviewProps) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 

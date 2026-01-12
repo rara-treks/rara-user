@@ -44,6 +44,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: "Tour Details - RARA Treks",
       description: "Explore amazing tours in Nepal with RARA Treks.",
+      alternates: {
+        canonical: `${siteOrigin}/tour/${slug}`,
+      },
     };
   }
 

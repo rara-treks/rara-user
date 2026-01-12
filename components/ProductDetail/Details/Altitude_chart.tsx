@@ -30,11 +30,13 @@ interface AltitudeChartData {
 interface UpdatedAltitudeChartProps {
   itineraryData?: ItineraryItem[];
   altitudeChartData?: AltitudeChartData;
+  productName?: string;
 }
 
 const Altitude_chart = ({
   itineraryData,
   altitudeChartData,
+  productName,
 }: UpdatedAltitudeChartProps) => {
   const [showImage, setShowImage] = useState(false);
 
@@ -97,8 +99,8 @@ const Altitude_chart = ({
   };
 
   return (
-    <div className="flex flex-col w-full gap-6">
-      <h1 className="text-3xl font-bold">Altitude Chart</h1>
+    <section id="altitude-chart" aria-labelledby="altitude-chart-heading" className="flex flex-col w-full gap-6">
+      <h2 id="altitude-chart-heading" className="text-3xl font-bold">{productName ? `${productName} Altitude Chart` : "Altitude Chart"}</h2>
 
       <div className="grid grid-cols-1 gap-6">
         {/* Interactive Altitude Chart Section */}
@@ -197,7 +199,7 @@ const Altitude_chart = ({
           </div>
         </div> */}
       </div>
-    </div>
+    </section>
   );
 };
 

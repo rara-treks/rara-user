@@ -418,8 +418,8 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
                     key={tab.id}
                     onClick={() => scrollToSection(tab.id)}
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${activeTab === tab.id
-                        ? "bg-[#086032] text-white shadow-sm rounded-full"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                      ? "bg-[#086032] text-white shadow-sm rounded-full"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                       }`}
                   >
                     {tab.label}
@@ -431,7 +431,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
 
           <div className="w-full flex flex-col gap-12">
             <div id="Trip_Overview">
-              <Trip_Overview data={overviewData} />
+              <Trip_Overview data={overviewData} productName={productData.name} />
             </div>
 
             {altitudeChartData && (
@@ -439,25 +439,26 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
                 <AltitudeChart
                   itineraryData={transformedItineraryData}
                   altitudeChartData={altitudeChartData}
+                  productName={productData.name}
                 />
               </div>
             )}
 
             <div id="Itinerary">
-              <Itinerary data={transformedItineraryData} />
+              <Itinerary data={transformedItineraryData} productName={productData.name} productType={productData.type} />
             </div>
 
             <div id="Cost_Detail">
-              <CostDetail data={costDetailData} />
+              <CostDetail data={costDetailData} productName={productData.name} />
             </div>
 
             <div id="Tour_Location">
-              <Location data={locationData} />
+              <Location data={locationData} productName={productData.name} />
             </div>
 
             {faqData.length > 0 && (
               <div id="FAQs">
-                <Faq data={faqData} images={faqImages} />
+                <Faq data={faqData} images={faqImages} productName={productData.name} />
               </div>
             )}
           </div>

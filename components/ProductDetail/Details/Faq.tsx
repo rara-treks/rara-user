@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { FaqProps } from "../type";
 
-const Faq = ({ data, images }: FaqProps) => {
+const Faq = ({ data, images, productName }: FaqProps) => {
   const accordionRef = useRef<HTMLDivElement>(null);
   const [imageHeight, setImageHeight] = useState<number | string>("auto");
 
@@ -39,12 +39,12 @@ const Faq = ({ data, images }: FaqProps) => {
 
   if (!data || data.length === 0) {
     return (
-      <div className="w-full flex flex-col gap-4">
+      <section id="faqs" aria-labelledby="faqs-heading" className="w-full flex flex-col gap-4">
         <div className="w-full flex items-center justify-between">
-          <h1 className="text-3xl font-bold">FAQs</h1>
+          <h2 id="faqs-heading" className="text-3xl font-bold">{productName ? `${productName} FAQs` : "FAQs"}</h2>
         </div>
         <p className="text-gray-500">No FAQ data available.</p>
-      </div>
+      </section>
     );
   }
 
@@ -55,8 +55,8 @@ const Faq = ({ data, images }: FaqProps) => {
   const imageArray = Array.isArray(images) ? images : images ? [images] : [];
 
   return (
-    <div className="w-full flex flex-col mb-6">
-      <h1 className="text-3xl font-bold mb-4">FAQs</h1>
+    <section id="faqs" aria-labelledby="faqs-heading" className="w-full flex flex-col mb-6">
+      <h2 id="faqs-heading" className="text-3xl font-bold mb-4">{productName ? `${productName} FAQs` : "FAQs"}</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="w-full">
@@ -113,7 +113,18 @@ const Faq = ({ data, images }: FaqProps) => {
           </Accordion>
         </div>
       </div>
-    </div>
+
+      {/* SEO-friendly hidden content for search engines */}
+      <div className="sr-only" aria-hidden="false">
+        <h3>{productName ? `${productName} Frequently Asked Questions` : "Frequently Asked Questions"}</h3>
+        {sortedFaqs.map((faq, index) => (
+          <article key={`seo-faq-${faq.id || index}`}>
+            <h4>{faq.question}</h4>
+            <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };
 
