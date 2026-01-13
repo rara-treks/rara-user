@@ -18,9 +18,22 @@ interface ProductApiResponse {
     };
 }
 
-interface BlogApiResponse {
-    code: number;
-    data: Blog[];
+// Sanitize date to ensure it's valid and not in the future
+function sanitizeDate(dateStr?: string): Date {
+    const now = new Date();
+
+    if (!dateStr) return now;
+
+    try {
+        const date = new Date(dateStr);
+        // Check if date is valid
+        if (isNaN(date.getTime())) return now;
+        // Don't allow future dates
+        if (date > now) return now;
+        return date;
+    } catch {
+        return now;
+    }
 }
 
 async function fetchProducts(type: string): Promise<Product[]> {
@@ -86,98 +99,107 @@ async function fetchBlogs(): Promise<Blog[]> {
     }
 }
 
+// Generate sitemap index that references all sub-sitemaps
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://raratreks.com";
+    // Use SITE_ORIGIN, ensuring no trailing slash
+    const baseUrl = "https://www.raratreks.com";
 
-    // Static pages
+    // Fixed date for static pages (use a reasonable past date)
+    const staticDate = new Date("2025-01-01");
+
+    // ============================================
+    // STATIC PAGES
+    // ============================================
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 1,
         },
         {
             url: `${baseUrl}/about`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.8,
         },
         {
             url: `${baseUrl}/about/why-travel-with-us`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.7,
         },
         {
             url: `${baseUrl}/about/safety-responsibility`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.7,
         },
         {
             url: `${baseUrl}/about/team`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.7,
         },
         {
             url: `${baseUrl}/products`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${baseUrl}/products/trek`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${baseUrl}/products/tour`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${baseUrl}/products/activities`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${baseUrl}/blogs`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "weekly",
             priority: 0.8,
         },
         {
             url: `${baseUrl}/contact`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.6,
         },
         {
             url: `${baseUrl}/faq`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "monthly",
             priority: 0.5,
         },
         {
             url: `${baseUrl}/policies/privacy-policy`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "yearly",
             priority: 0.3,
         },
         {
             url: `${baseUrl}/policies/terms-and-conditions`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: "yearly",
             priority: 0.3,
         },
     ];
 
-    // Fetch dynamic products
+    // ============================================
+    // DYNAMIC PAGES - Fetch from API
+    // ============================================
     const [treks, tours, activities, blogs] = await Promise.all([
         fetchProducts("trek"),
         fetchProducts("tour"),
@@ -189,8 +211,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const trekPages: MetadataRoute.Sitemap = Array.isArray(treks)
         ? treks.map((trek) => ({
             url: `${baseUrl}/trek/${trek.slug}`,
-            lastModified: trek.updated_at ? new Date(trek.updated_at) : new Date(),
-            changeFrequency: "weekly",
+            lastModified: sanitizeDate(trek.updated_at),
+            changeFrequency: "weekly" as const,
             priority: 0.8,
         }))
         : [];
@@ -199,8 +221,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const tourPages: MetadataRoute.Sitemap = Array.isArray(tours)
         ? tours.map((tour) => ({
             url: `${baseUrl}/tour/${tour.slug}`,
-            lastModified: tour.updated_at ? new Date(tour.updated_at) : new Date(),
-            changeFrequency: "weekly",
+            lastModified: sanitizeDate(tour.updated_at),
+            changeFrequency: "weekly" as const,
             priority: 0.8,
         }))
         : [];
@@ -209,8 +231,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const activityPages: MetadataRoute.Sitemap = Array.isArray(activities)
         ? activities.map((activity) => ({
             url: `${baseUrl}/activities/${activity.slug}`,
-            lastModified: activity.updated_at ? new Date(activity.updated_at) : new Date(),
-            changeFrequency: "weekly",
+            lastModified: sanitizeDate(activity.updated_at),
+            changeFrequency: "weekly" as const,
             priority: 0.8,
         }))
         : [];
@@ -219,11 +241,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const blogPages: MetadataRoute.Sitemap = Array.isArray(blogs)
         ? blogs.map((blog) => ({
             url: `${baseUrl}/blog/${blog.slug}`,
-            lastModified: blog.updated_at ? new Date(blog.updated_at) : new Date(),
-            changeFrequency: "weekly",
+            lastModified: sanitizeDate(blog.updated_at),
+            changeFrequency: "weekly" as const,
             priority: 0.6,
         }))
         : [];
 
-    return [...staticPages, ...trekPages, ...tourPages, ...activityPages, ...blogPages];
+    // Combine all pages
+    return [
+        ...staticPages,
+        ...trekPages,
+        ...tourPages,
+        ...activityPages,
+        ...blogPages,
+    ];
 }

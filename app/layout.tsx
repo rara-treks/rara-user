@@ -11,6 +11,8 @@ import GlobalScripts from "@/components/global-scripts";
 import ScrollToTopTempFix from "@/components/scroll-to-top-temp-fix";
 import Topbar from "@/components/header/Topbar";
 import FloatingButtons from "@/components/HoveringButtons/FloatingButtons";
+import { Suspense } from "react";
+import UrlCleaner from "@/components/url-cleaner";
 
 const sen = Sen({
   subsets: ["latin"],
@@ -81,6 +83,9 @@ export default function RootLayout({
           </UserContext>
         </ReactQueryContext>
         <GlobalScripts />
+        <Suspense fallback={null}>
+          <UrlCleaner />
+        </Suspense>
       </body>
     </html>
   );
