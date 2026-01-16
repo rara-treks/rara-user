@@ -109,5 +109,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // Server component that renders the client component
 export default async function BlogPage({ params }: PageProps) {
-  return <BlogDetailClient params={params} />;
+  const { slug } = await params;
+  const blogData = await getBlogData(slug);
+
+  return <BlogDetailClient params={params} blog={blogData} />;
 }

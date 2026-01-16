@@ -11,20 +11,85 @@ import News from "@/components/home/News";
 
 interface BlogDetailClientProps {
     params: Promise<{ slug: string }>;
+    blog?: BlogPost | null;
 }
 
-const BlogDetailClient = ({ params }: BlogDetailClientProps) => {
-    const [blog, setBlog] = useState<BlogPost | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [tableOfContents, setTableOfContents] = useState<TableOfContentItem[]>(
-        []
-    );
+const BlogDetailClient = ({ params, blog: initialBlog }: BlogDetailClientProps) => {
+    // Helper to parse TOC from blog description
+    const parseTOC = (htmlContent: string) => {
+        if (typeof window === 'undefined') return []; // Server-side safety
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, "text/html");
+        const headings: TableOfContentItem[] = [];
+
+        doc.querySelectorAll("h2, h3").forEach((heading, index) => {
+            const level = parseInt(heading.tagName[1]);
+            const text = heading.textContent || "";
+            const id = text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "") + `-${index}`;
+            heading.id = id;
+            headings.push({ id, text, level });
+        });
+        return headings;
+    };
+
+    // Helper to process content (add IDs to headings)
+    const processContent = (htmlContent: string) => {
+        if (typeof window === 'undefined') return htmlContent;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, "text/html");
+        doc.querySelectorAll("h2, h3").forEach((heading, index) => {
+            const text = heading.textContent || "";
+            const id = text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "") + `-${index}`;
+            heading.id = id;
+        });
+        return doc.body.innerHTML;
+    };
+
+    const [blog, setBlog] = useState<BlogPost | null>(() => {
+        if (initialBlog) {
+            // We can't fully parse DOM on server (no DOMParser), 
+            // but we can pass the raw content and let client hydration handle TOC or
+            // use a library for server-side parsing. 
+            // For now, we set the blog, and let a useEffect handle the TOC/ID processing if needed
+            // OR we trust the browser will handle the DOMParser in the useState initializer (lazy init)
+            // wait, useState initializer runs on client.
+            if (typeof window !== 'undefined') {
+                const processedContent = processContent(initialBlog.description);
+                return { ...initialBlog, description: processedContent };
+            }
+            return initialBlog;
+        }
+        return null;
+    });
+
+    const [loading, setLoading] = useState(!initialBlog);
+    const [tableOfContents, setTableOfContents] = useState<TableOfContentItem[]>(() => {
+        if (initialBlog && typeof window !== 'undefined') {
+            return parseTOC(initialBlog.description);
+        }
+        return [];
+    });
+
+    // Safety effect to parse TOC on mount if it wasn't possible during init (e.g. server rendered html mismatch)
+    useEffect(() => {
+        if (initialBlog && tableOfContents.length === 0) {
+            const headings = parseTOC(initialBlog.description);
+            const processedContent = processContent(initialBlog.description);
+            setTableOfContents(headings);
+            setBlog({ ...initialBlog, description: processedContent });
+            if (headings.length > 0) setActiveSectionId(headings[0].id);
+        }
+    }, []); // Run once on mount if we have data
+
+
     const [activeSectionId, setActiveSectionId] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
     // Load blog data
     useEffect(() => {
+        if (initialBlog) return;
+
         const loadBlog = async () => {
             try {
                 setLoading(true);
@@ -78,7 +143,7 @@ const BlogDetailClient = ({ params }: BlogDetailClientProps) => {
         };
 
         loadBlog();
-    }, [params]);
+    }, [params, initialBlog]);
 
     // Handle scroll events to update active section
     const handleScroll = useCallback(() => {

@@ -5,11 +5,19 @@ import { Product, ApiResponse } from "@/types/prod";
 import ProductSkeleton from "../productSkeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const MainTourComponent = () => {
-  const [trekData, setTrekData] = useState<Product[]>([]);
-  const [tourData, setTourData] = useState<Product[]>([]);
-  const [activityData, setActivityData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+interface MainTourComponentProps {
+  initialData?: {
+    treks: Product[];
+    tours: Product[];
+    activities: Product[];
+  };
+}
+
+const MainTourComponent = ({ initialData }: MainTourComponentProps) => {
+  const [trekData, setTrekData] = useState<Product[]>(initialData?.treks || []);
+  const [tourData, setTourData] = useState<Product[]>(initialData?.tours || []);
+  const [activityData, setActivityData] = useState<Product[]>(initialData?.activities || []);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async (type: string): Promise<Product[]> => {
@@ -42,6 +50,8 @@ const MainTourComponent = () => {
   };
 
   useEffect(() => {
+    if (initialData) return;
+
     const fetchAllData = async () => {
       try {
         setLoading(true);
@@ -72,7 +82,7 @@ const MainTourComponent = () => {
     };
 
     fetchAllData();
-  }, []);
+  }, [initialData]);
 
   if (loading) {
     return (

@@ -115,6 +115,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // Server component that renders the client component
 export default async function ActivitiesDetailPage({ params }: PageProps) {
   const { slug } = await params;
+  const productData = await getProductData(slug);
 
-  return <ActivitiesDetailClient slug={slug} />;
+  return <ActivitiesDetailClient slug={slug} productData={productData} />;
 }

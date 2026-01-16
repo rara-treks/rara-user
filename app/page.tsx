@@ -50,7 +50,32 @@ const Newsletter = dynamicImport(() => import("@/components/footer/Newsletter"),
   loading: () => <div className="w-full h-32 bg-gray-100 animate-pulse" />,
 });
 
+async function getData(type: string) {
+  try {
+    const baseURL = process.env.BASE_URL;
+    if (!baseURL) return [];
+
+    const response = await fetch(`${baseURL}/homepage/product-list/${type}`, {
+      next: { revalidate: 3600 }
+    });
+
+    if (!response.ok) return [];
+
+    const result = await response.json();
+    return result.code === 0 ? result.data : [];
+  } catch (error) {
+    console.error(`Failed to fetch ${type}:`, error);
+    return [];
+  }
+}
+
 async function Home() {
+  const [treks, tours, activities] = await Promise.all([
+    getData("treks"),
+    getData("tours"),
+    getData("activities"),
+  ]);
+
   return (
     <main className="flex flex-col gap-10">
       <div>
@@ -60,7 +85,7 @@ async function Home() {
         <Why />
       </div>
       <div className="container" id="trips">
-        <MainTourComponent />
+        <MainTourComponent initialData={{ treks, tours, activities }} />
       </div>
       {/* <Journey /> */}
 

@@ -115,6 +115,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // Server component that renders the client component
 export default async function TrekDetailPage({ params }: PageProps) {
   const { slug } = await params;
+  const productData = await getProductData(slug);
 
-  return <TrekDetailClient slug={slug} />;
+  return <TrekDetailClient slug={slug} productData={productData} />;
 }

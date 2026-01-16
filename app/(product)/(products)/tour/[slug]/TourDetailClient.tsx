@@ -13,16 +13,19 @@ interface ProductDetailResponse {
 
 interface TourDetailClientProps {
     slug: string;
+    productData?: RootInterface["data"] | null;
 }
 
-const TourDetailClient = ({ slug }: TourDetailClientProps) => {
+const TourDetailClient = ({ slug, productData: initialData }: TourDetailClientProps) => {
     const [productData, setProductData] = useState<RootInterface["data"] | null>(
-        null
+        initialData || null
     );
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!initialData);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (initialData) return;
+
         const fetchProductDetail = async () => {
             if (!slug) {
                 setError("No product slug provided");
@@ -56,7 +59,7 @@ const TourDetailClient = ({ slug }: TourDetailClientProps) => {
         };
 
         fetchProductDetail();
-    }, [slug]);
+    }, [slug, initialData]);
 
     if (loading) {
         return (

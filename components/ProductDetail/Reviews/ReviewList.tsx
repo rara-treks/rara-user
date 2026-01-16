@@ -28,7 +28,7 @@ const ReviewList = ({ reviews }: ReviewListProps) => {
           {reviews.map((review, index) => (
             <CarouselItem
               key={review.id || index}
-              className="pl-4 md:basis-1/2 lg:basis-1/4"
+              className="pl-4 md:basis-1/2 lg:basis-1/3"
             >
               <ReviewCard review={review} />
             </CarouselItem>
