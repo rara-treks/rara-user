@@ -1,8 +1,26 @@
 import React from "react";
 import dynamicImport from "next/dynamic";
+import { Metadata } from "next";
 import HeroSection from "@/components/home/hero-section";
 import Why from "@/components/home/Why";
 import MainTourComponent from "@/components/home/TravelContent";
+
+export const metadata: Metadata = {
+  title: "Rara Treks Tours & Travels | Nepal Trekking & Tour Operator",
+  description:
+    "Explore Nepal with Rara Treks Tours & Travels, offering luxury, family, solo, and budget trekking and tours across Everest, Annapurna, Rara, and other Himalayan destinations.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Rara Treks Tours & Travels | Nepal Trekking & Tour Operator",
+    description:
+      "Explore Nepal with Rara Treks Tours & Travels, offering luxury, family, solo, and budget trekking and tours across Everest, Annapurna, Rara, and other Himalayan destinations.",
+    url: "/",
+    type: "website",
+  },
+};
+
 
 // Dynamic imports for below-fold components - defers JS loading until needed
 const Experience = dynamicImport(() => import("@/components/home/Experience"), {

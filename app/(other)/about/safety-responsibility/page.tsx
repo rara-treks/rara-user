@@ -1,5 +1,4 @@
-"use client";
-
+import { Metadata } from "next";
 import AboutPageLayout from "@/components/about/AboutPageLayout";
 import GoldenCTA from "@/components/about/GoldenCTA";
 import {
@@ -8,6 +7,22 @@ import {
     Heart,
     CheckCircle,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+    title: "Safety & Responsibility | RARA Treks",
+    description:
+        "Learn about our commitment to your safety and responsible tourism practices. Certified guides, emergency protocols, and sustainable travel in Nepal.",
+    alternates: {
+        canonical: "/about/safety-responsibility",
+    },
+    openGraph: {
+        title: "Safety & Responsibility | RARA Treks",
+        description:
+            "Learn about our commitment to your safety and responsible tourism practices in Nepal.",
+        url: "/about/safety-responsibility",
+        type: "website",
+    },
+};
 
 const safetyStandards = [
     "Certified and trained guides",

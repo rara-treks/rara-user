@@ -1,27 +1,22 @@
-"use client";
+import { Metadata } from "next";
+import RentalClient from "./RentalClient";
 
-import FAQSection from "./Components/FAQSection";
-import FeaturesSection from "./Components/FeaturesSection";
-import SpecialServicesSection from "./Components/SpecialServicesSection";
-import StatsSection from "./Components/StatsSection";
-import HeroSection from "./Components/HeroSection";
-import Why from "@/components/home/Why";
-
-
-const Rental = () => {
-
-  return (
-    <div className="min-h-screen ">
-      <HeroSection />
-      <div id="learn-more">
-        <FeaturesSection />
-      </div>
-      <StatsSection />
-      <SpecialServicesSection />
-      <Why />
-      <FAQSection />
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Car Rental Nepal | Airport Transfers & Private Vehicles - RARA Treks",
+  description:
+    "Reliable car rental services in Nepal. Airport transfers, private vehicles for tours, and comfortable transportation for your Himalayan adventure.",
+  alternates: {
+    canonical: "/car-rental",
+  },
+  openGraph: {
+    title: "Car Rental Nepal | RARA Treks",
+    description:
+      "Reliable car rental services in Nepal. Airport transfers and private vehicles for tours.",
+    url: "/car-rental",
+    type: "website",
+  },
 };
 
-export default Rental;
+export default function CarRentalPage() {
+  return <RentalClient />;
+}
