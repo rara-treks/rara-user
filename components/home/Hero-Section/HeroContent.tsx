@@ -24,7 +24,7 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
         priority={true}
       />
 
-      <div className="relative h-full flex flex-col items-center justify-center px-2 md:px-5 gap-8 z-10">
+      <div className="relative inset-0 h-full flex flex-col items-center justify-center px-2 md:px-5 gap-8 z-10">
         <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center leading-[150%] font-extrabold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
           {hero.title}
         </h1>

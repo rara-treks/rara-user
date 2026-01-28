@@ -190,16 +190,32 @@ const Trip_Overview = ({ data, productName }: UpdatedTripOverviewProps) => {
         </article>
       )}
 
-      {/* Trip Highlights - NO READ MORE */}
-      <article className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
-        <h3 className="font-bold text-xl text-[#3E641C]">Trip Highlights</h3>
-        <div className="prose prose-sm md:prose-base max-w-none text-gray-700">
-          <div
-            className="[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-2"
-            dangerouslySetInnerHTML={{ __html: data.description }}
-          />
-        </div>
-      </article>
+      {data.highlights && data.highlights.length > 0 && (
+        <article className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
+          <h3 className="font-bold text-xl text-[#3E641C]">Trip Highlights</h3>
+          <ul className="grid grid-cols-1 gap-3 list-none p-0 m-0">
+            {data.highlights.map((highlight, index) => (
+              <li key={index} className="flex items-start gap-3 text-gray-700">
+                <div className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-[#086032]" />
+                <span className="text-base leading-relaxed">{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      )}
+
+      {/* Description Section */}
+      {data.description && (
+        <article className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
+          <h3 className="font-bold text-xl text-[#3E641C]">Trip Description</h3>
+          <div className="prose prose-sm md:prose-base max-w-none text-gray-700">
+            <div
+              className="[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-2"
+              dangerouslySetInnerHTML={{ __html: data.description }}
+            />
+          </div>
+        </article>
+      )}
 
       {/* What to Bring Section */}
       <article className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">

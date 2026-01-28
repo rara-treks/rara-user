@@ -21,7 +21,7 @@ function    ContactCard() {
         </li>
         <li>
           <IconMail stroke={ICON_STROKE} className="text-primary/80" />
-          <Link href="mailto:info@raratreks.com">info@raratreks.com</Link>
+          <Link href="info@raratreks.com">info@raratreks.com</Link>
         </li>
         <li>
           <IconMapPin stroke={ICON_STROKE} className="text-primary/80" />

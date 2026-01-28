@@ -84,22 +84,24 @@ interface ActivityDetailProps {
 const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
   const IconComponent = ICONS[icon];
   return (
-    <div className="flex items-center gap-3 justify-start p-2 bg-white rounded-lg shadow-sm">
-      {typeof IconComponent === "string" ? (
-        <Image
-          src={IconComponent}
-          alt=""
-          width={24}
-          height={24}
-          className="w-5 h-5 text-[#086032]"
-          aria-hidden="true"
-        />
-      ) : (
-        <IconComponent className="w-5 h-5 text-[#086032]" aria-hidden="true" />
-      )}
-      <dl className="flex flex-col items-start justify-start">
-        <dt className="text-sm text-gray-500 font-medium">{label}</dt>
-        <dd className="font-bold text-sm text-gray-800">{value}</dd>
+    <div className="flex items-start gap-3 justify-start p-3 bg-white rounded-lg border border-gray-100/50 hover:border-gray-200 transition-colors h-full">
+      <div className="flex-shrink-0 mt-0.5">
+        {typeof IconComponent === "string" ? (
+          <Image
+            src={IconComponent}
+            alt=""
+            width={24}
+            height={24}
+            className="w-5 h-5 text-[#086032]"
+            aria-hidden="true"
+          />
+        ) : (
+          <IconComponent className="w-5 h-5 text-[#086032]" aria-hidden="true" />
+        )}
+      </div>
+      <dl className="flex flex-col items-start justify-start min-w-0">
+        <dt className="text-xs text-gray-500 font-medium uppercase tracking-wide">{label}</dt>
+        <dd className="font-bold text-sm text-gray-900 break-words leading-tight">{value}</dd>
       </dl>
     </div>
   );
@@ -122,9 +124,9 @@ const Trip_Data = ({ data, departureData }: UpdatedTripOverviewProps) => {
   return (
     <section id="trip-details" aria-labelledby="trip-details-heading" className="w-full flex flex-col gap-6 lg:px-3">
       <article className="rounded-3xl bg-white p-4 flex flex-col w-full gap-6 shadow-sm">
-        <div className="flex flex-col">
-          <h2 id="trip-details-heading" className="text-xl font-bold text-gray-800">Trip Details</h2>
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 ">
+        <div className="flex flex-col gap-4">
+          <h2 id="trip-details-heading" className="text-xl font-bold text-gray-800 border-b pb-2">Trip Details</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
             <ActivityDetailItem
               icon="duration"
               label="Duration"
@@ -165,8 +167,7 @@ const Trip_Data = ({ data, departureData }: UpdatedTripOverviewProps) => {
               label="Starts/Ends"
               value={data.details.starts}
             />
-            <br className="block md:hidden mt-4 md:mt-0" />
-            <div className="p-2">
+            <div className="col-span-full sm:col-span-1 lg:col-span-auto flex items-center mt-2 sm:mt-0">
               <Departure data={departureData} />
             </div>
           </div>

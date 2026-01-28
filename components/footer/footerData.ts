@@ -23,7 +23,7 @@ export const footerData: FooterData = {
     {
       icon: Mail,
       text: "info@raratreks.com",
-      href: "mailto:info@raratreks.com",
+      href: "info@raratreks.com",
       type: "email",
     },
     {
@@ -48,7 +48,6 @@ export const footerData: FooterData = {
       items: [
         { label: "About Us", href: "/about" },
         { label: "Contact", href: "/contact" },
-        { label: "Gallery", href: "/gallery" },
         { label: "Blog", href: "/blog" },
       ],
     },

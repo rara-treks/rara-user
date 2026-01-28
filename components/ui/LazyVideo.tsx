@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface LazyVideoProps {
     src: string;
@@ -76,7 +77,7 @@ export const LazyVideo = ({
     }, [isInView, autoPlay]);
 
     return (
-        <div ref={containerRef} className={`relative ${className}`} aria-hidden="true" tabIndex={-1}>
+        <div ref={containerRef} className={cn("relative", className)} aria-hidden="true" tabIndex={-1}>
             {/* Skeleton shown while video loads */}
             {!isLoaded && (
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 animate-pulse">

@@ -107,9 +107,9 @@ const Newsletter = () => {
         />
 
         <div className="flex flex-col items-start justify-start gap-4">
-          <h1 className="text-3xl text-white font-bold">
+          <h2 className="text-3xl text-white font-bold">
             Subscribe to Our Newsletter
-          </h1>
+          </h2>
           <p className="text-lg text-white">
             Sign up to get the inside scoop on everything happening in Rara Trek
             Tour and Travel delivered right to your inbox.

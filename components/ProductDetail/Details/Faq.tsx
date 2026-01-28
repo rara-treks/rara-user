@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+
 import {
   Accordion,
   AccordionContent,
@@ -9,33 +9,6 @@ import {
 import { FaqProps } from "../type";
 
 const Faq = ({ data, images, productName }: FaqProps) => {
-  const accordionRef = useRef<HTMLDivElement>(null);
-  const [imageHeight, setImageHeight] = useState<number | string>("auto");
-
-  useEffect(() => {
-    const updateImageHeight = () => {
-      if (accordionRef.current) {
-        const accordionHeight = accordionRef.current.offsetHeight;
-        setImageHeight(accordionHeight);
-      }
-    };
-
-    // Initial measurement
-    updateImageHeight();
-
-    // Measure after accordion content changes
-    const observer = new ResizeObserver(updateImageHeight);
-    if (accordionRef.current) {
-      observer.observe(accordionRef.current);
-    }
-
-    window.addEventListener("resize", updateImageHeight);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateImageHeight);
-    };
-  }, []);
 
   if (!data || data.length === 0) {
     return (
@@ -58,54 +31,48 @@ const Faq = ({ data, images, productName }: FaqProps) => {
     <section id="faqs" aria-labelledby="faqs-heading" className="w-full flex flex-col mb-6">
       <h2 id="faqs-heading" className="text-3xl font-bold mb-4">{productName ? `${productName} FAQs` : "FAQs"}</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <div className="w-full hidden lg:block sticky top-24 self-start">
           {imageArray.length > 0 && (
-            <div className="w-full fgrid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="hidden md:flex gap-2 w-full h-80 lg:h-auto">
-                {imageArray[0] && (
-                  <Image
-                    src={imageArray[0].src}
-                    alt={imageArray[0].alt || "FAQ Image 1"}
-                    width={180}
-                    height={140}
-                    className="w-full object-cover"
-                    style={{
-                      height:
-                        typeof imageHeight === "number"
-                          ? `${imageHeight}px`
-                          : "auto",
-                    }}
-                  />
-                )}
-              </div>
+            <div className="w-full relative aspect-[4/3] rounded-lg overflow-hidden">
+              {imageArray[0] && (
+                <Image
+                  src={imageArray[0].src}
+                  alt={imageArray[0].alt || "FAQ Image 1"}
+                  fill
+                  className="object-cover"
+                />
+              )}
             </div>
           )}
         </div>
-        <div className="w-full" ref={accordionRef}>
+        <div className="w-full max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           <Accordion type="single" collapsible className="w-full">
             {sortedFaqs.map((faq, index) => (
               <AccordionItem
                 key={faq.id || `faq-${index}`}
                 value={`item-${faq.id || index}`}
+                className="mb-2"
               >
-                <AccordionTrigger className="text-left">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/assets/question.svg"
-                      alt="question"
-                      width={18}
-                      height={18}
-                    />
-                    <span className="text-black font-semibold">
+                <AccordionTrigger className="text-left hover:no-underline py-3 px-2 bg-gray-50/50 rounded-lg data-[state=open]:bg-gray-100 transition-all">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="flex-shrink-0 mt-0.5">
+                      <Image
+                        src="/assets/question.svg"
+                        alt="Question"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                    <span className="text-gray-900 font-semibold text-base leading-snug">
                       {faq.question}
                     </span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 pt-2">
+                <AccordionContent className="text-gray-600 px-4 pb-4 pt-2">
                   <div
                     dangerouslySetInnerHTML={{ __html: faq.answer }}
-                    className="prose prose-sm max-w-none"
+                    className="prose prose-sm max-w-none prose-p:my-1 prose-ul:my-1"
                   />
                 </AccordionContent>
               </AccordionItem>

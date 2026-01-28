@@ -381,23 +381,35 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       duration: circuit.overview?.duration || undefined,
     })) || [];
 
+  // Determine related products title
+  const getRelatedTitle = (type: string = "") => {
+    const lowerType = type.toLowerCase();
+    if (lowerType === "activity" || lowerType === "activities") {
+      return "Related Activities";
+    }
+    // Simple pluralization for others (trek -> Treks, tour -> Tours)
+    return `Related ${type.charAt(0).toUpperCase() + type.slice(1)}s`;
+  };
+
+  const relatedTitle = getRelatedTitle(productData.type);
+
   return (
-    <div className="w-full flex flex-col gap-4 px-2 md:px-8 lg:px-12 bg-[#F2F5F0]">
+    <main className="w-full flex flex-col gap-4 px-2 md:px-8 lg:px-12 bg-[#F2F5F0]" >
       <div className="w-full flex flex-col gap-4 container mt-8">
         <Breadcrumbs data={headerData} />
         <Header data={headerData} shareData={shareData} />
       </div>
 
-      <div className="w-full md:container relative flex flex-col">
+      <section className="w-full md:container relative flex flex-col">
         <GalleryGrid data={galleryData} />
         <div className=" absolute bottom-0 ">
           <Intro data={introData} />
         </div>
-      </div>
+      </section>
 
-      <div className="px-1 md:px-4">
+      <section className="container px-0">
         <Trip_Data data={overviewData} departureData={departureData} />
-      </div>
+      </section>
 
       <div className="container w-full flex md:hidden">
         <HeaderBtm data={shareData} />
@@ -410,7 +422,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
           </div>
 
           {/* Sticky Tab Navigation */}
-          <div className="sticky top-0 z-40 bg-[#F2F5F0] p-4">
+          <nav className="sticky top-0 z-40 bg-[#F2F5F0] p-4">
             <div className="flex overflow-x-auto scrollbar-hide">
               <div className="flex space-x-1 min-w-max">
                 {tabs.map((tab) => (
@@ -427,63 +439,63 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
                 ))}
               </div>
             </div>
-          </div>
+          </nav>
 
           <div className="w-full flex flex-col gap-12">
-            <div id="Trip_Overview">
+            <section id="Trip_Overview">
               <Trip_Overview data={overviewData} productName={productData.name} />
-            </div>
+            </section>
 
             {altitudeChartData && (
-              <div id="Altitude_Chart">
+              <section id="Altitude_Chart">
                 <AltitudeChart
                   itineraryData={transformedItineraryData}
                   altitudeChartData={altitudeChartData}
                   productName={productData.name}
                 />
-              </div>
+              </section>
             )}
 
-            <div id="Itinerary">
+            <section id="Itinerary">
               <Itinerary data={transformedItineraryData} productName={productData.name} productType={productData.type} />
-            </div>
+            </section>
 
-            <div id="Cost_Detail">
+            <section id="Cost_Detail">
               <CostDetail data={costDetailData} productName={productData.name} />
-            </div>
+            </section>
 
-            <div id="Tour_Location">
+            <section id="Tour_Location">
               <Location data={locationData} productName={productData.name} />
-            </div>
+            </section>
 
             {faqData.length > 0 && (
-              <div id="FAQs">
+              <section id="FAQs">
                 <Faq data={faqData} images={faqImages} productName={productData.name} />
-              </div>
+              </section>
             )}
           </div>
-          <div id="Review" className="w-full ">
+          <section id="Review" className="w-full ">
             <Review data={reviewsData} />
-          </div>
+          </section>
 
           {relatedPackagesData.length > 0 && (
-            <div>
+            <section>
               <RelatedProductCover
-                title="Related Treks"
+                title={relatedTitle}
                 data={relatedPackagesData}
               />
-            </div>
+            </section>
           )}
         </div>
 
-        <div className="hidden lg:block lg:col-span-3">
+        <aside className="hidden lg:block lg:col-span-3">
           <div className="sticky top-16 h-fit">
             <Inquiry data={inquiryData} />
           </div>
-        </div>
+        </aside>
         <MobileFloatingMenu data={inquiryData} />
       </div>
-    </div>
+    </main >
   );
 };
 

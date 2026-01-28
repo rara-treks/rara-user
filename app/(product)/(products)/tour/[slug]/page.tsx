@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import TourDetailClient from "./TourDetailClient";
+import { stripHtmlAndTruncate } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -54,10 +55,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? `${productData.name} - Tour in ${productData.location || "Nepal"}`
     : "Tour - RARA Treks";
 
-  const description =
+  const rawDescription =
     productData.short_description ||
     productData.description ||
     `Experience the amazing ${productData.name || "tour"} in ${productData.location || "Nepal"}. ${productData.tagline || "Book your adventure today with RARA Treks."}`;
+
+  const description = stripHtmlAndTruncate(rawDescription, 160);
 
   const url = `${siteOrigin}/tour/${slug}`;
 
